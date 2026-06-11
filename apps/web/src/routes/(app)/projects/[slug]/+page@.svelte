@@ -19,10 +19,6 @@
 <svelte:head>
 	<title>{title}</title>
 	<meta name="description" content={description} />
-	<meta
-		name="keywords"
-		content="{meta.tech.join(', ')}, Portfolio, Project, Abdelilah Ouaadouch"
-	/>
 	<link rel="canonical" href={url} />
 
 	<meta property="og:type" content="article" />
@@ -31,8 +27,10 @@
 	<meta property="og:description" content={description} />
 	<meta property="og:image" content={image} />
 	<meta property="og:site_name" content="Abdelilah Ouaadouch" />
+	<meta property="og:locale" content="en_US" />
 
 	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@Abdelilah4dev" />
 	<meta name="twitter:url" content={url} />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />

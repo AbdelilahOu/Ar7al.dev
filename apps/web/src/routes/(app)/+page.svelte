@@ -21,7 +21,7 @@
 	const title = 'Abdelilah Ouaadouch - Fullstack Developer';
 	const description =
 		'Fullstack engineer specializing in Go, Rust, and TypeScript. I build dependable backends, desktop apps, and AI tools.';
-	const url = `${props.data.origin}`;
+	const url = `${props.data.origin}/`;
 	const image = `${props.data.origin}/social.png`;
 	const personId = `${props.data.origin}#person`;
 	const websiteId = `${props.data.origin}#website`;
@@ -45,11 +45,13 @@
 <svelte:head>
 	<title>{title}</title>
 	<meta name="description" content={description} />
-	<meta
-		name="keywords"
-		content="Go, Golang, Typescript, Rust, Fullstack Developer, Software Engineer, Web Development, API Development, Portfolio, Hire Developer, Backend Developer, Frontend Developer, Abdelilah Ouaadouch"
-	/>
 	<link rel="canonical" href={url} />
+	<link
+		rel="alternate"
+		type="application/rss+xml"
+		title="Abdelilah Ouaadouch's Blog"
+		href={`${props.data.origin}/rss.xml`}
+	/>
 
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content={url} />
@@ -57,9 +59,10 @@
 	<meta property="og:description" content={description} />
 	<meta property="og:image" content={image} />
 	<meta property="og:site_name" content="Abdelilah Ouaadouch" />
-	<meta property="og:locale" content="en" />
+	<meta property="og:locale" content="en_US" />
 
 	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@Abdelilah4dev" />
 	<meta name="twitter:url" content={url} />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />

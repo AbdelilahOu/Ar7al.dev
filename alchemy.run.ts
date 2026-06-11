@@ -1,5 +1,5 @@
 import alchemy from "alchemy";
-import { SvelteKit, Worker } from "alchemy/cloudflare";
+import { RedirectRule, SvelteKit, Worker } from "alchemy/cloudflare";
 import { config } from "dotenv";
 
 config({ path: "./.env" });
@@ -23,6 +23,14 @@ export const web = await SvelteKit("web", {
   bindings: {
     PUBLIC_SERVER_URL: alchemy.env.PUBLIC_SERVER_URL!,
   },
+});
+
+export const wwwRedirect = await RedirectRule("www-redirect", {
+  zone: "ar7al.dev",
+  requestUrl: "https://www.ar7al.dev/*",
+  targetUrl: "https://ar7al.dev/${1}",
+  statusCode: 301,
+  preserveQueryString: true,
 });
 
 export const server = await Worker("server", {

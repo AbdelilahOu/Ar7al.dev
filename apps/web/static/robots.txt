@@ -1,4 +1,4 @@
-# robots.txt for ar7al.com
+# robots.txt for ar7al.dev
 
 User-agent: *
 Allow: /

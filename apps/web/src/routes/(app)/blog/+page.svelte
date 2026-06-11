@@ -32,11 +32,13 @@
 <svelte:head>
 	<title>{title}</title>
 	<meta name="description" content={description} />
-	<meta
-		name="keywords"
-		content="Go, Golang, Rust, TypeScript, Blog, Technical Articles, Web Development, API Development, Tutorials"
-	/>
 	<link rel="canonical" href={url} />
+	<link
+		rel="alternate"
+		type="application/rss+xml"
+		title="Abdelilah Ouaadouch's Blog"
+		href={`${props.data.origin}/rss.xml`}
+	/>
 
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content={url} />
@@ -44,8 +46,10 @@
 	<meta property="og:description" content={description} />
 	<meta property="og:image" content={image} />
 	<meta property="og:site_name" content="Abdelilah Ouaadouch" />
+	<meta property="og:locale" content="en_US" />
 
 	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@Abdelilah4dev" />
 	<meta name="twitter:url" content={url} />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />

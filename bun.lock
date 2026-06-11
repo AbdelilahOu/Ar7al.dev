@@ -43,6 +43,7 @@
       "name": "web",
       "version": "0.0.1",
       "dependencies": {
+        "@fontsource-variable/jetbrains-mono": "^5.2.8",
         "@orpc/client": "catalog:",
         "@portfolio/api": "workspace:*",
         "dotenv": "catalog:",
@@ -249,6 +250,8 @@
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.25.12", "", { "os": "win32", "cpu": "x64" }, "sha512-alJC0uCZpTFrSL0CCDjcgleBXPnCrEAhTBILpeAp7M/OFgoqtAetfBzX0xM00MUsVVPpVjlPuMbREqnZCXaTnA=="],
 
     "@ethercorps/sveltekit-og": ["@ethercorps/sveltekit-og@4.2.1", "", { "dependencies": { "@resvg/resvg-wasm": "^2.6.2", "@takumi-rs/helpers": "^0.55.0", "@takumi-rs/image-response": "^0.55.0", "@takumi-rs/wasm": "^0.55.0", "satori": "^0.10.14", "satori-html": "0.3.2", "std-env": "^3.9.0", "unwasm": "^0.5.0" }, "peerDependencies": { "@sveltejs/kit": ">=2.0.0" } }, "sha512-mMkoKWMMBXL5iAYrMZqklezZDUU7HpHd+sNsz78e4gElXFyxdOnsIFfPPXpqDcUn6orZHs5MGHvtPi5II5xNAA=="],
+
+    "@fontsource-variable/jetbrains-mono": ["@fontsource-variable/jetbrains-mono@5.2.8", "", {}, "sha512-WBA9elru6Jdp5df2mES55wuOO0WIrn3kpXnI4+W2ek5u3ZgLS9XS4gmIlcQhiZOWEKl95meYdvK7xI+ETLCq/Q=="],
 
     "@iarna/toml": ["@iarna/toml@2.2.5", "", {}, "sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg=="],
 

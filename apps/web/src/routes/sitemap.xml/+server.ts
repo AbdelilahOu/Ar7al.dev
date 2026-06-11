@@ -27,18 +27,29 @@ function normalizeLastmod(value?: string | null): string | undefined {
   return parsed.toISOString().slice(0, 10);
 }
 
+function latestDate(dates: (string | undefined)[]): string | undefined {
+  const valid = dates.filter((date): date is string => Boolean(date)).sort();
+  return valid.at(-1);
+}
+
 export async function GET({ url }) {
   const origin = url.origin;
   const posts = getPosts();
   const projects = getProjects();
   const experiences = getExperiences();
 
+  const latestPost = latestDate(posts.map((post) => normalizeLastmod(post.date)));
+  const latestProject = latestDate(projects.map((project) => normalizeLastmod(project.createdAt)));
+  const latestExperience = latestDate(
+    experiences.map((experience) => normalizeLastmod(experience.endDate ?? experience.startDate))
+  );
+
   const urls: string[] = [];
 
-  urls.push(urlEntry(origin));
-  urls.push(urlEntry(`${origin}/blog`));
-  urls.push(urlEntry(`${origin}/projects`));
-  urls.push(urlEntry(`${origin}/career`));
+  urls.push(urlEntry(`${origin}/`, latestDate([latestPost, latestProject, latestExperience])));
+  urls.push(urlEntry(`${origin}/blog`, latestPost));
+  urls.push(urlEntry(`${origin}/projects`, latestProject));
+  urls.push(urlEntry(`${origin}/career`, latestExperience));
 
   for (const post of posts) {
     urls.push(urlEntry(`${origin}/blog/${post.slug}`, normalizeLastmod(post.date)));
@@ -55,14 +66,7 @@ export async function GET({ url }) {
 
   const body =
     `<?xml version="1.0" encoding="UTF-8"?>` +
-    `<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-			xmlns:xhtml="http://www.w3.org/1999/xhtml"
-			xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
-			xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-			xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-			xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
-    >` +
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">` +
     urls.join("") +
     `</urlset>`;
 

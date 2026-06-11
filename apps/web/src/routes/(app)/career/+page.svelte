@@ -46,10 +46,6 @@
 <svelte:head>
 	<title>{title}</title>
 	<meta name="description" content={description} />
-	<meta
-		name="keywords"
-		content="Full Stack Engineer, Go, Golang, Rust, TypeScript, Node.js, Backend Developer, Software Engineer, Career, Experience"
-	/>
 	<link rel="canonical" href={url} />
 
 	<meta property="og:type" content="website" />
@@ -58,8 +54,10 @@
 	<meta property="og:description" content={description} />
 	<meta property="og:image" content={image} />
 	<meta property="og:site_name" content="Abdelilah Ouaadouch" />
+	<meta property="og:locale" content="en_US" />
 
 	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@Abdelilah4dev" />
 	<meta name="twitter:url" content={url} />
 	<meta name="twitter:title" content={title} />
 	<meta name="twitter:description" content={description} />
