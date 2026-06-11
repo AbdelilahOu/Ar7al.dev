@@ -46,6 +46,46 @@ export const wwwRedirect = await Ruleset("www-redirect-ruleset", {
   ],
 });
 
+export const securityHeaders = await Ruleset("security-headers-ruleset", {
+  zone: "ar7al.dev",
+  phase: "http_response_headers_transform",
+  rules: [
+    {
+      description: "Add security headers",
+      expression: "true",
+      action: "rewrite",
+      action_parameters: {
+        headers: {
+          "Strict-Transport-Security": {
+            operation: "set",
+            value: "max-age=31536000; includeSubDomains",
+          },
+          "X-Content-Type-Options": {
+            operation: "set",
+            value: "nosniff",
+          },
+          "X-Frame-Options": {
+            operation: "set",
+            value: "DENY",
+          },
+          "Referrer-Policy": {
+            operation: "set",
+            value: "strict-origin-when-cross-origin",
+          },
+          "Cross-Origin-Opener-Policy": {
+            operation: "set",
+            value: "same-origin",
+          },
+          "Permissions-Policy": {
+            operation: "set",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+        },
+      },
+    },
+  ],
+});
+
 export const server = await Worker("server", {
   cwd: "apps/server",
   name: "api-portfolio",

@@ -47,6 +47,14 @@ const config = {
     prerender: {
       origin: "https://ar7al.dev",
     },
+    csp: {
+      mode: "auto",
+      directives: {
+        "script-src": ["self"],
+        "object-src": ["none"],
+        "base-uri": ["self"],
+      },
+    },
   },
 };
 
