@@ -1,5 +1,5 @@
 import alchemy from "alchemy";
-import { RedirectRule, SvelteKit, Worker } from "alchemy/cloudflare";
+import { Ruleset, SvelteKit, Worker } from "alchemy/cloudflare";
 import { config } from "dotenv";
 
 config({ path: "./.env" });
@@ -25,12 +25,25 @@ export const web = await SvelteKit("web", {
   },
 });
 
-export const wwwRedirect = await RedirectRule("www-redirect", {
+export const wwwRedirect = await Ruleset("www-redirect-ruleset", {
   zone: "ar7al.dev",
-  requestUrl: "https://www.ar7al.dev/*",
-  targetUrl: "https://ar7al.dev/${1}",
-  statusCode: 301,
-  preserveQueryString: true,
+  phase: "http_request_dynamic_redirect",
+  rules: [
+    {
+      description: "Redirect www to apex",
+      expression: '(http.host eq "www.ar7al.dev")',
+      action: "redirect",
+      action_parameters: {
+        from_value: {
+          status_code: 301,
+          target_url: {
+            expression: 'concat("https://ar7al.dev", http.request.uri.path)',
+          },
+          preserve_query_string: true,
+        },
+      },
+    },
+  ],
 });
 
 export const server = await Worker("server", {
