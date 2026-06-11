@@ -12,7 +12,7 @@
 		data: {
 			featuredProjects: Project[];
 			latestPosts: Post[];
-			githubContributions: Promise<ContributionData | null>;
+			githubContributions: ContributionData | null;
 			year: number;
 			origin: string;
 		};
@@ -175,27 +175,13 @@
 		<span>$</span> GitHub Activity
 	</h2>
 	<div class="corner-brackets bg-[#101010] p-5">
-		{#await props.data.githubContributions}
-			<p class="mb-4 text-white">
-				Total Contributions in {props.data.year}:
-				<span class="font-semibold text-gray-400">...</span>
-			</p>
-			<GithubGraph data={null} year={props.data.year} />
-		{:then contributions}
-			<p class="mb-4 text-white">
-				Total Contributions in {props.data.year}:
-				<span class="font-semibold text-blue-400">
-					{contributions?.totalGH ?? 0}
-				</span>
-			</p>
-			<GithubGraph data={contributions ?? null} year={props.data.year} />
-		{:catch}
-			<p class="mb-4 text-white">
-				Total Contributions in {props.data.year}:
-				<span class="font-semibold text-gray-400">0</span>
-			</p>
-			<GithubGraph data={null} year={props.data.year} />
-		{/await}
+		<p class="mb-4 text-white">
+			Total Contributions in {props.data.year}:
+			<span class="font-semibold text-blue-400">
+				{props.data.githubContributions?.totalGH ?? 0}
+			</span>
+		</p>
+		<GithubGraph data={props.data.githubContributions} year={props.data.year} />
 	</div>
 </section>
 

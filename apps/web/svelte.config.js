@@ -50,7 +50,7 @@ const config = {
     csp: {
       mode: "auto",
       directives: {
-        "script-src": ["self"],
+        "script-src": ["self", "https://static.cloudflareinsights.com"],
         "object-src": ["none"],
         "base-uri": ["self"],
       },
