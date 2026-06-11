@@ -12,6 +12,7 @@
 	let svgElement: SVGSVGElement | null = $state(null);
 	let width = $state(768);
 	let height = $state(768);
+	let ready = $state(false);
 
 	let size = $derived.by(() => {
 		if (!browser) return 15;
@@ -27,10 +28,23 @@
 	}
 
 	$effect(() => {
-		if (svgElement) {
-			width = svgElement.clientWidth || 768;
-			height = svgElement.clientHeight || 768;
-		}
+		if (!svgElement) return;
+		width = svgElement.clientWidth || 768;
+		height = svgElement.clientHeight || 768;
+
+		// Defer the decorative rects until the browser is idle so they
+		// render once, at the measured size, outside the hydration task.
+		let cancelled = false;
+		const schedule: (cb: () => void) => void =
+			typeof window.requestIdleCallback === 'function'
+				? (cb) => window.requestIdleCallback(cb)
+				: (cb) => window.setTimeout(cb, 150);
+		schedule(() => {
+			if (!cancelled) ready = true;
+		});
+		return () => {
+			cancelled = true;
+		};
 	});
 </script>
 
@@ -44,7 +58,7 @@
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
 		>
-			{#each Array.from({ length: columns }, (_, i) => i + 1) as x}
+			{#each ready ? Array.from({ length: columns }, (_, i) => i + 1) : [] as x}
 				{@const bottomRects = getRandomRects(height / 2 / size)}
 				{@const topRects = getRandomRects(height / 2 / size)}
 				{#each bottomRects as y}
