@@ -16,6 +16,10 @@ tags:
 published: true
 ---
 
+<script>
+	import FailFastTimelineDiagram from '$lib/components/diagrams/FailFastTimelineDiagram.svelte';
+</script>
+
 As I dive deeper into Go and its concurrency model, I’ve been building various CLI tools and backend services, etc.
 
 I'm relying on this [Github repo](https://github.com/MedUnes/go-kata) that explores those concepts using problem solving, for example the first Kata is about building a fail-fast data aggregator using solely [errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup).
@@ -154,6 +158,8 @@ func main() {
 ```
 
 so with a 1 second timeout and fetchProfile taking 2 seconds, this will fail with `context deadline exceeded` which is exactly what we want, we set the timeout to 1 second but one of our services takes 2 seconds so we bail out early, fail fast, don't waste resources waiting for something that won't matter anyway
+
+<FailFastTimelineDiagram />
 
 ## Takeaway
 

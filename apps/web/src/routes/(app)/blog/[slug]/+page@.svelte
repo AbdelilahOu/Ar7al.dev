@@ -1,8 +1,17 @@
 <script lang="ts">
 	import type { Component } from 'svelte';
-	import type { PostMetadata } from '$lib/types';
+	import type { Post, PostMetadata } from '$lib/types';
 
-	let props: { data: { content: Component; meta: PostMetadata; slug: string; origin: string } } = $props();
+	let props: {
+		data: {
+			content: Component;
+			meta: PostMetadata;
+			slug: string;
+			origin: string;
+			previous: Post | null;
+			next: Post | null;
+		};
+	} = $props();
 
 	const meta = props.data.meta;
 	const url = `${props.data.origin}/blog/${props.data.slug}`;
@@ -198,6 +207,38 @@
 		</article>
 
 		<footer class="space-y-6 border-t border-neutral-800 pt-8">
+			{#if props.data.previous || props.data.next}
+				<nav class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+					{#if props.data.previous}
+						<a
+							href="/blog/{props.data.previous.slug}"
+							class="corner-brackets bg-[#101010] p-5 transition-colors hover:bg-[#161616]"
+						>
+							<span class="flex items-center gap-2 text-sm text-gray-500">
+								<span>{'<-'}</span>
+								<span>Previous</span>
+							</span>
+							<span class="mt-2 block text-white">{props.data.previous.title}</span>
+						</a>
+					{:else}
+						<div></div>
+					{/if}
+					{#if props.data.next}
+						<a
+							href="/blog/{props.data.next.slug}"
+							class="corner-brackets bg-[#101010] p-5 text-right transition-colors hover:bg-[#161616]"
+						>
+							<span class="flex items-center justify-end gap-2 text-sm text-gray-500">
+								<span>Next</span>
+								<span>{'->'}</span>
+							</span>
+							<span class="mt-2 block text-white">{props.data.next.title}</span>
+						</a>
+					{:else}
+						<div></div>
+					{/if}
+				</nav>
+			{/if}
 			<div class="corner-brackets bg-[#101010] p-5">
 				<p class="text-gray-300">
 					Thanks for reading! If you found this helpful, feel free to share it or connect with me

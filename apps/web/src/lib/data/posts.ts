@@ -33,3 +33,17 @@ export function getPostBySlug(slug: string): Post | undefined {
 export function getLatestPosts(count: number): Post[] {
   return getPosts().slice(0, count);
 }
+
+export function getAdjacentPosts(slug: string): { previous: Post | null; next: Post | null } {
+  const posts = getPosts();
+  const index = posts.findIndex((post) => post.slug === slug);
+
+  if (index === -1) {
+    return { previous: null, next: null };
+  }
+
+  return {
+    previous: posts[index + 1] ?? null,
+    next: posts[index - 1] ?? null,
+  };
+}

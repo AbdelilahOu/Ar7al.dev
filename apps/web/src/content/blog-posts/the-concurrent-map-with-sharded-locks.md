@@ -16,6 +16,11 @@ tags:
 published: true
 ---
 
+<script>
+	import HashRoutingDiagram from '$lib/components/diagrams/HashRoutingDiagram.svelte';
+	import ShardedLocksDiagram from '$lib/components/diagrams/ShardedLocksDiagram.svelte';
+</script>
+
 In this post, I'll walk through how to build a concurrent map with sharded locks. It's based on the [KATA-02 exercise](https://github.com/MedUnes/go-kata).
 
 ## What is a map?
@@ -62,7 +67,11 @@ Now the idea of sharding is simple: instead of one big map with one big lock, we
 shardIndex := hash(key) % numShards // pick a shard
 ```
 
+<HashRoutingDiagram />
+
 That means two different keys will most likely land in different shards, so they won't block each other. That's the whole win.
+
+<ShardedLocksDiagram />
 
 ## The solution
 
