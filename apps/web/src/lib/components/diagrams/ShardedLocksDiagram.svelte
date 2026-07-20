@@ -3,22 +3,22 @@
 		<rect x="0" y="0" width="350" height="290" fill="#141414" stroke="#f87171" stroke-width="1.5"></rect>
 		<text x="175" y="28" fill="#f87171" font-family="'JetBrains Mono Variable', monospace" font-size="15" font-weight="700" text-anchor="middle">ONE LOCK</text>
 		<text x="175" y="44" fill="#9ca3af" font-family="'JetBrains Mono Variable', monospace" font-size="10" text-anchor="middle">goroutines queue for the same mutex</text>
-		<rect x="35" y="60" width="60" height="28" fill="#1a1a1a" stroke="#52525b"></rect>
-		<text x="65" y="78" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="11" text-anchor="middle">G1</text>
-		<rect x="115" y="60" width="60" height="28" fill="#1a1a1a" stroke="#52525b"></rect>
-		<text x="145" y="78" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="11" text-anchor="middle">G2</text>
-		<rect x="195" y="60" width="60" height="28" fill="#1a1a1a" stroke="#52525b"></rect>
-		<text x="225" y="78" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="11" text-anchor="middle">G3</text>
-		<rect x="275" y="60" width="60" height="28" fill="#1a1a1a" stroke="#52525b"></rect>
-		<text x="305" y="78" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="11" text-anchor="middle">G4</text>
-		<text x="65" y="100" fill="#10b981" font-family="'JetBrains Mono Variable', monospace" font-size="8.5" text-anchor="middle">active</text>
-		<text x="145" y="100" fill="#6b7280" font-family="'JetBrains Mono Variable', monospace" font-size="8.5" text-anchor="middle">blocked</text>
-		<text x="225" y="100" fill="#6b7280" font-family="'JetBrains Mono Variable', monospace" font-size="8.5" text-anchor="middle">blocked</text>
-		<text x="305" y="100" fill="#6b7280" font-family="'JetBrains Mono Variable', monospace" font-size="8.5" text-anchor="middle">blocked</text>
-		<line x1="65" y1="88" x2="175" y2="140" stroke="#10b981" stroke-width="1.6"></line>
-		<line x1="145" y1="88" x2="175" y2="140" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"></line>
-		<line x1="225" y1="88" x2="175" y2="140" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"></line>
-		<line x1="305" y1="88" x2="175" y2="140" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"></line>
+		<rect x="25" y="60" width="60" height="28" fill="#1a1a1a" stroke="#52525b"></rect>
+		<text x="55" y="78" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="11" text-anchor="middle">G1</text>
+		<rect x="105" y="60" width="60" height="28" fill="#1a1a1a" stroke="#52525b"></rect>
+		<text x="135" y="78" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="11" text-anchor="middle">G2</text>
+		<rect x="185" y="60" width="60" height="28" fill="#1a1a1a" stroke="#52525b"></rect>
+		<text x="215" y="78" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="11" text-anchor="middle">G3</text>
+		<rect x="265" y="60" width="60" height="28" fill="#1a1a1a" stroke="#52525b"></rect>
+		<text x="295" y="78" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="11" text-anchor="middle">G4</text>
+		<text x="55" y="100" fill="#10b981" font-family="'JetBrains Mono Variable', monospace" font-size="8.5" text-anchor="middle">active</text>
+		<text x="135" y="100" fill="#6b7280" font-family="'JetBrains Mono Variable', monospace" font-size="8.5" text-anchor="middle">blocked</text>
+		<text x="215" y="100" fill="#6b7280" font-family="'JetBrains Mono Variable', monospace" font-size="8.5" text-anchor="middle">blocked</text>
+		<text x="295" y="100" fill="#6b7280" font-family="'JetBrains Mono Variable', monospace" font-size="8.5" text-anchor="middle">blocked</text>
+		<line x1="55" y1="88" x2="175" y2="140" stroke="#10b981" stroke-width="1.6"></line>
+		<line x1="135" y1="88" x2="175" y2="140" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"></line>
+		<line x1="215" y1="88" x2="175" y2="140" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"></line>
+		<line x1="295" y1="88" x2="175" y2="140" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"></line>
 		<rect x="95" y="140" width="160" height="40" fill="#1a1a1a" stroke="#f87171" stroke-width="1.3"></rect>
 		<text x="175" y="164" fill="#f87171" font-family="'JetBrains Mono Variable', monospace" font-size="12" text-anchor="middle">sync.Mutex</text>
 		<line x1="175" y1="180" x2="175" y2="210" stroke="#6b7280" stroke-width="1.2"></line>
