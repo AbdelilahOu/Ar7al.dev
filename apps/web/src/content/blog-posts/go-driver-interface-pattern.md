@@ -17,7 +17,8 @@ published: true
 ---
 
 <script>
-	import DriverInterfaceDiagram from '$lib/components/diagrams/DriverInterfaceDiagram.svelte';
+	import BranchingCheckDiagram from '$lib/components/diagrams/BranchingCheckDiagram.svelte';
+	import DriverDelegationDiagram from '$lib/components/diagrams/DriverDelegationDiagram.svelte';
 </script>
 
 I've been building [DBMcp](https://github.com/AbdelilahOu/DBMcp), an MCP server that lets AI assistants introspect databases — list tables, describe schemas, analyze foreign keys, and so on. It started with PostgreSQL support. Then MySQL. Then SQLite.
@@ -55,6 +56,8 @@ func listTablesHandler(ctx context.Context, dbType string, conn *sql.DB, schema 
 }
 ```
 
+<BranchingCheckDiagram />
+
 And `describe_table` had the same shape. And `list_views`. And `list_foreign_keys`. Every single tool, three branches, repeated.
 
 The session state carried a plain string to track which database was active:
@@ -80,8 +83,6 @@ Say you want to add CockroachDB support. You'd have to:
 That's 20 files to edit for one new database. Every edit is a chance to introduce a bug. Every file is now coupled to a list of databases it has to know about. The tools, which should only care about *what* they're doing, are polluted with *how* each database does it differently.
 
 This violates the open/closed principle: you can't extend the system without modifying it.
-
-<DriverInterfaceDiagram />
 
 ## The interface approach
 
@@ -123,6 +124,8 @@ func listTablesHandler(...) {
 ```
 
 No branches. No string comparisons. The tool doesn't know or care whether it's talking to Postgres or SQLite.
+
+<DriverDelegationDiagram />
 
 ## Return types without json tags
 

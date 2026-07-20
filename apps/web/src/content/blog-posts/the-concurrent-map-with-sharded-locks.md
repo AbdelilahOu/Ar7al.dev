@@ -18,7 +18,7 @@ published: true
 
 <script>
 	import HashRoutingDiagram from '$lib/components/diagrams/HashRoutingDiagram.svelte';
-	import ShardedLocksDiagram from '$lib/components/diagrams/ShardedLocksDiagram.svelte';
+	import MapOperationsDiagram from '$lib/components/diagrams/MapOperationsDiagram.svelte';
 </script>
 
 In this post, I'll walk through how to build a concurrent map with sharded locks. It's based on the [KATA-02 exercise](https://github.com/MedUnes/go-kata).
@@ -42,6 +42,8 @@ and a function that removes data from the map.
 ```go
 delete(map, key) // remove data
 ```
+
+<MapOperationsDiagram />
 
 There are other interesting properties of map implementations like checking whether a key exists or listing all keys, but they're outside the scope of what we're covering today. We'll just focus on insertion, deletion, and mapping keys to values.
 
@@ -70,8 +72,6 @@ shardIndex := hash(key) % numShards // pick a shard
 <HashRoutingDiagram />
 
 That means two different keys will most likely land in different shards, so they won't block each other. That's the whole win.
-
-<ShardedLocksDiagram />
 
 ## The solution
 
