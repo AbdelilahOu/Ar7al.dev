@@ -13,18 +13,18 @@
 		};
 	} = $props();
 
-	const meta = props.data.meta;
-	const url = `${props.data.origin}/blog/${props.data.slug}`;
-	const image = `${props.data.origin}/blog/${props.data.slug}/social.png`;
-	const title = `${props.data.meta.title} - Abdelilah Ouaadouch`;
-	const description = meta.seoDescription ?? meta.description;
-	const keywords = (meta.seoKeywords && meta.seoKeywords.length > 0) ? meta.seoKeywords : meta.tags;
-	const personId = `${props.data.origin}#person`;
-	const websiteId = `${props.data.origin}#website`;
-	const blogId = `${props.data.origin}/blog#blog`;
-	const webpageId = `${url}#webpage`;
-	const breadcrumbId = `${url}#breadcrumb`;
-	const postingId = `${url}#blogposting`;
+	let meta = $derived(props.data.meta);
+	let url = $derived(`${props.data.origin}/blog/${props.data.slug}`);
+	let image = $derived(`${props.data.origin}/blog/${props.data.slug}/social.png`);
+	let title = $derived(`${props.data.meta.title} - Abdelilah Ouaadouch`);
+	let description = $derived(meta.seoDescription ?? meta.description);
+	let keywords = $derived((meta.seoKeywords && meta.seoKeywords.length > 0) ? meta.seoKeywords : meta.tags);
+	let personId = $derived(`${props.data.origin}#person`);
+	let websiteId = $derived(`${props.data.origin}#website`);
+	let blogId = $derived(`${props.data.origin}/blog#blog`);
+	let webpageId = $derived(`${url}#webpage`);
+	let breadcrumbId = $derived(`${url}#breadcrumb`);
+	let postingId = $derived(`${url}#blogposting`);
 
 	function formatDate(dateStr: string): string {
 		return new Date(dateStr).toLocaleDateString('en-US', {
@@ -377,5 +377,11 @@
 	:global(.prose hr) {
 		border-color: #374151;
 		margin: 2rem 0;
+	}
+
+	:global(.prose svg) {
+		display: block;
+		margin: 2rem 0;
+		max-width: 100%;
 	}
 </style>
