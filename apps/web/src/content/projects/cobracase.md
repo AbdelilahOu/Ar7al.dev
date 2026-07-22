@@ -15,9 +15,9 @@ createdAt: "2026-01-10"
 published: true
 ---
 
-Cobracase is a full-featured e-commerce platform that allows customers to design and purchase custom phone cases. The platform provides an intuitive design tool where users can upload their own images, add text overlays, and see a real-time preview of their custom case before purchasing.
+Cobracase is an e-commerce platform that lets customers design and purchase custom phone cases. The design tool lets users upload their own images, add text overlays, and see a real-time preview of their custom case before purchasing.
 
-The technical stack centers on Next.js for the frontend and API routes, with PostgreSQL as the database managed through Drizzle ORM. Payment processing is handled securely through Stripe, supporting multiple payment methods and currencies.
+The technical stack centers on Next.js for the frontend and API routes, with PostgreSQL as the database managed through Drizzle ORM. Stripe handles payment processing, supporting multiple payment methods and currencies.
 
 The image processing pipeline handles uploads, applies transformations for the case preview, and generates production-ready files for manufacturing. The system includes order management, shipping integration, and customer notifications.
 
@@ -35,4 +35,4 @@ The image processing pipeline handles uploads, applies transformations for the c
 - Building an intuitive drag-and-drop design interface
 - Generating accurate phone case mockup previews
 - Handling image uploads and processing at scale
-- Implementing a robust Stripe checkout flow
+- Implementing a reliable Stripe checkout flow

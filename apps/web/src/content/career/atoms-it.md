@@ -18,7 +18,7 @@ published: true
 
 I built a school management system with a Rust backend and a React frontend to handle things like attendance and basic student records.
 
-The most fun bit was integrating bracelet-based scanners so attendance was recorded automatically when students walked in, no more manual lists. I also added simple dashboards for staff so they could quickly see who's in, who's late, and export data when they needed it.
+The most fun bit was integrating bracelet-based scanners so attendance was recorded automatically when students walked in instead of on a manual list. I also added simple dashboards for staff so they could quickly see who's in, who's late, and export data when they needed it.
 
 ## Highlights
 

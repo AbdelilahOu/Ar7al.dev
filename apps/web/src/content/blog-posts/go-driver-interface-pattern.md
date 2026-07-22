@@ -1,6 +1,6 @@
 ---
 title: "DBMcp: Refactoring to a Driver Interface"
-description: How I restructured DBMcp's multi-database support — replacing scattered if/else checks with a Go interface so adding a new driver only requires one new file.
+description: How I restructured DBMcp's multi-database support, replacing scattered if/else checks with a Go interface so adding a new driver only requires one new file.
 seoDescription: A look at how DBMcp moved from scattered database type checks to a clean Go driver interface, making the codebase easier to extend and maintain.
 seoKeywords:
   - DBMcp
@@ -21,13 +21,13 @@ published: true
 	import DriverDelegationDiagram from '$lib/components/diagrams/DriverDelegationDiagram.svelte';
 </script>
 
-I've been building [DBMcp](https://github.com/AbdelilahOu/DBMcp), an MCP server that lets AI assistants introspect databases — list tables, describe schemas, analyze foreign keys, and so on. It started with PostgreSQL support. Then MySQL. Then SQLite.
+I've been building [DBMcp](https://github.com/AbdelilahOu/DBMcp), an MCP server that lets AI assistants introspect databases: list tables, describe schemas, analyze foreign keys, and so on. It started with PostgreSQL support. Then MySQL. Then SQLite.
 
 By the time I had three databases, the codebase had a problem that I couldn't ignore.
 
 ## The old way
 
-Every tool function — and there were around 20 of them — had the same shape. Here is what `list_tables` looked like:
+Every tool function (and there were around 20 of them) had the same shape. Here is what `list_tables` looked like:
 
 ```go
 func listTablesHandler(ctx context.Context, dbType string, conn *sql.DB, schema string) ([]TableInfo, error) {
@@ -70,7 +70,7 @@ type DBSessionState struct {
 }
 ```
 
-This worked fine — until you thought about what happens when you want to add a fourth database.
+This worked fine. Then you had to think about what happens when you want to add a fourth database.
 
 ## Why this hurts
 
@@ -78,7 +78,7 @@ Say you want to add CockroachDB support. You'd have to:
 
 1. Open `listTables.go` and add an `else if dbType == "cockroachdb"` branch
 2. Open `describeTable.go` and do the same
-3. Open `analyzeTable.go`, `listViews.go`, `foreignKeys.go`, `triggers.go`, `functions.go`, `constraints.go`, `columnSearch.go`, `sequences.go`, `getEnumValues.go` — and add the branch in each one
+3. Open `analyzeTable.go`, `listViews.go`, `foreignKeys.go`, `triggers.go`, `functions.go`, `constraints.go`, `columnSearch.go`, `sequences.go`, `getEnumValues.go`, and add the branch in each one
 
 That's 20 files to edit for one new database. Every edit is a chance to introduce a bug. Every file is now coupled to a list of databases it has to know about. The tools, which should only care about *what* they're doing, are polluted with *how* each database does it differently.
 
@@ -132,7 +132,7 @@ No branches. No string comparisons. The tool doesn't know or care whether it's t
 One design decision worth calling out: the driver interface returns plain structs with no json or jsonschema tags.
 
 ```go
-// driver package — raw data, no presentation concerns
+// driver package: raw data, no presentation concerns
 type TableRow struct {
     Name   string
     Schema string
@@ -143,7 +143,7 @@ type TableRow struct {
 The tools package has its own output types with the MCP-facing annotations:
 
 ```go
-// tools package — presentation layer
+// tools package: presentation layer
 type TableInfo struct {
     Name   string `json:"name" jsonschema_description:"Table name"`
     Schema string `json:"sch"  jsonschema_description:"Schema name"`
@@ -157,7 +157,7 @@ There's a simple field-by-field mapping between them in each tool handler. This 
 
 Not every database supports every feature. PostgreSQL has enums, sequences, and materialized views. MySQL doesn't. SQLite has none of the above.
 
-The old approach handled this with `if dbType == "postgres"` in the tool registration code — same string-matching problem. The new approach adds capability flags to the interface:
+The old approach handled this with `if dbType == "postgres"` in the tool registration code: same string-matching problem. The new approach adds capability flags to the interface:
 
 ```go
 type Driver interface {
@@ -249,7 +249,7 @@ if schema == "" {
 
 This meant the same tool call could produce different results depending on what schema was current when the connection was established. It was implicit and invisible.
 
-The new approach removes `CurrentSchema` entirely. Instead, a `list_schemas` tool gives callers an explicit way to discover what schemas are available. When a schema is required and none is provided, the driver handles the default internally — for PostgreSQL that's `public`, for SQLite the schema parameter is irrelevant and ignored.
+The new approach removes `CurrentSchema` entirely. Instead, a `list_schemas` tool gives callers an explicit way to discover what schemas are available. When a schema is required and none is provided, the driver handles the default internally: for PostgreSQL that's `public`, for SQLite the schema parameter is irrelevant and ignored.
 
 Schema is now a parameter you pass deliberately, not a side effect of connection setup.
 
@@ -268,4 +268,4 @@ internal/driver/
 
 Each file is self-contained. Adding a driver is additive, not invasive. The tool files dropped thousands of lines of duplicated query logic and became straightforward delegations that are easy to read and easy to test.
 
-The underlying idea isn't new — it's just the standard Go interface pattern applied consistently. But it's a good reminder that the payoff from designing around interfaces shows up most clearly when you need to extend something you didn't plan to extend.
+The underlying idea isn't new. It's just the standard Go interface pattern applied consistently. But it's a good reminder that the payoff from designing around interfaces shows up most clearly when you need to extend something you didn't plan to extend.
