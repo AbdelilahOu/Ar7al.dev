@@ -25,16 +25,16 @@
 		<animateTransform attributeName="transform" type="translate" values="0,6;0,6;0,0;0,0" keyTimes="0;0.47;0.49;1" dur="12s" repeatCount="indefinite"></animateTransform>
 	</text>
 
-	<rect x="60" y="70" width="180" height="54" fill="#1a1a1a" stroke="#52525b" stroke-width="1.5"></rect>
+	<rect rx="6" x="60" y="70" width="180" height="54" fill="#1a1a1a" stroke="#52525b" stroke-width="1.5"></rect>
 	<text x="150" y="102" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="13" text-anchor="middle">A: 1</text>
 
-	<rect x="460" y="70" width="180" height="54" fill="#1a1a1a" stroke="#52525b" stroke-width="1.5"></rect>
+	<rect rx="6" x="460" y="70" width="180" height="54" fill="#1a1a1a" stroke="#52525b" stroke-width="1.5"></rect>
 	<text x="550" y="102" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="13" text-anchor="middle">C: 3</text>
 
 	<g>
 		<animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.12;0.19;0.72;0.79;1" dur="12s" repeatCount="indefinite"></animate>
 		<animateTransform attributeName="transform" type="translate" values="0,-15;0,-15;0,0;0,0;0,15;0,15" keyTimes="0;0.12;0.19;0.72;0.79;1" dur="12s" repeatCount="indefinite"></animateTransform>
-		<rect x="260" y="70" width="180" height="54" fill="#1a1a1a" stroke="#52525b" stroke-width="1.5">
+		<rect rx="6" x="260" y="70" width="180" height="54" fill="#1a1a1a" stroke="#52525b" stroke-width="1.5">
 			<animate attributeName="stroke" values="#52525b;#52525b;#10b981;#52525b;#52525b;#60a5fa;#60a5fa;#52525b;#52525b;#f87171;#52525b;#52525b" keyTimes="0;0.17;0.19;0.21;0.41;0.43;0.47;0.49;0.70;0.72;0.74;1" dur="12s" repeatCount="indefinite"></animate>
 		</rect>
 		<text x="350" y="102" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="13" text-anchor="middle">B: 2</text>

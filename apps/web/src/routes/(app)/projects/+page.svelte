@@ -1,4 +1,5 @@
 <script lang="ts">
+	import InlineLink from '$lib/components/InlineLink.svelte';
 	import type { Project } from '$lib/data/projects';
 	import ProjectRow from '$lib/components/ProjectRow.svelte';
 
@@ -152,32 +153,13 @@
 			{/each}
 		</ul>
 
-		<div class="mt-10 rounded-md bg-card p-5 text-center">
-			<p class="text-ink-soft">
-				Want to see more? Check out my
-				<a
-					href="https://github.com/AbdelilahOu"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-blue-400 hover:text-blue-300"
-				>
-					GitHub
-				</a>
-				for additional projects and experiments.
-			</p>
-		</div>
+		<p class="mt-10 text-sm text-ink-mute">
+			Want to see more? Check out my <InlineLink href="https://github.com/AbdelilahOu">GitHub</InlineLink> for additional projects and experiments.
+		</p>
 	{:else}
-		<div class="rounded-md bg-card p-8 text-center">
-			<p class="text-ink-soft">
-				No projects yet. Check back soon for new additions.
-			</p>
-			<p class="mt-2 text-sm text-ink-mute">
-				In the meantime, check out my
-				<a href="https://github.com/AbdelilahOu" class="text-blue-400 hover:text-blue-300">
-					GitHub
-				</a>
-				for code and projects.
-			</p>
+		<div class="space-y-2 text-sm">
+			<p class="text-ink-soft">No projects yet. Check back soon for new additions.</p>
+			<p class="text-ink-mute">In the meantime, check out my <InlineLink href="https://github.com/AbdelilahOu">GitHub</InlineLink> for code and projects.</p>
 		</div>
 	{/if}
 </section>

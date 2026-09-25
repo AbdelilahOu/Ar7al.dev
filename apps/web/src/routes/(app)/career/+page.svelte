@@ -1,4 +1,5 @@
 <script lang="ts">
+	import InlineLink from '$lib/components/InlineLink.svelte';
 	import type { Experience } from '$lib/data/experiences';
 	import ExperienceRow from '$lib/components/ExperienceRow.svelte';
 
@@ -164,33 +165,10 @@
 			{/each}
 		</ul>
 
-		<div class="mt-10 rounded-md bg-card p-5 text-center">
-			<p class="text-ink-soft">
-				Want to connect? Find me on
-				<a
-					href="https://www.linkedin.com/in/ar7al"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-blue-400 hover:text-blue-300"
-				>
-					LinkedIn
-				</a>
-				or check out my
-				<a
-					href="https://github.com/AbdelilahOu"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-blue-400 hover:text-blue-300"
-				>
-					GitHub
-				</a>.
-			</p>
-		</div>
+		<p class="mt-10 text-sm text-ink-mute">
+			Want to connect? Find me on <InlineLink href="https://www.linkedin.com/in/ar7al">LinkedIn</InlineLink> or check out my <InlineLink href="https://github.com/AbdelilahOu">GitHub</InlineLink>.
+		</p>
 	{:else}
-		<div class="rounded-md bg-card p-8 text-center">
-			<p class="text-ink-soft">
-				No experience entries yet. Check back soon.
-			</p>
-		</div>
+		<p class="text-sm text-ink-soft">No experience entries yet. Check back soon.</p>
 	{/if}
 </section>

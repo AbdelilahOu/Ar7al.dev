@@ -1,4 +1,5 @@
 <script lang="ts">
+	import InlineLink from '$lib/components/InlineLink.svelte';
 	import PostRow from '$lib/components/PostRow.svelte';
 	import SkillList from '$lib/components/SkillList.svelte';
 	import type { Post } from '$lib/types';
@@ -166,17 +167,9 @@
 			{/each}
 		</ul>
 	{:else}
-		<div class="rounded-md bg-card p-8 text-center">
-			<p class="text-ink-soft">
-				No posts yet. Check back soon for technical articles and tutorials.
-			</p>
-			<p class="mt-2 text-sm text-ink-mute">
-				In the meantime, check out my
-				<a href="https://github.com/AbdelilahOu" class="text-blue-400 hover:text-blue-300">
-					GitHub
-				</a>
-				for code and projects.
-			</p>
+		<div class="space-y-2 text-sm">
+			<p class="text-ink-soft">No posts yet. Check back soon for technical articles and tutorials.</p>
+			<p class="text-ink-mute">In the meantime, check out my <InlineLink href="https://github.com/AbdelilahOu">GitHub</InlineLink> for code and projects.</p>
 		</div>
 	{/if}
 </section>

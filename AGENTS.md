@@ -179,7 +179,7 @@ Blog posts under `apps/web/src/content/blog-posts/` sometimes benefit from an in
 ### Visual style — match the site
 
 - Font: `'JetBrains Mono Variable', monospace` throughout (the site's loaded webfont; works fine inline since these SVGs render in the DOM, not as external images).
-- Box fill `#1a1a1a` / `#141414`, at-rest border `#52525b` (or `#3f3f46` for a fainter guide line), sharp corners only — never round one of these boxes (`rx`/`ry`). (Site cards use `rounded-md` and tags `rounded-sm`, but diagram boxes stay sharp.)
+- Box fill `#1a1a1a` / `#141414`, at-rest border `#52525b` (or `#3f3f46` for a fainter guide line), rounded corners to match the site: `rx="6"` on boxes (like `rounded-md` cards) and `rx="4"` on thin bars (like `rounded-sm` tags).
 - Color language, used consistently: white `#f9fafb` = primary text / neutral state; green `#10b981` = success / active / arrived; blue `#60a5fa` = in-progress / computing / links; red `#f87171` = failure / cancelled / blocked. Muted gray `#9ca3af` / `#6b7280` for captions and secondary labels, typically `font-style="italic"` for the small caption line under a diagram.
 - For a side-by-side comparison of two things, wrap both independently-sized `<svg>` elements in `<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">` so they stack to one column on small screens instead of squeezing two panels into a phone width.
 

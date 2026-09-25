@@ -1,6 +1,6 @@
 <svg viewBox="0 0 720 180" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated diagram showing sequential branching checks through database types until a match is found and rows are returned to the AI Agent">
 	<!-- Box 1: AI Agent -->
-	<rect x="10" y="45" width="150" height="50" fill="#1a1a1a" stroke="#52525b" stroke-width="1.3">
+	<rect rx="6" x="10" y="45" width="150" height="50" fill="#1a1a1a" stroke="#52525b" stroke-width="1.3">
 		<animate attributeName="stroke" values="#52525b;#f9fafb;#f9fafb;#52525b;#52525b" keyTimes="0;0.02;0.08;0.10;1" dur="8s" repeatCount="indefinite"></animate>
 	</rect>
 	<text x="85" y="74" fill="#f9fafb" font-family="'JetBrains Mono Variable', monospace" font-size="12" text-anchor="middle">AI Agent</text>
@@ -18,7 +18,7 @@
 	</circle>
 
 	<!-- Box 2: listTablesHandler -->
-	<rect x="240" y="45" width="180" height="50" fill="#1a1a1a" stroke="#60a5fa" stroke-width="1.3">
+	<rect rx="6" x="240" y="45" width="180" height="50" fill="#1a1a1a" stroke="#60a5fa" stroke-width="1.3">
 		<animate attributeName="stroke-width" values="1.3;1.3;2.4;2.4;1.3;1.3" keyTimes="0;0.16;0.18;0.28;0.30;1" dur="8s" repeatCount="indefinite"></animate>
 	</rect>
 	<text x="330" y="74" fill="#60a5fa" font-family="'JetBrains Mono Variable', monospace" font-size="12" text-anchor="middle">listTables()</text>
@@ -32,7 +32,7 @@
 	</circle>
 
 	<!-- Box 3: if/else Checks -->
-	<rect x="500" y="45" width="200" height="50" fill="#1a1a1a" stroke="#52525b">
+	<rect rx="6" x="500" y="45" width="200" height="50" fill="#1a1a1a" stroke="#52525b">
 		<animate attributeName="stroke" values="#52525b;#52525b;#f87171;#f87171;#10b981;#10b981;#52525b" keyTimes="0;0.36;0.38;0.50;0.52;0.68;1" dur="8s" repeatCount="indefinite"></animate>
 	</rect>
 	<text x="600" y="65" fill="#d1d5db" font-family="'JetBrains Mono Variable', monospace" font-size="10.5" text-anchor="middle">if dbType ==</text>

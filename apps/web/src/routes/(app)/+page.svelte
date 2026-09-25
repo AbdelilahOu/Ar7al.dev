@@ -230,9 +230,7 @@
 			{/each}
 		</ul>
 	{:else}
-		<div class="rounded-md bg-card p-5 text-center">
-			<p class="text-ink-soft">No blog posts yet. Check back soon!</p>
-		</div>
+		<p class="text-sm text-ink-soft">No blog posts yet. Check back soon!</p>
 	{/if}
 </section>
 
