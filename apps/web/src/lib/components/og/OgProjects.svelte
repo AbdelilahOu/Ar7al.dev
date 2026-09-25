@@ -1,56 +1,35 @@
-<script>
-	const projects = ['DBMcp', 'Mahalli', 'Cobracase'];
+<script lang="ts">
+	import OgFrame from './OgFrame.svelte';
+	import { colors, iconFor } from './og';
+
+	interface Props {
+		projects: { title: string; tech: string[] }[];
+	}
+
+	let { projects }: Props = $props();
 </script>
 
-<div
-	style="
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		height: 100%;
-		background-color: #101010;
-		padding: 15px;
-		font-family: JetBrains Mono, monospace;
-	"
->
-	<div
-		style="
-			display: flex;
-			flex-direction: column;
-			flex: 1;
-			position: relative;
-			background-color: #101010;
-			padding: 48px;
-		"
-	>
-		<div style="display: flex; position: absolute; top: 0; left: 0; width: 24px; height: 24px; border-top: 3px solid #525252; border-left: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; top: 0; right: 0; width: 24px; height: 24px; border-top: 3px solid #525252; border-right: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; bottom: 0; left: 0; width: 24px; height: 24px; border-bottom: 3px solid #525252; border-left: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; bottom: 0; right: 0; width: 24px; height: 24px; border-bottom: 3px solid #525252; border-right: 3px solid #525252;"></div>
-
-		<div style="display: flex; margin-bottom: 24px;">
-			<span style="display: flex; color: #60a5fa; font-size: 24px;">$ ls ./projects</span>
-		</div>
-
-		<div style="display: flex; font-size: 64px; font-weight: 600; color: #ffffff; line-height: 1.1;">
-			Projects
-		</div>
-
-		<div style="display: flex; font-size: 28px; color: #a3a3a3; margin-top: 12px;">
-			Software I've Built
-		</div>
-
-		<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px;">
-			{#each projects as project}
-				<div style="display: flex; background-color: #262626; padding: 12px 24px; font-size: 22px; color: #d4d4d4;">
-					{project}
-				</div>
-			{/each}
-		</div>
-
-		<div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 32px; border-top: 1px solid #262626;">
-			<span style="display: flex; font-size: 24px; color: #ffffff; font-weight: 600;">ar7al.com/projects</span>
-			<span style="display: flex; font-size: 24px; color: #737373;">@AbdelilahOu</span>
-		</div>
+<OgFrame label="Projects" path="ar7al.com/projects">
+	<div style="display: flex; font-size: 52px; line-height: 1.1; color: {colors.ink};">
+		Software I've built
 	</div>
-</div>
+	<div style="display: flex; margin-top: 12px; font-size: 24px; color: {colors.inkSoft};">
+		Cross-platform apps, web platforms, and developer tools
+	</div>
+
+	<div style="display: flex; gap: 40px; margin-top: 44px; padding-top: 32px; border-top: 1px solid {colors.line};">
+		{#each projects as project}
+			<div style="display: flex; flex-direction: column; flex: 1;">
+				<div style="display: flex; font-size: 32px; color: {colors.ink};">{project.title}</div>
+				<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px;">
+					{#each project.tech as tech}
+						{@const src = iconFor(tech)}
+						{#if src}
+							<img {src} width="28" height="28" alt="" />
+						{/if}
+					{/each}
+				</div>
+			</div>
+		{/each}
+	</div>
+</OgFrame>

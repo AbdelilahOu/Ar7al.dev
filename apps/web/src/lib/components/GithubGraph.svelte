@@ -37,6 +37,10 @@
 	let scrollLeft = $state(0);
 	let hoveredMonth: number | null = $state(null);
 
+	// The current month is highlighted until another month is hovered (December for a past year)
+	let currentMonth = $derived(props.year === today.getFullYear() ? today.getMonth() : 11);
+	let activeMonth = $derived(hoveredMonth ?? currentMonth);
+
 	let days = $derived.by(() => {
 		const result: Day[] = [];
 		const date = new Date(Date.UTC(props.year, 0, 1));
@@ -62,7 +66,8 @@
 			return {
 				total: monthDays.reduce((sum, day) => sum + Math.max(0, day.contributions), 0),
 				outline: outlinePath(first.col, first.row, last.col, last.row),
-				center: (first.col * PITCH + last.col * PITCH + TILE) / 2
+				left: first.col * PITCH - GAP / 2,
+				right: (last.col + 1) * PITCH - GAP / 2
 			};
 		})
 	);
@@ -70,13 +75,23 @@
 	let columns = $derived(days[days.length - 1].col + 1);
 	let viewWidth = $derived(columns * PITCH - GAP + 2 * PAD);
 	const viewHeight = 7 * PITCH - GAP + 2 * PAD;
+	const POPOVER_GAP = 12;
 
+	// Pixel position of an SVG x coordinate inside the visible graph area
+	function toPx(x: number): number {
+		return (x + PAD) * (rootHeight / viewHeight) - scrollLeft;
+	}
+
+	// Next to the hovered month: on the right if it fits, otherwise on the left
 	let popoverLeft = $derived.by(() => {
-		if (hoveredMonth === null || rootHeight === 0) return 0;
-		const scale = rootHeight / viewHeight;
-		const center = (months[hoveredMonth].center + PAD) * scale - scrollLeft;
-		const half = popoverWidth / 2;
-		return Math.min(Math.max(center, half), rootWidth - half);
+		if (rootHeight === 0) return 0;
+		const left = toPx(months[activeMonth].left);
+		const right = toPx(months[activeMonth].right);
+		if (right + POPOVER_GAP + popoverWidth <= rootWidth) return right + POPOVER_GAP;
+		if (left - POPOVER_GAP - popoverWidth >= 0) return left - POPOVER_GAP - popoverWidth;
+		return rootWidth - right > left
+			? Math.min(right + POPOVER_GAP, rootWidth - popoverWidth)
+			: Math.max(left - POPOVER_GAP - popoverWidth, 0);
 	});
 
 	/**
@@ -113,19 +128,12 @@
 		if (month !== null) hoveredMonth = Number(month);
 	}
 
-	// Past years start scrolled to December; the current year centers on this week
+	// Start scrolled so the current month is centered
 	$effect(() => {
 		if (!scrollContainer || rootHeight === 0) return;
-		if (props.year < today.getFullYear()) {
-			scrollContainer.scrollLeft = scrollContainer.scrollWidth;
-			return;
-		}
-		const start = Date.UTC(props.year, 0, 1);
-		const dayIndex = Math.floor((today.getTime() - start) / 86_400_000);
-		const col = Math.floor((dayIndex + new Date(start).getUTCDay()) / 7);
-		const scale = rootHeight / viewHeight;
-		const center = (col * PITCH + TILE / 2 + PAD) * scale;
-		scrollContainer.scrollLeft = Math.max(0, center - scrollContainer.clientWidth / 2);
+		const month = months[currentMonth];
+		const center = ((month.left + month.right) / 2 + PAD) * (rootHeight / viewHeight);
+		scrollContainer.scrollLeft = center - scrollContainer.clientWidth / 2;
 	});
 </script>
 
@@ -157,37 +165,33 @@
 					height={TILE}
 					rx="1.5"
 					data-month={day.month}
-					class="transition-opacity duration-200 {tileColor(day.contributions)} {hoveredMonth !== null &&
-					day.month !== hoveredMonth
+					class="transition-opacity duration-200 {tileColor(day.contributions)} {day.month !== activeMonth
 						? 'opacity-35'
 						: ''}"
 				/>
 			{/each}
-			{#if hoveredMonth !== null}
-				<path
-					d={months[hoveredMonth].outline}
-					fill="none"
-					stroke-width="1"
-					stroke-linejoin="round"
-					pointer-events="none"
-					class="stroke-ink"
-					transition:fade={{ duration: 150 }}
-				/>
-			{/if}
+			<path
+				d={months[activeMonth].outline}
+				fill="none"
+				stroke-width="1"
+				stroke-linejoin="round"
+				pointer-events="none"
+				class="stroke-ink"
+			/>
 		</svg>
 	</div>
 
-	{#if hoveredMonth !== null}
+	{#if rootHeight > 0}
 		<div
-			class="pointer-events-none absolute bottom-full z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-line bg-page px-3 py-2 text-xs shadow-lg"
+			class="pointer-events-none absolute top-1/2 z-10 -translate-y-1/2 whitespace-nowrap rounded-md border border-line bg-page px-3 py-2 text-xs shadow-lg"
 			style="left: {popoverLeft}px"
 			bind:clientWidth={popoverWidth}
 			transition:fade={{ duration: 150 }}
 		>
-			<p class="font-medium text-ink">{MONTHS[hoveredMonth]} {props.year}</p>
+			<p class="font-medium text-ink">{MONTHS[activeMonth]} {props.year}</p>
 			<p class="mt-0.5 text-ink-soft">
-				{months[hoveredMonth].total}
-				{months[hoveredMonth].total === 1 ? 'contribution' : 'contributions'}
+				{months[activeMonth].total}
+				{months[activeMonth].total === 1 ? 'contribution' : 'contributions'}
 			</p>
 		</div>
 	{/if}

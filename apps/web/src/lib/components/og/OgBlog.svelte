@@ -1,60 +1,25 @@
-<script>
-	let { title = '', tags = [] } = $props();
+<script lang="ts">
+	import OgFrame from './OgFrame.svelte';
+	import { colors, titleSize, truncate } from './og';
+
+	interface Props {
+		title: string;
+		description: string;
+		date: string;
+		tags: string[];
+	}
+
+	let { title, description, date, tags }: Props = $props();
 </script>
 
-<div
-	style="
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		height: 100%;
-		background-color: #101010;
-		padding: 15px;
-		font-family: JetBrains Mono, monospace;
-	"
->
-	<div
-		style="
-			display: flex;
-			flex-direction: column;
-			flex: 1;
-			position: relative;
-			background-color: #101010;
-			padding: 48px;
-		"
-	>
-		<div style="display: flex; position: absolute; top: 0; left: 0; width: 24px; height: 24px; border-top: 3px solid #525252; border-left: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; top: 0; right: 0; width: 24px; height: 24px; border-top: 3px solid #525252; border-right: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; bottom: 0; left: 0; width: 24px; height: 24px; border-bottom: 3px solid #525252; border-left: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; bottom: 0; right: 0; width: 24px; height: 24px; border-bottom: 3px solid #525252; border-right: 3px solid #525252;"></div>
-
-		<div style="display: flex; margin-bottom: 24px;">
-			<span style="display: flex; color: #60a5fa; font-size: 24px;">$ cat ./blog</span>
-		</div>
-
-		<div style="display: flex; margin-bottom: 16px;">
-			<span style="display: flex; background-color: #3b82f6; color: #ffffff; padding: 6px 16px; font-size: 22px; font-weight: 600;">
-				BLOG POST
-			</span>
-		</div>
-
-		<div style="display: flex; font-size: 52px; font-weight: 600; color: #ffffff; line-height: 1.2;">
-			{title}
-		</div>
-
-		{#if tags.length > 0}
-			<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px;">
-				{#each tags.slice(0, 4) as tag}
-					<div style="display: flex; background-color: #262626; padding: 10px 20px; font-size: 24px; color: #d4d4d4;">
-						{tag}
-					</div>
-				{/each}
-			</div>
-		{/if}
-
-		<div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 32px; border-top: 1px solid #262626;">
-			<span style="display: flex; font-size: 24px; color: #ffffff; font-weight: 600;">ar7al.com/blog</span>
-			<span style="display: flex; font-size: 24px; color: #737373;">@AbdelilahOu</span>
-		</div>
+<OgFrame label="Blog post" path="ar7al.com/blog">
+	<div style="display: flex; font-size: {titleSize(title)}px; line-height: 1.15; color: {colors.ink};">
+		{title}
 	</div>
-</div>
+	<div style="display: flex; margin-top: 24px; font-size: 24px; line-height: 1.5; color: {colors.inkSoft};">
+		{truncate(description, 200)}
+	</div>
+	<div style="display: flex; margin-top: 28px; font-size: 22px; color: {colors.inkMute};">
+		{new Date(date).toLocaleDateString('en-US', { dateStyle: 'medium' })} · {tags.slice(0, 3).join(' · ')}
+	</div>
+</OgFrame>

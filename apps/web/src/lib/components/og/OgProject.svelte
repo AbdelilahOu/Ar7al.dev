@@ -1,66 +1,35 @@
-<script>
-	let { title = '', description = '', tech = [] } = $props();
+<script lang="ts">
+	import OgFrame from './OgFrame.svelte';
+	import { colors, iconFor, titleSize, truncate } from './og';
+
+	interface Props {
+		title: string;
+		description: string;
+		tech: string[];
+		github: string;
+		createdAt: string;
+	}
+
+	let { title, description, tech, github, createdAt }: Props = $props();
+
+	let date = $derived(new Date(createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }));
+	let meta = $derived(github ? `${date} · ${github.replace('https://', '')}` : date);
 </script>
 
-<div
-	style="
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		height: 100%;
-		background-color: #101010;
-		padding: 15px;
-		font-family: JetBrains Mono, monospace;
-	"
->
-	<div
-		style="
-			display: flex;
-			flex-direction: column;
-			flex: 1;
-			position: relative;
-			background-color: #101010;
-			padding: 48px;
-		"
-	>
-		<div style="display: flex; position: absolute; top: 0; left: 0; width: 24px; height: 24px; border-top: 3px solid #525252; border-left: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; top: 0; right: 0; width: 24px; height: 24px; border-top: 3px solid #525252; border-right: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; bottom: 0; left: 0; width: 24px; height: 24px; border-bottom: 3px solid #525252; border-left: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; bottom: 0; right: 0; width: 24px; height: 24px; border-bottom: 3px solid #525252; border-right: 3px solid #525252;"></div>
-
-		<div style="display: flex; margin-bottom: 24px;">
-			<span style="display: flex; color: #60a5fa; font-size: 24px;">$ cat ./project</span>
-		</div>
-
-		<div style="display: flex; margin-bottom: 16px;">
-			<span style="display: flex; background-color: #3b82f6; color: #ffffff; padding: 6px 16px; font-size: 22px; font-weight: 600;">
-				PROJECT
-			</span>
-		</div>
-
-		<div style="display: flex; font-size: 56px; font-weight: 600; color: #ffffff; line-height: 1.2;">
-			{title}
-		</div>
-
-		{#if description}
-			<div style="display: flex; font-size: 26px; color: #a3a3a3; margin-top: 16px; line-height: 1.4;">
-				{description}
-			</div>
-		{/if}
-
-		{#if tech.length > 0}
-			<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px;">
-				{#each tech.slice(0, 5) as t}
-					<div style="display: flex; background-color: #262626; padding: 10px 20px; font-size: 24px; color: #d4d4d4;">
-						{t}
-					</div>
-				{/each}
-			</div>
-		{/if}
-
-		<div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 32px; border-top: 1px solid #262626;">
-			<span style="display: flex; font-size: 24px; color: #ffffff; font-weight: 600;">ar7al.com/projects</span>
-			<span style="display: flex; font-size: 24px; color: #737373;">@AbdelilahOu</span>
-		</div>
+<OgFrame label="Project" path="ar7al.com/projects">
+	<div style="display: flex; font-size: {titleSize(title)}px; line-height: 1.15; color: {colors.ink};">
+		{title}
 	</div>
-</div>
+	<div style="display: flex; margin-top: 22px; font-size: 24px; line-height: 1.5; color: {colors.inkSoft};">
+		{truncate(description, 170)}
+	</div>
+	<div style="display: flex; gap: 18px; margin-top: 30px;">
+		{#each tech as t}
+			{@const src = iconFor(t)}
+			{#if src}
+				<img {src} width="36" height="36" alt="" />
+			{/if}
+		{/each}
+	</div>
+	<div style="display: flex; margin-top: 26px; font-size: 20px; color: {colors.inkMute};">{meta}</div>
+</OgFrame>

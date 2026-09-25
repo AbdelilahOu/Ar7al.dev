@@ -21,9 +21,9 @@
 		};
 	} = $props();
 
-	const title = 'Abdelilah Ouaadouch - Fullstack Developer';
+	const title = 'Abdelilah Ouaadouch - Senior Backend Engineer';
 	const description =
-		'Fullstack engineer specializing in Go, Rust, and TypeScript. I build dependable backends, desktop apps, and AI tools.';
+		'Senior backend engineer with 3+ years of building and running backend systems end to end, mostly in Go, Rust, and TypeScript.';
 	const url = `${props.data.origin}/`;
 	const image = `${props.data.origin}/social.png`;
 	const personId = `${props.data.origin}#person`;
@@ -80,7 +80,7 @@
 				"@id": personId,
 				"name": "Abdelilah Ouaadouch",
 				"alternateName": "Ar7al",
-				"jobTitle": "Fullstack Developer",
+				"jobTitle": "Senior Backend Engineer",
 				"description": description,
 				"email": "mailto:abdelilah4dev@gmail.com",
 				"url": url,
@@ -95,8 +95,8 @@
 					"Golang",
 					"Typescript",
 					"Rust",
-					"Fullstack Development",
-					"API Development",
+					"Backend Development",
+					"Cross-platform Apps",
 					"Next.js",
 					"Hono.js",
 					"Gin",
@@ -109,9 +109,9 @@
 			{
 				"@type": "WebSite",
 				"@id": websiteId,
-				"name": "Abdelilah Ouaadouch - Fullstack Developer Portfolio",
+				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
 				"url": url,
-				"description": "Portfolio of Abdelilah Ouaadouch, a Fullstack Developer specializing in Go, Rust, and TypeScript.",
+				"description": "Portfolio of Abdelilah Ouaadouch, a senior backend engineer working in Go, Rust, and TypeScript.",
 				"publisher": {
 					"@id": personId
 				}
@@ -144,12 +144,13 @@
 	<h1 class="font-display text-3xl font-semibold text-ink md:text-4xl">
 		Abdelilah Ouaadouch
 		<span class="block text-xl font-normal normal-case text-ink-soft md:text-2xl">
-			Fullstack Developer
+			Senior Backend Engineer
 		</span>
 	</h1>
  <p class="text-base text-ink-soft md:text-lg">
-		2+ years building production APIs, full-stack products, desktop apps, and AI tools from backend
-		services to polished UI with Go, Rust, TypeScript, Gin, Next.js, and Tauri.
+		I've spent over 3 years building and running backend systems end to end, from design to
+		production. I work mostly in Go, Rust, and TypeScript, and also build cross-platform desktop
+		and mobile apps.
 	</p>
 	<p class="text-sm text-ink-soft md:text-base">
 		Currently working at

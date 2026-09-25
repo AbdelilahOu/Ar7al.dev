@@ -1,60 +1,26 @@
-<script>
-	const skills = ['Golang', 'Rust', 'TypeScript', 'Next.js', 'Tauri'];
+<script lang="ts">
+	import OgFrame from './OgFrame.svelte';
+	import { colors, iconFor } from './og';
+
+	const stack = ['Go', 'Rust', 'TypeScript', 'PostgreSQL', 'Docker', 'Tauri'];
 </script>
 
-<div
-	style="
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		height: 100%;
-		background-color: #101010;
-		padding: 15px;
-		font-family: JetBrains Mono, monospace;
-	"
->
-	<div
-		style="
-			display: flex;
-			flex-direction: column;
-			flex: 1;
-			position: relative;
-			background-color: #101010;
-			padding: 48px;
-		"
-	>
-		<div style="display: flex; position: absolute; top: 0; left: 0; width: 24px; height: 24px; border-top: 3px solid #525252; border-left: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; top: 0; right: 0; width: 24px; height: 24px; border-top: 3px solid #525252; border-right: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; bottom: 0; left: 0; width: 24px; height: 24px; border-bottom: 3px solid #525252; border-left: 3px solid #525252;"></div>
-		<div style="display: flex; position: absolute; bottom: 0; right: 0; width: 24px; height: 24px; border-bottom: 3px solid #525252; border-right: 3px solid #525252;"></div>
-
-		<div style="display: flex; margin-bottom: 24px;">
-			<span style="display: flex; color: #60a5fa; font-size: 24px;">$ whoami</span>
-		</div>
-
-		<div style="display: flex; font-size: 64px; font-weight: 600; color: #ffffff; line-height: 1.1;">
-			Abdelilah Ouaadouch
-		</div>
-
-		<div style="display: flex; font-size: 32px; color: #a3a3a3; margin-top: 12px;">
-			Fullstack Developer
-		</div>
-
-		<div style="display: flex; font-size: 24px; color: #737373; margin-top: 16px; line-height: 1.4;">
-			Building fast, reliable systems with Go, Rust, and TypeScript
-		</div>
-
-		<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px;">
-			{#each skills as skill}
-				<div style="display: flex; background-color: #262626; padding: 10px 20px; font-size: 24px; color: #d4d4d4;">
-					{skill}
-				</div>
-			{/each}
-		</div>
-
-		<div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 32px; border-top: 1px solid #262626;">
-			<span style="display: flex; font-size: 24px; color: #ffffff; font-weight: 600;">ar7al.com</span>
-			<span style="display: flex; font-size: 24px; color: #737373;">@AbdelilahOu</span>
-		</div>
+<OgFrame label="Portfolio" path="ar7al.com" showName={false}>
+	<div style="display: flex; font-size: 80px; line-height: 1.05; color: {colors.ink};">
+		Abdelilah Ouaadouch
 	</div>
-</div>
+	<div style="display: flex; margin-top: 20px; font-size: 34px; color: {colors.inkSoft};">
+		Senior Backend Engineer
+	</div>
+	<div style="display: flex; margin-top: 16px; font-size: 24px; color: {colors.inkMute};">
+		Backend systems, end to end · currently at DEV-UP
+	</div>
+	<div style="display: flex; flex-wrap: wrap; gap: 32px; margin-top: 52px;">
+		{#each stack as skill}
+			<div style="display: flex; align-items: center; gap: 12px; font-size: 24px; color: {colors.inkSoft};">
+				<img src={iconFor(skill)} width="30" height="30" alt="" />
+				{skill}
+			</div>
+		{/each}
+	</div>
+</OgFrame>

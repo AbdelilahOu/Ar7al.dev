@@ -23,6 +23,8 @@ export const GET = async ({ params }) => {
       },
       {
         title: meta.title || "",
+        description: meta.description || "",
+        date: meta.date || "",
         tags: meta.tags || [],
       },
     );

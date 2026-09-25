@@ -72,7 +72,7 @@
 				"@id": personId,
 				"name": "Abdelilah Ouaadouch",
 				"alternateName": "Ar7al",
-				"jobTitle": "Fullstack Developer",
+				"jobTitle": "Senior Backend Engineer",
 				"url": `${props.data.origin}`,
 				"image": `${props.data.origin}/social.png`,
 				"sameAs": [
@@ -84,7 +84,7 @@
 			{
 				"@type": "WebSite",
 				"@id": websiteId,
-				"name": "Abdelilah Ouaadouch - Fullstack Developer Portfolio",
+				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
 				"url": `${props.data.origin}`,
 				"publisher": {
 					"@id": personId
@@ -148,7 +148,7 @@
 		</span>
 	</h1>
 	<p class="text-base text-ink-soft md:text-lg">
-		My journey as a Full Stack Engineer, building backend systems and applications
+		My journey as a backend engineer, building systems and applications
 		across healthcare, education, and enterprise domains.
 	</p>
 </header>

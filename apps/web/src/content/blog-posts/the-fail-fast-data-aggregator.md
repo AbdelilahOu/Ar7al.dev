@@ -1,6 +1,6 @@
 ---
 title: Errgroup - The fail-fast data aggregator
-description: Learn Golang's concurrency control (errgroup), Context Propagation & Functional Options.
+description: Learn Golang's concurrency control (errgroup), Context Propagation and Functional Options.
 seoDescription: A practical guide to Go errgroup for fail-fast aggregation, with context cancellation and functional options patterns.
 seoKeywords:
   - Go errgroup

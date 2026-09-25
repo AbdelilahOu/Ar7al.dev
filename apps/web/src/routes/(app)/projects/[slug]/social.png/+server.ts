@@ -27,6 +27,8 @@ export const GET = async ({ params }) => {
       title: project.title,
       description: project.description,
       tech: project.tech || [],
+      github: project.github || "",
+      createdAt: project.createdAt,
     },
   );
 };

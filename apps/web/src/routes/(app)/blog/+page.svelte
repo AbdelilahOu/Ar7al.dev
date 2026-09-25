@@ -8,7 +8,7 @@
 
 	const title = 'Blog - Abdelilah Ouaadouch';
 	const description =
-		'Technical articles about Go, Rust, TypeScript, and fullstack development. Tips, tutorials, and insights from a fullstack developer.';
+		'Technical articles about Go, Rust, TypeScript, and backend development. Tips, tutorials, and insights from a backend engineer.';
 	const url = `${props.data.origin}/blog`;
 	const image = `${props.data.origin}/blog/social.png`;
 	const personId = `${props.data.origin}#person`;
@@ -65,7 +65,7 @@
 				"@id": personId,
 				"name": "Abdelilah Ouaadouch",
 				"alternateName": "Ar7al",
-				"jobTitle": "Fullstack Developer",
+				"jobTitle": "Senior Backend Engineer",
 				"url": `${props.data.origin}`,
 				"image": `${props.data.origin}/social.png`,
 				"sameAs": [
@@ -77,7 +77,7 @@
 			{
 				"@type": "WebSite",
 				"@id": websiteId,
-				"name": "Abdelilah Ouaadouch - Fullstack Developer Portfolio",
+				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
 				"url": `${props.data.origin}`,
 				"publisher": {
 					"@id": personId

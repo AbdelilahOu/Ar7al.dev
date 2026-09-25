@@ -17,9 +17,7 @@ export async function GET({ url }) {
     .map((post) => {
       const link = `${origin}/blog/${post.slug}`;
       const pubDate = new Date(post.date).toUTCString();
-      const categories = post.tags
-        .map((tag) => `<category>${escapeXml(tag)}</category>`)
-        .join("");
+      const categories = post.tags.map((tag) => `<category>${escapeXml(tag)}</category>`).join("");
       return (
         `<item>` +
         `<title>${escapeXml(post.title)}</title>` +
@@ -39,7 +37,7 @@ export async function GET({ url }) {
     `<channel>` +
     `<title>Abdelilah Ouaadouch's Blog</title>` +
     `<link>${escapeXml(`${origin}/blog`)}</link>` +
-    `<description>Technical articles about Go, Rust, TypeScript, and fullstack development.</description>` +
+    `<description>Technical articles about Go, Rust, TypeScript, and backend development.</description>` +
     `<language>en</language>` +
     `<atom:link href="${escapeXml(`${origin}/rss.xml`)}" rel="self" type="application/rss+xml"/>` +
     items +

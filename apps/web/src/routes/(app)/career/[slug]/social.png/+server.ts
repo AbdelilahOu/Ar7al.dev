@@ -1,7 +1,12 @@
 import { read } from "$app/server";
 import fontSource from "$lib/assets/fonts/JetBrainsMono-Regular.ttf";
 import OgExperience from "$lib/components/og/OgExperience.svelte";
-import { getExperienceBySlug, getExperiences } from "$lib/data/experiences";
+import {
+  calculateDuration,
+  formatDateRange,
+  getExperienceBySlug,
+  getExperiences,
+} from "$lib/data/experiences";
 import { ImageResponse } from "@ethercorps/sveltekit-og";
 import { CustomFont, resolveFonts } from "@ethercorps/sveltekit-og/fonts";
 
@@ -28,6 +33,13 @@ export const GET = async ({ params }) => {
       company: experience.company,
       description: experience.description,
       technologies: experience.technologies || [],
+      logo: experience.logo,
+      meta: [
+        formatDateRange(experience.startDate, experience.endDate),
+        calculateDuration(experience.startDate, experience.endDate),
+        experience.locationType,
+        experience.location,
+      ].join(" · "),
     },
   );
 };
