@@ -5,7 +5,7 @@ companyWebsite: https://www.modoock.com/
 companyUrl: https://www.linkedin.com/company/102614308/
 logo: /logos/modoock.png
 type: Full-time
-description: "Built an Electronic Medical Record and hospital management platform using Node.js, Go, Docker, PostgreSQL, and Kafka for event-driven architecture."
+description: "Built backend services for an electronic medical record and hospital management platform, with an event-driven core."
 startDate: "2023-06"
 endDate: "2025-04"
 location: "Marrakesh, Morocco"

@@ -1,6 +1,6 @@
 ---
 title: Cobracase
-description: "Custom phone case e-commerce store. Users upload images, add text, preview, and buy. Built with Next.js, PostgreSQL, Drizzle ORM, and Stripe."
+description: "Custom phone case store where customers upload an image, add text, preview their case, and pay with Stripe."
 tech:
   - Next.js
   - TypeScript

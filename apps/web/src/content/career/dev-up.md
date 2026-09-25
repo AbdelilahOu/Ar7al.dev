@@ -5,7 +5,7 @@ companyWebsite: https://dev-up.io/
 companyUrl: https://www.linkedin.com/company/80668205/
 logo: /logos/dev-up.svg
 type: Full-time
-description: "Build backend-heavy apps for clients with Go and TypeScript. Design APIs, model data in PostgreSQL, build AI-powered automations and AI-agents."
+description: "Build backend-heavy products for clients end to end, from data modeling to deployment, including AI automations and agents."
 startDate: "2025-04"
 endDate: null
 location: Netherlands

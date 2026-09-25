@@ -1,6 +1,6 @@
 ---
 title: Mahalli
-description: "Tauri v2 desktop app for Moroccan B2B businesses. Covers the full document chain (quotes, orders, delivery notes, invoices, payments, and credit notes) across multiple workspaces, built with Nuxt 4, Rust, and SQLite."
+description: "Cross-platform app for Moroccan B2B businesses that handles the whole document chain, from quotes and orders to invoices and payments."
 tech:
   - Nuxt 4
   - TypeScript

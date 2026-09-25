@@ -4,7 +4,7 @@ company: SOTRALAIT
 companyUrl: https://www.linkedin.com/company/3280125/
 logo: /logos/sotralait.png
 type: Internship
-description: "Helped migrate a legacy AngularJS codebase to modern Angular with TypeScript, including multi-language support implementation."
+description: "Migrated a legacy AngularJS app to modern Angular and TypeScript, and added multi-language support along the way."
 startDate: "2022-07"
 endDate: "2022-08"
 location: Morocco

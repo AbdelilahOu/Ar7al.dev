@@ -4,7 +4,7 @@ company: Atoms IT
 companyUrl: https://www.linkedin.com/company/96692614/
 logo: /logos/atoms-it.png
 type: Full-time
-description: "Built a school management system with a Rust backend and React frontend, featuring bracelet-based scanner integration for automated attendance tracking."
+description: "Built a school management system where students check in with bracelet scanners, so attendance is tracked automatically."
 startDate: "2023-01"
 endDate: "2023-04"
 location: "Marrakesh, Morocco"

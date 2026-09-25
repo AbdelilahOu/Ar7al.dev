@@ -1,6 +1,6 @@
 ---
 title: DBMcp
-description: "Golang MCP server that lets AI assistants introspect PostgreSQL, MySQL, and SQLite databases: list tables, describe schemas, analyze foreign keys, and more, with a clean driver interface that makes adding new databases a one-file change."
+description: "MCP server that lets AI assistants inspect PostgreSQL, MySQL, and SQLite databases, built so adding a new database is a one-file change."
 tech:
   - Golang
   - MCP
