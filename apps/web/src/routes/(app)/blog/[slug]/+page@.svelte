@@ -1,5 +1,8 @@
 <script lang="ts">
 	import type { Component } from 'svelte';
+	import BackLink from '$lib/components/BackLink.svelte';
+	import PrevNext from '$lib/components/PrevNext.svelte';
+	import SignOff from '$lib/components/SignOff.svelte';
 	import type { Post, PostMetadata } from '$lib/types';
 
 	let props: {
@@ -177,175 +180,40 @@
 
 <div class="min-h-screen w-screen bg-page px-4 pb-8">
 	<div class="m-auto w-full max-w-3xl">
-		<nav class="flex items-center gap-6 text-sm md:text-base bg-page sticky top-0 z-50 py-6">
-			<a
-				href="/blog"
-				class="inline-flex items-center gap-2 text-ink-soft transition-colors hover:text-ink"
-			>
-				<span>{"<-"}</span>
-				<span>Back to Blog</span>
-			</a>
-		</nav>
+		<BackLink href="/blog" label="Blog" />
 
-		<div class="space-y-8">
-		<header class="space-y-4">
-			<h1 class="font-display text-3xl font-semibold text-ink md:text-4xl">
-				{meta.title}
-			</h1>
-			<div class="flex flex-wrap items-center gap-4 text-sm text-ink-soft">
-				<time>{formatDate(meta.date)}</time>
-				<div class="flex flex-wrap gap-2">
-					{#each meta.tags as tag}
-						<span class="rounded-sm bg-line px-2 py-1 text-xs text-ink-soft">{tag}</span>
-					{/each}
-				</div>
-			</div>
-		</header>
-
-		<article class="prose prose-invert prose-lg max-w-none">
-			<props.data.content />
-		</article>
-
-		<footer class="space-y-6 border-t border-line pt-8">
-			{#if props.data.previous || props.data.next}
-				<nav class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-					{#if props.data.previous}
-						<a
-							href="/blog/{props.data.previous.slug}"
-							class="rounded-md bg-card p-5 transition-colors hover:bg-raised"
-						>
-							<span class="flex items-center gap-2 text-sm text-ink-mute">
-								<span>{'<-'}</span>
-								<span>Previous</span>
-							</span>
-							<span class="mt-2 block text-ink">{props.data.previous.title}</span>
-						</a>
-					{:else}
-						<div></div>
+		<div class="space-y-12">
+			<header class="space-y-4">
+				<p class="text-sm text-ink-mute">
+					<time datetime={meta.date}>{formatDate(meta.date)}</time>
+					{#if meta.tags.length > 0}
+						<span>· {meta.tags.join(' · ')}</span>
 					{/if}
-					{#if props.data.next}
-						<a
-							href="/blog/{props.data.next.slug}"
-							class="rounded-md bg-card p-5 text-right transition-colors hover:bg-raised"
-						>
-							<span class="flex items-center justify-end gap-2 text-sm text-ink-mute">
-								<span>Next</span>
-								<span>{'->'}</span>
-							</span>
-							<span class="mt-2 block text-ink">{props.data.next.title}</span>
-						</a>
-					{:else}
-						<div></div>
-					{/if}
-				</nav>
-			{/if}
-			<div class="rounded-md bg-card p-5">
-				<p class="text-ink-soft">
-					Thanks for reading! If you found this helpful, feel free to share it or connect with me
-					on
-					<a
-						href="https://x.com/Abdelilah4dev"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-blue-400 hover:text-blue-300"
-					>
-						Twitter
-					</a>.
 				</p>
-			</div>
-		</footer>
+				<h1 class="font-display text-3xl leading-tight font-semibold text-ink md:text-4xl">
+					{meta.title}
+				</h1>
+				<p class="text-lg text-ink-soft">{meta.description}</p>
+			</header>
+
+			<article class="prose">
+				<props.data.content />
+			</article>
+
+			<footer class="space-y-10 border-t border-line pt-10">
+				<PrevNext
+					label="More posts"
+					previous={props.data.previous && {
+						href: `/blog/${props.data.previous.slug}`,
+						title: props.data.previous.title
+					}}
+					next={props.data.next && {
+						href: `/blog/${props.data.next.slug}`,
+						title: props.data.next.title
+					}}
+				/>
+				<SignOff message="Thanks for reading." />
+			</footer>
 		</div>
 	</div>
 </div>
-
-<style>
-	/* Markdown content styling */
-	:global(.prose h2) {
-		color: var(--color-ink);
-		font-weight: 700;
-		margin-top: 2rem;
-		margin-bottom: 1rem;
-	}
-
-	:global(.prose h3) {
-		color: var(--color-ink);
-		font-weight: 600;
-		margin-top: 1.5rem;
-		margin-bottom: 0.75rem;
-	}
-
-	:global(.prose p) {
-		color: var(--color-ink-soft);
-		margin-bottom: 1rem;
-		line-height: 1.75;
-	}
-
-	:global(.prose a) {
-		color: #60a5fa;
-	}
-
-	:global(.prose a:hover) {
-		color: #93c5fd;
-	}
-
-	:global(.prose ul),
-	:global(.prose ol) {
-		color: var(--color-ink-soft);
-		margin-bottom: 1rem;
-		padding-left: 1.5rem;
-	}
-
-	:global(.prose li) {
-		margin-bottom: 0.5rem;
-	}
-
-	:global(.prose li::before) {
-		content: '- ';
-		margin-right: 0.25rem;
-	}
-
-	:global(.prose strong) {
-		color: var(--color-ink);
-		font-weight: 600;
-	}
-
-	:global(.prose code) {
-		background-color: var(--color-raised);
-		border-radius: 0.25rem;
-		padding: 0.125rem 0.375rem;
-		font-size: 0.875em;
-		color: var(--color-ink);
-	}
-
-	:global(.prose pre) {
-		position: relative;
-		background-color: var(--color-card) !important;
-		border-radius: 0.375rem;
-		padding: 1.25rem;
-		overflow-x: auto;
-		margin-bottom: 1rem;
-	}
-
-	:global(.prose pre code) {
-		background-color: transparent;
-		padding: 0;
-	}
-
-	:global(.prose blockquote) {
-		border-left: 4px solid var(--color-ink-faint);
-		padding-left: 1rem;
-		color: var(--color-ink-mute);
-		font-style: italic;
-	}
-
-	:global(.prose hr) {
-		border-color: var(--color-line);
-		margin: 2rem 0;
-	}
-
-	:global(.prose svg) {
-		display: block;
-		margin: 2rem 0;
-		max-width: 100%;
-	}
-</style>

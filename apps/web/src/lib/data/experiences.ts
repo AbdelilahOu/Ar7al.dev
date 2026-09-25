@@ -52,6 +52,23 @@ export function getLatestExperiences(count: number): Experience[] {
   return getExperiences().slice(0, count);
 }
 
+export function getAdjacentExperiences(slug: string): {
+  previous: Experience | null;
+  next: Experience | null;
+} {
+  const experiences = getExperiences();
+  const index = experiences.findIndex((experience) => experience.slug === slug);
+
+  if (index === -1) {
+    return { previous: null, next: null };
+  }
+
+  return {
+    previous: experiences[index + 1] ?? null,
+    next: experiences[index - 1] ?? null,
+  };
+}
+
 export function getExperienceBySlug(slug: string): Experience | undefined {
   return getExperiences().find((e) => e.slug === slug);
 }
