@@ -1,0 +1,61 @@
+// Icons live in static/icons/skills/. Most come from https://github.com/xandemon/developer-icons (MIT);
+// the ones it lacks (Tauri, Hono, Gin, Chi, Actix, SQLite, Stripe, Drizzle, Kinde, MCP, SeaORM)
+// come from each project's official site. Monochrome dark logos are recolored to the ink color.
+// Keys are lowercased skill names; several spellings map to the same file.
+const iconFiles: Record<string, string> = {
+  go: "go.svg",
+  golang: "go.svg",
+  "go/golang": "go.svg",
+  rust: "rust.svg",
+  typescript: "typescript.svg",
+  javascript: "javascript.svg",
+  html: "html5.svg",
+  html5: "html5.svg",
+  css: "css3.svg",
+  css3: "css3.svg",
+  "next.js": "nextjs.svg",
+  nextjs: "nextjs.svg",
+  nuxt: "nuxtjs.svg",
+  "nuxt.js": "nuxtjs.svg",
+  "nuxt 4": "nuxtjs.svg",
+  express: "express.svg",
+  "express.js": "express.svg",
+  "tailwind css": "tailwindcss.svg",
+  tailwindcss: "tailwindcss.svg",
+  docker: "docker.svg",
+  git: "git.svg",
+  github: "github.svg",
+  postman: "postman.svg",
+  postgresql: "postgresql.svg",
+  postgres: "postgresql.svg",
+  "node.js": "nodejs.svg",
+  nodejs: "nodejs.svg",
+  react: "reactjs.svg",
+  angular: "angular.svg",
+  angularjs: "angular.svg",
+  kafka: "kafka.svg",
+  mysql: "mysql.svg",
+  "shadcn/vue": "shadcn.svg",
+  "shadcn/ui": "shadcn.svg",
+  shadcn: "shadcn.svg",
+  tauri: "tauri.svg",
+  "tauri v2": "tauri.svg",
+  hono: "hono.svg",
+  "hono.js": "hono.svg",
+  gin: "gin.png",
+  chi: "chi.png",
+  actix: "actix.png",
+  sqlite: "sqlite.svg",
+  stripe: "stripe.svg",
+  drizzle: "drizzle.png",
+  "drizzle orm": "drizzle.png",
+  kinde: "kinde.svg",
+  mcp: "mcp.png",
+  seaorm: "seaorm.png",
+};
+
+/** Icon URL for a skill, or undefined when there is no icon for it. */
+export function skillIcon(name: string): string | undefined {
+  const file = iconFiles[name.toLowerCase()];
+  return file ? `/icons/skills/${file}` : undefined;
+}

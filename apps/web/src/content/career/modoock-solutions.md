@@ -1,8 +1,9 @@
 ---
-title: Full Stack Engineer
+title: Senior Software Engineer
 company: Modoock Solutions
 companyWebsite: https://www.modoock.com/
 companyUrl: https://www.linkedin.com/company/102614308/
+logo: /logos/modoock.png
 type: Full-time
 description: "Built an Electronic Medical Record and hospital management platform using Node.js, Go, Docker, PostgreSQL, and Kafka for event-driven architecture."
 startDate: "2023-06"

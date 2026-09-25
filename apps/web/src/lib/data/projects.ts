@@ -42,3 +42,20 @@ export function getProjectBySlug(slug: string): Project | undefined {
 export function getLatestProjects(count: number): Project[] {
   return getProjects().slice(0, count);
 }
+
+export function getAdjacentProjects(slug: string): {
+  previous: Project | null;
+  next: Project | null;
+} {
+  const projects = getProjects();
+  const index = projects.findIndex((project) => project.slug === slug);
+
+  if (index === -1) {
+    return { previous: null, next: null };
+  }
+
+  return {
+    previous: projects[index + 1] ?? null,
+    next: projects[index - 1] ?? null,
+  };
+}

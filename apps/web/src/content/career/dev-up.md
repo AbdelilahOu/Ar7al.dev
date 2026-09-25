@@ -1,8 +1,9 @@
 ---
-title: Full Stack Engineer
+title: Senior Software Engineer
 company: DEV-UP
 companyWebsite: https://dev-up.io/
 companyUrl: https://www.linkedin.com/company/80668205/
+logo: /logos/dev-up.svg
 type: Full-time
 description: "Build backend-heavy apps for clients with Go and TypeScript. Design APIs, model data in PostgreSQL, and build AI-powered automations & AI-agents."
 startDate: "2025-04"

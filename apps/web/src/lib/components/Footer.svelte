@@ -1,98 +1,32 @@
-<footer class="border-t border-neutral-800 pt-8 pb-6 text-sm text-neutral-400">
-	<div class="grid grid-cols-2 gap-8 md:grid-cols-4 mb-8">
-		<div class="space-y-3">
-			<h3 class="text-white font-medium">Navigation</h3>
-			<ul class="space-y-2">
-				<li><a href="/" class="hover:text-white transition-colors">Home</a></li>
-				<li><a href="/projects" class="hover:text-white transition-colors">Projects</a></li>
-				<li><a href="/career" class="hover:text-white transition-colors">Career</a></li>
-				<li><a href="/blog" class="hover:text-white transition-colors">Blog</a></li>
-			</ul>
-		</div>
+<script lang="ts">
+	import Arrow from '$lib/components/Arrow.svelte';
 
-		<div class="space-y-3">
-			<h3 class="text-white font-medium">Connect</h3>
-			<ul class="space-y-2">
-				<li>
-					<a
-						href="https://github.com/AbdelilahOu"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="hover:text-white transition-colors"
-					>
-						GitHub
-					</a>
-				</li>
-				<li>
-					<a
-						href="https://linkedin.com/in/ar7al"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="hover:text-white transition-colors"
-					>
-						LinkedIn
-					</a>
-				</li>
-				<li>
-					<a
-						href="https://x.com/Abdelilah4dev"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="hover:text-white transition-colors"
-					>
-						Twitter
-					</a>
-				</li>
-			</ul>
-		</div>
+	const links = [
+		{ label: 'GitHub', href: 'https://github.com/AbdelilahOu' },
+		{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/ar7al' },
+		{ label: 'X / Twitter', href: 'https://x.com/Abdelilah4dev' },
+		{ label: 'Email', href: 'mailto:abdelilah4dev@gmail.com' }
+	];
+</script>
 
-		<div class="space-y-3">
-			<h3 class="text-white font-medium">Contact</h3>
-			<ul class="space-y-2">
-				<li>
-					<a
-						href="mailto:abdelilah4dev@gmail.com"
-						class="hover:text-white transition-colors"
-					>
-						Email
-					</a>
-				</li>
-			</ul>
-		</div>
-
-		<div class="space-y-3">
-			<h3 class="text-white font-medium">Built With</h3>
-			<ul class="space-y-2">
-				<li>
-					<a
-						href="https://svelte.dev"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="hover:text-white transition-colors"
-					>
-						SvelteKit
-					</a>
-				</li>
-				<li>
-					<a
-						href="https://tailwindcss.com"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="hover:text-white transition-colors"
-					>
-						Tailwind CSS
-					</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-neutral-800">
-		<p class="text-neutral-300">
-			<span class="text-blue-400">$</span> echo "Made with 1s & 0s"
-		</p>
-		<p class="text-neutral-300">
-			&copy; {new Date().getFullYear()} Abdelilah Ouaadouch
-		</p>
-	</div>
+<footer
+	class="flex flex-col gap-5 border-t border-line py-8 text-xs uppercase tracking-widest text-ink-mute sm:flex-row sm:items-center sm:justify-between"
+>
+	<p>&copy; {new Date().getFullYear()} · Abdelilah Ouaadouch</p>
+	<nav aria-label="Elsewhere" class="flex flex-wrap gap-x-5 gap-y-2">
+		{#each links as link}
+			<a
+				href={link.href}
+				target={link.href.startsWith('mailto:') ? undefined : '_blank'}
+				rel={link.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+				class="group inline-flex items-center gap-1 underline decoration-line underline-offset-4 transition-colors hover:text-ink hover:decoration-ink-mute"
+			>
+				{link.label}
+				<Arrow
+					direction="up-right"
+					class="size-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+				/>
+			</a>
+		{/each}
+	</nav>
 </footer>

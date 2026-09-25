@@ -1,15 +1,18 @@
 <script lang="ts">
 	import type { ContributionData, Post } from '$lib/types';
-	import BlogCard from '$lib/components/BlogCard.svelte';
-	import ContactsCard from '$lib/components/ContactsCard.svelte';
+	import ContactLinks from '$lib/components/ContactLinks.svelte';
+	import ExperienceRow from '$lib/components/ExperienceRow.svelte';
+	import PostRow from '$lib/components/PostRow.svelte';
 	import GithubGraph from '$lib/components/GithubGraph.svelte';
-	import SkillsGrid from '$lib/components/SkillsGrid.svelte';
+	import SkillList from '$lib/components/SkillList.svelte';
+	import type { Experience } from '$lib/data/experiences';
 	import type { Project } from '$lib/data/projects';
-	import ProjectCard from '$lib/components/ProjectCard.svelte';
+	import ProjectRow from '$lib/components/ProjectRow.svelte';
 
 
 	let props: {
 		data: {
+			experiences: Experience[];
 			featuredProjects: Project[];
 			latestPosts: Post[];
 			githubContributions: ContributionData | null;
@@ -27,7 +30,7 @@
 	const websiteId = `${props.data.origin}#website`;
 	const webpageId = `${url}#webpage`;
 
-	const languages = ['Golang', 'Rust', 'Typescript', 'Javascript', 'Html', 'Css'];
+	const languages = ['Go', 'Rust', 'TypeScript', 'JavaScript', 'HTML', 'CSS'];
 	const frameworks = [
 		'Next.js',
 		'Tauri',
@@ -37,9 +40,9 @@
 		'Chi',
 		'Actix',
 		'Express.js',
-		'Tailwindcss'
+		'Tailwind CSS'
 	];
-	const tools = ['Docker', 'Git', 'Github', 'Postman'];
+	const tools = ['Docker', 'Git', 'GitHub', 'Postman'];
 </script>
 
 <svelte:head>
@@ -138,17 +141,17 @@
 </svelte:head>
 
 <section class="space-y-4">
-	<h1 class="font-display text-3xl font-semibold text-white md:text-4xl">
+	<h1 class="font-display text-3xl font-semibold text-ink md:text-4xl">
 		Abdelilah Ouaadouch
-		<span class="block text-xl font-normal normal-case text-gray-300 md:text-2xl">
+		<span class="block text-xl font-normal normal-case text-ink-soft md:text-2xl">
 			Fullstack Developer
 		</span>
 	</h1>
- <p class="text-base text-gray-300 md:text-lg">
+ <p class="text-base text-ink-soft md:text-lg">
 		2+ years building production APIs, full-stack products, desktop apps, and AI tools from backend
 		services to polished UI with Go, Rust, TypeScript, Gin, Next.js, and Tauri.
 	</p>
-	<p class="text-sm text-gray-400 md:text-base">
+	<p class="text-sm text-ink-soft md:text-base">
 		Currently working at
 		<a
 			href="https://dev-up.io/"
@@ -161,73 +164,81 @@
 	</p>
 </section>
 
-<section class="space-y-4">
-	<h2 class="text-xl font-bold text-white md:text-2xl">
-		<span>$</span> Contact
-	</h2>
-	<ContactsCard />
-</section>
-
-
-
-<section class="space-y-4">
-	<h2 class="text-xl font-bold text-white md:text-2xl">
-		<span>$</span> GitHub Activity
-	</h2>
-	<div class="corner-brackets bg-[#101010] p-5">
-		<p class="mb-4 text-white">
-			Total Contributions in {props.data.year}:
-			<span class="font-semibold text-blue-400">
-				{props.data.githubContributions?.totalGH ?? 0}
-			</span>
-		</p>
-		<GithubGraph data={props.data.githubContributions} year={props.data.year} />
-	</div>
-</section>
-
-<section class="space-y-4">
-	<div class="flex items-center justify-between">
-		<h2 class="text-xl font-bold text-white md:text-2xl">
-			<span>$</span> Featured Projects
+<div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-4">
+	<section class="space-y-4">
+		<h2 class="text-xl font-bold text-ink md:text-2xl">
+			Contact
 		</h2>
-		<a href="/projects" class="text-sm text-gray-400 transition-colors hover:text-white">
+		<ContactLinks />
+	</section>
+
+	<section class="flex flex-col gap-4">
+		<h2 class="text-xl font-bold text-ink md:text-2xl">
+			GitHub Activity
+		</h2>
+		<div class="h-28 md:h-auto md:flex-1">
+			<GithubGraph data={props.data.githubContributions} year={props.data.year} />
+		</div>
+	</section>
+</div>
+
+<section class="space-y-6">
+	<div class="flex items-center justify-between">
+		<h2 class="text-xl font-bold text-ink md:text-2xl">
+			Experience
+		</h2>
+		<a href="/career" class="text-sm text-ink-soft transition-colors hover:text-ink">
 			View all {"->"}
 		</a>
 	</div>
-	<div class="space-y-4">
-		{#each props.data.featuredProjects as project}
-			<ProjectCard {project} />
+	<ul class="group/list space-y-10">
+		{#each props.data.experiences as experience}
+			<li><ExperienceRow {experience} /></li>
 		{/each}
-	</div>
+	</ul>
 </section>
 
-<section class="space-y-4">
+<section class="space-y-6">
 	<div class="flex items-center justify-between">
-		<h2 class="text-xl font-bold text-white md:text-2xl">
-			<span>$</span> Latest Posts
+		<h2 class="text-xl font-bold text-ink md:text-2xl">
+			Featured Projects
 		</h2>
-		<a href="/blog" class="text-sm text-gray-400 transition-colors hover:text-white">
+		<a href="/projects" class="text-sm text-ink-soft transition-colors hover:text-ink">
+			View all {"->"}
+		</a>
+	</div>
+	<ul class="group/list space-y-10">
+		{#each props.data.featuredProjects as project}
+			<li><ProjectRow {project} /></li>
+		{/each}
+	</ul>
+</section>
+
+<section class="space-y-6">
+	<div class="flex items-center justify-between">
+		<h2 class="text-xl font-bold text-ink md:text-2xl">
+			Latest Posts
+		</h2>
+		<a href="/blog" class="text-sm text-ink-soft transition-colors hover:text-ink">
 			View all {"->"}
 		</a>
 	</div>
 	{#if props.data.latestPosts.length > 0}
-		<div class="space-y-4">
+		<ul class="group/list space-y-10">
 			{#each props.data.latestPosts as post}
-				<BlogCard {post} />
+				<li><PostRow {post} /></li>
 			{/each}
-		</div>
+		</ul>
 	{:else}
-		<div class="corner-brackets bg-[#101010] p-5 text-center">
-			<p class="text-gray-400">No blog posts yet. Check back soon!</p>
-		</div>
+		<p class="text-sm text-ink-soft">No blog posts yet. Check back soon!</p>
 	{/if}
 </section>
 
-<section class="space-y-4">
-	<h2 class="text-xl font-bold text-white md:text-2xl">
-		<span>$</span> Skills
+<section class="space-y-6">
+	<h2 class="text-xl font-bold text-ink md:text-2xl">
+		Skills
 	</h2>
-	<SkillsGrid skills={languages} />
-	<SkillsGrid skills={frameworks} />
-	<SkillsGrid skills={tools} />
+	<SkillList label="Languages" skills={languages} />
+	<SkillList label="Frameworks" skills={frameworks} />
+	<SkillList label="Tools" skills={tools} />
 </section>

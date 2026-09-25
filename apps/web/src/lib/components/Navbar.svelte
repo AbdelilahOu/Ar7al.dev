@@ -10,13 +10,13 @@
 
 </script>
 
-<nav class="flex items-center sticky bg-[#0d0d0d] top-0 z-50 gap-6 py-6 text-sm md:text-base">
+<nav class="flex items-center sticky bg-page top-0 z-50 gap-6 py-6 text-sm md:text-base">
     {#each links as link}
 		<a
 			href={link.href}
 			class="transition-colors {page.url.pathname === link.href
-				? 'text-white border-white'
-				: 'text-gray-400 hover:text-white'}"
+				? 'text-ink border-ink'
+				: 'text-ink-soft hover:text-ink'}"
 		>
 			{link.label}
 		</a>

@@ -93,6 +93,10 @@ portfolio/
 - **API routers**: Define procedures in `packages/api/routers/*.ts`, export from `routers/index.ts`.
 - **Markdown posts**: Place `.md` files in `apps/web/src/posts/` for mdsvex processing.
 - **Tailwind**: Use TailwindCSS v4 utilities; no custom CSS classes unless necessary.
+- **Lists**: Projects, posts, and experiences render as borderless rows (`ProjectRow` / `PostRow` / `ExperienceRow`, all built on `ListRow.svelte`) inside a `<ul class="group/list space-y-10">`, which dims the other rows on hover. Pass `tech` to show the item's stack as icons under the description (`TechIcons.svelte`). Build new lists the same way instead of boxed cards.
+- **Detail pages**: The blog, project, and career `[slug]` pages share `BackLink`, `ActionLink` (external links with a ↗), `PrevNext`, and `SignOff`. Article typography for the Markdown content lives in the `.prose` block in `app.css`; don't add per-page `<style>` blocks for it.
+- **Skills**: Render with `SkillList.svelte` (icon + name, no boxes). Icons live in `static/icons/skills/`, from [developer-icons](https://github.com/xandemon/developer-icons) (MIT) or, when it lacks one, the project's official site; map new names in `src/lib/data/skills.ts`. Concepts without an icon (e.g. "REST APIs") get a letter tile. Use the light variant of any icon meant for dark backgrounds.
+- **Colors**: Use the theme tokens from `app.css` instead of hardcoded hex or Tailwind grays: surfaces `bg-page` / `bg-card` / `bg-raised`, borders `border-line`, text `text-ink` (headings) / `text-ink-soft` (body) / `text-ink-mute` (dates, meta). In `<style>` blocks use `var(--color-*)`.
 - **Zod schemas**: Use for API validation and type inference; define in api layer.
 - **Formatting/linting**: Run `bun run check` and `bun run fmt` before commits.
 
@@ -169,13 +173,13 @@ Blog posts under `apps/web/src/content/blog-posts/` sometimes benefit from an in
 ### Micro-animation, not spectacle
 
 - Use small SMIL `<animate>` / `<animateTransform>` loops: a handful of elements changing state over a several-second loop, not a complex simultaneous system. This keeps the component dependency-free — no JS state machine needed.
-- Sequence beats deliberately: a label/caption should appear *first*, then — after a short delay (roughly 0.5-1s) — the visual element reacts. Don't animate the label and the shape change at the same instant; simultaneous changes read as noise, not narration.
+- Sequence beats deliberately: a label/caption should appear _first_, then — after a short delay (roughly 0.5-1s) — the visual element reacts. Don't animate the label and the shape change at the same instant; simultaneous changes read as noise, not narration.
 - Loop cleanly with `repeatCount="indefinite"`, and make the `keyTimes="0"` state the idle/at-rest state, so the loop restart isn't jarring.
 
 ### Visual style — match the site
 
 - Font: `'JetBrains Mono Variable', monospace` throughout (the site's loaded webfont; works fine inline since these SVGs render in the DOM, not as external images).
-- Box fill `#1a1a1a` / `#141414`, at-rest border `#52525b` (or `#3f3f46` for a fainter guide line), sharp corners only — never round one of these boxes (`rx`/`ry`), the whole site uses hard edges.
+- Box fill `#1a1a1a` / `#141414`, at-rest border `#52525b` (or `#3f3f46` for a fainter guide line), rounded corners to match the site: `rx="6"` on boxes (like `rounded-md` cards) and `rx="4"` on thin bars (like `rounded-sm` tags).
 - Color language, used consistently: white `#f9fafb` = primary text / neutral state; green `#10b981` = success / active / arrived; blue `#60a5fa` = in-progress / computing / links; red `#f87171` = failure / cancelled / blocked. Muted gray `#9ca3af` / `#6b7280` for captions and secondary labels, typically `font-style="italic"` for the small caption line under a diagram.
 - For a side-by-side comparison of two things, wrap both independently-sized `<svg>` elements in `<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">` so they stack to one column on small screens instead of squeezing two panels into a phone width.
 

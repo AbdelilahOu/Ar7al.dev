@@ -2,6 +2,7 @@
 title: Frontend Developer
 company: SOTRALAIT
 companyUrl: https://www.linkedin.com/company/3280125/
+logo: /logos/sotralait.png
 type: Internship
 description: "Helped migrate a legacy AngularJS codebase to modern Angular with TypeScript, including multi-language support implementation."
 startDate: "2022-07"

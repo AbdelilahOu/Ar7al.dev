@@ -2,6 +2,7 @@
 title: Full Stack Engineer
 company: Atoms IT
 companyUrl: https://www.linkedin.com/company/96692614/
+logo: /logos/atoms-it.png
 type: Full-time
 description: "Built a school management system with a Rust backend and React frontend, featuring bracelet-based scanner integration for automated attendance tracking."
 startDate: "2023-01"

@@ -3,6 +3,8 @@ export interface ExperienceMetadata {
   company: string;
   companyWebsite?: string;
   companyUrl?: string;
+  /** Path under static/, e.g. "/logos/dev-up.svg". Falls back to the company's initial. */
+  logo?: string;
   type: "Full-time" | "Part-time" | "Contract" | "Internship";
   description: string;
   startDate: string;
@@ -44,6 +46,27 @@ export function getExperiences(): Experience[] {
   return experiences.sort(
     (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
   );
+}
+
+export function getLatestExperiences(count: number): Experience[] {
+  return getExperiences().slice(0, count);
+}
+
+export function getAdjacentExperiences(slug: string): {
+  previous: Experience | null;
+  next: Experience | null;
+} {
+  const experiences = getExperiences();
+  const index = experiences.findIndex((experience) => experience.slug === slug);
+
+  if (index === -1) {
+    return { previous: null, next: null };
+  }
+
+  return {
+    previous: experiences[index + 1] ?? null,
+    next: experiences[index - 1] ?? null,
+  };
 }
 
 export function getExperienceBySlug(slug: string): Experience | undefined {
