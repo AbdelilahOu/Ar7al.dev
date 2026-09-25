@@ -1,185 +1,194 @@
 <script lang="ts">
-    import type { ContributionData } from "$lib/types";
-
-	interface DayData {
-		date: Date;
-		contributions: number;
-	}
+	import { fade } from 'svelte/transition';
+	import type { ContributionData } from '$lib/types';
 
 	interface Props {
 		data: ContributionData | null;
 		year: number;
 	}
 
+	interface Day {
+		col: number;
+		row: number;
+		month: number;
+		/** -1 marks a future day in the current year */
+		contributions: number;
+	}
+
 	let props: Props = $props();
-	let scrollContainer: HTMLDivElement | null = null;
+
+	// Grid geometry in SVG units. The SVG scales to the container height, so these are ratios.
+	const TILE = 10;
+	const GAP = 2;
+	const PITCH = TILE + GAP;
+	// Room around the tiles so the month outline (drawn in the gaps) is not clipped
+	const PAD = 1.5;
+	const MONTHS = [
+		'January', 'February', 'March', 'April', 'May', 'June',
+		'July', 'August', 'September', 'October', 'November', 'December'
+	];
 
 	const today = new Date();
-	const endOfYear = new Date(Date.UTC(props.year, 11, 31));
 
-	function getDatesInYear(year: number): Date[] {
-		const dates: Date[] = [];
-		const start = new Date(Date.UTC(year, 0, 1));
-		const end = new Date(Date.UTC(year, 11, 31));
+	let scrollContainer: HTMLDivElement | null = $state(null);
+	let rootWidth = $state(0);
+	let rootHeight = $state(0);
+	let popoverWidth = $state(0);
+	let scrollLeft = $state(0);
+	let hoveredMonth: number | null = $state(null);
 
-		const current = new Date(start);
-		while (current <= end) {
-			dates.push(new Date(current));
-			current.setUTCDate(current.getUTCDate() + 1);
-		}
-		return dates;
-	}
-
-	function formatDate(date: Date): string {
-		const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-		return `${months[date.getUTCMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`;
-	}
-
-	function toDateString(date: Date): string {
-		return date.toISOString().split('T')[0];
-	}
-
-	const dates = getDatesInYear(props.year);
-	const contributionLevels = [0, 1, 2, 3, 4];
-	const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-	let weeks = $derived.by(() => {
-		const weeksArray: DayData[][] = [];
-		let currentWeek: DayData[] = [];
-
-		dates.forEach((date, index) => {
-			if (index === 0 || date.getUTCDay() === 0) {
-				if (currentWeek.length > 0) {
-					weeksArray.push(currentWeek);
-				}
-				currentWeek = [];
-			}
-
-			const dateIdx = toDateString(date);
-			const contributions = props.data?.cal[dateIdx]?.github ?? 0;
-
-
+	let days = $derived.by(() => {
+		const result: Day[] = [];
+		const date = new Date(Date.UTC(props.year, 0, 1));
+		const offset = date.getUTCDay();
+		for (let i = 0; date.getUTCFullYear() === props.year; i++) {
 			const isFuture = props.year === today.getFullYear() && date > today;
-			currentWeek.push({
-				date,
-				contributions: isFuture ? -1 : contributions
+			result.push({
+				col: Math.floor((i + offset) / 7),
+				row: (i + offset) % 7,
+				month: date.getUTCMonth(),
+				contributions: isFuture ? -1 : (props.data?.cal[date.toISOString().slice(0, 10)]?.github ?? 0)
 			});
-		});
-
-		if (currentWeek.length > 0) {
-			weeksArray.push(currentWeek);
+			date.setUTCDate(date.getUTCDate() + 1);
 		}
-
-		return weeksArray;
+		return result;
 	});
 
-	function centerCurrentWeek(): void {
-		if (!scrollContainer) return;
+	let months = $derived(
+		MONTHS.map((_, month) => {
+			const monthDays = days.filter((day) => day.month === month);
+			const first = monthDays[0];
+			const last = monthDays[monthDays.length - 1];
+			return {
+				total: monthDays.reduce((sum, day) => sum + Math.max(0, day.contributions), 0),
+				outline: outlinePath(first.col, first.row, last.col, last.row),
+				center: (first.col * PITCH + last.col * PITCH + TILE) / 2
+			};
+		})
+	);
 
+	let columns = $derived(days[days.length - 1].col + 1);
+	let viewWidth = $derived(columns * PITCH - GAP + 2 * PAD);
+	const viewHeight = 7 * PITCH - GAP + 2 * PAD;
 
+	let popoverLeft = $derived.by(() => {
+		if (hoveredMonth === null || rootHeight === 0) return 0;
+		const scale = rootHeight / viewHeight;
+		const center = (months[hoveredMonth].center + PAD) * scale - scrollLeft;
+		const half = popoverWidth / 2;
+		return Math.min(Math.max(center, half), rootWidth - half);
+	});
+
+	/**
+	 * Outline around a month's cells, which run column by column from (c1, r1) to (c2, r2):
+	 * a partial first week, full weeks in between, and a partial last week.
+	 */
+	function outlinePath(c1: number, r1: number, c2: number, r2: number): string {
+		const x = (col: number) => col * PITCH - GAP / 2;
+		const y = (row: number) => row * PITCH - GAP / 2;
+		const points = [
+			[x(c1), y(r1)],
+			[x(c1 + 1), y(r1)],
+			[x(c1 + 1), y(0)],
+			[x(c2 + 1), y(0)],
+			[x(c2 + 1), y(r2 + 1)],
+			[x(c2), y(r2 + 1)],
+			[x(c2), y(7)],
+			[x(c1), y(7)]
+		];
+		return `M${points.map((point) => point.join(' ')).join(' L')} Z`;
+	}
+
+	function tileColor(contributions: number): string {
+		if (contributions === -1) return 'fill-raised/50';
+		if (contributions === 0) return 'fill-raised';
+		if (contributions <= 2) return 'fill-[#0e4429]';
+		if (contributions <= 4) return 'fill-[#006d32]';
+		if (contributions <= 6) return 'fill-[#26a641]';
+		return 'fill-[#39d353]';
+	}
+
+	function handlePointerOver(event: PointerEvent): void {
+		const month = (event.target as Element).getAttribute('data-month');
+		if (month !== null) hoveredMonth = Number(month);
+	}
+
+	// Past years start scrolled to December; the current year centers on this week
+	$effect(() => {
+		if (!scrollContainer || rootHeight === 0) return;
 		if (props.year < today.getFullYear()) {
 			scrollContainer.scrollLeft = scrollContainer.scrollWidth;
 			return;
 		}
-
-		const todayIndex = dates.findIndex(
-			(date) => date.toISOString().split('T')[0] === toDateString(today)
-		);
-		if (todayIndex === -1) return;
-
-		let weekIndex = 0;
-		for (let i = 0; i <= todayIndex; i += 1) {
-			if (i === 0 || dates[i].getUTCDay() === 0) weekIndex += 1;
-		}
-		weekIndex = Math.max(0, weekIndex - 1);
-
-		const weekColumn = scrollContainer.querySelectorAll<HTMLDivElement>('.gh-week');
-		const target = weekColumn[weekIndex];
-		if (!target) return;
-
-		const containerWidth = scrollContainer.clientWidth;
-		const targetCenter = target.offsetLeft + target.clientWidth / 2;
-		scrollContainer.scrollLeft = Math.max(0, targetCenter - containerWidth / 2);
-	}
-
-	$effect(() => {
-		centerCurrentWeek();
+		const start = Date.UTC(props.year, 0, 1);
+		const dayIndex = Math.floor((today.getTime() - start) / 86_400_000);
+		const col = Math.floor((dayIndex + new Date(start).getUTCDay()) / 7);
+		const scale = rootHeight / viewHeight;
+		const center = (col * PITCH + TILE / 2 + PAD) * scale;
+		scrollContainer.scrollLeft = Math.max(0, center - scrollContainer.clientWidth / 2);
 	});
-
-	function getTileColor(contributions: number): string {
-
-		if (contributions === -1) return 'bg-neutral-900/50';
-
-		if (contributions === 0) return 'bg-neutral-900';
-
-
-		if (contributions <= 2) return 'bg-slate-800';
-		if (contributions <= 4) return 'bg-slate-600';
-		if (contributions <= 6) return 'bg-slate-400';
-		return 'bg-white';
-	}
-
-	function getColorClass(level: number): string {
-		switch (level) {
-			case 0: return 'bg-neutral-900';
-			case 1: return 'bg-slate-800';
-			case 2: return 'bg-slate-600';
-			case 3: return 'bg-slate-400';
-			case 4: return 'bg-white';
-			default: return 'bg-neutral-900';
-		}
-	}
-
-	function getTooltip(day: DayData): string {
-		if (day.contributions === -1) {
-			return formatDate(day.date);
-		}
-		return `${formatDate(day.date)}: ${day.contributions} contributions`;
-	}
 </script>
 
-<div class="w-full max-w-3xl">
-	<div class="flex max-w-3xl overflow-hidden">
-		<div class="w-10 pr-2 pt-5">
-			<div class="h-5"></div>
-			<div class="h-5 text-center text-xs leading-6 text-slate-500">Mon</div>
-			<div class="h-5"></div>
-			<div class="h-5 text-center text-xs leading-6 text-slate-500">Wed</div>
-			<div class="h-5"></div>
-			<div class="h-5 text-center text-xs leading-6 text-slate-500">Fri</div>
-		</div>
-
-		<div class="scrollbar-hide flex w-full overflow-x-auto" bind:this={scrollContainer}>
-			<div class="relative mt-5 flex gap-1">
-				<div class="absolute -mt-5 flex w-full justify-around gap-1 text-slate-400">
-					{#each monthLabels as month}
-						<div class="text-xs">{month}</div>
-					{/each}
-				</div>
-
-				{#each weeks as week, weekIndex}
-					<div class="gh-week w-4" class:mt-auto={weekIndex === 0}>
-						{#each week as day}
-							<div
-								class="my-1 size-4 {getTileColor(day.contributions)}"
-								title={getTooltip(day)}
-							></div>
-						{/each}
-					</div>
-				{/each}
-			</div>
-		</div>
+<div
+	class="relative h-full w-full [container-type:size]"
+	bind:clientWidth={rootWidth}
+	bind:clientHeight={rootHeight}
+>
+	<div
+		class="scrollbar-hide h-full overflow-x-auto"
+		bind:this={scrollContainer}
+		onscroll={() => (scrollLeft = scrollContainer?.scrollLeft ?? 0)}
+	>
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<svg
+			viewBox="{-PAD} {-PAD} {viewWidth} {viewHeight}"
+			class="h-full"
+			style="width: calc(100cqh * {viewWidth / viewHeight})"
+			role="img"
+			aria-label="GitHub contributions in {props.year}"
+			onpointerover={handlePointerOver}
+			onpointerleave={() => (hoveredMonth = null)}
+		>
+			{#each days as day}
+				<rect
+					x={day.col * PITCH}
+					y={day.row * PITCH}
+					width={TILE}
+					height={TILE}
+					rx="1.5"
+					data-month={day.month}
+					class="transition-opacity duration-200 {tileColor(day.contributions)} {hoveredMonth !== null &&
+					day.month !== hoveredMonth
+						? 'opacity-35'
+						: ''}"
+				/>
+			{/each}
+			{#if hoveredMonth !== null}
+				<path
+					d={months[hoveredMonth].outline}
+					fill="none"
+					stroke-width="1"
+					stroke-linejoin="round"
+					pointer-events="none"
+					class="stroke-ink"
+					transition:fade={{ duration: 150 }}
+				/>
+			{/if}
+		</svg>
 	</div>
 
-	<div class="mt-2 flex justify-end gap-2 text-xs text-slate-400">
-		<div class="flex items-center gap-1">
-			<span>Less</span>
-			<div class="flex gap-1">
-				{#each contributionLevels as level}
-					<div class="h-4 w-4 {getColorClass(level)}"></div>
-				{/each}
-			</div>
-			<span>More</span>
+	{#if hoveredMonth !== null}
+		<div
+			class="pointer-events-none absolute bottom-full z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-line bg-page px-3 py-2 text-xs shadow-lg"
+			style="left: {popoverLeft}px"
+			bind:clientWidth={popoverWidth}
+			transition:fade={{ duration: 150 }}
+		>
+			<p class="font-medium text-ink">{MONTHS[hoveredMonth]} {props.year}</p>
+			<p class="mt-0.5 text-ink-soft">
+				{months[hoveredMonth].total}
+				{months[hoveredMonth].total === 1 ? 'contribution' : 'contributions'}
+			</p>
 		</div>
-	</div>
+	{/if}
 </div>

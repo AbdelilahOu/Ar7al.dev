@@ -7,41 +7,21 @@
   --font-mono: "JetBrains Mono Variable", monospace;
 }
 
+/* Near-black surfaces with warm "ink" text, adapted from winglee.dev */
+@theme static {
+  --color-page: #0a0a0a;
+  --color-card: #0f0f0f;
+  --color-raised: #1c1c1c;
+  --color-line: #2a2a28;
+  --color-ink: #f5f3ee;
+  --color-ink-soft: #a5a29a;
+  --color-ink-mute: #6e6c66;
+  --color-ink-faint: #3f3e3a;
+}
+
 body {
-  @apply bg-neutral-950 text-neutral-100;
+  @apply bg-page text-ink;
   font-family: "JetBrains Mono Variable", monospace;
-}
-
-.corner-brackets {
-  position: relative;
-  --size: 13px;
-  --width: 2px;
-  --color: gray;
-}
-
-.corner-brackets::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-        /* Top-left corner */
-    linear-gradient(var(--color), var(--color)) 0 0 / var(--size) var(--width),
-    linear-gradient(var(--color), var(--color)) 0 0 / var(--width) var(--size),
-    /* Top-right corner */ linear-gradient(var(--color), var(--color)) 100% 0 / var(--size)
-      var(--width),
-    linear-gradient(var(--color), var(--color)) 100% 0 / var(--width) var(--size),
-    /* Bottom-left corner */ linear-gradient(var(--color), var(--color)) 0 100% / var(--size)
-      var(--width),
-    linear-gradient(var(--color), var(--color)) 0 100% / var(--width) var(--size),
-    /* Bottom-right corner */ linear-gradient(var(--color), var(--color)) 100% 100% / var(--size)
-      var(--width),
-    linear-gradient(var(--color), var(--color)) 100% 100% / var(--width) var(--size);
-  background-repeat: no-repeat;
-  pointer-events: none;
-  z-index: 10;
 }
 
 .scrollbar-hide {

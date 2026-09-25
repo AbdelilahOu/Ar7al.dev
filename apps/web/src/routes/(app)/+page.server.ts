@@ -1,3 +1,4 @@
+import { getLatestExperiences } from "$lib/data/experiences";
 import { getLatestPosts } from "$lib/data/posts";
 import { getLatestProjects } from "$lib/data/projects";
 import { client } from "$lib/orpc";
@@ -16,6 +17,7 @@ export async function load({ url }) {
   }
 
   return {
+    experiences: getLatestExperiences(2),
     featuredProjects: getLatestProjects(2),
     latestPosts: getLatestPosts(2),
     githubContributions,

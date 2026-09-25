@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Component } from 'svelte';
-	import SkillsGrid from '$lib/components/SkillsGrid.svelte';
+	import TechIcons from '$lib/components/TechIcons.svelte';
 	import { formatDateRange, calculateDuration, type ExperienceMetadata } from '$lib/data/experiences';
 
 	let props: { data: { content: Component; meta: ExperienceMetadata; slug: string; origin: string } } = $props();
@@ -141,12 +141,12 @@
 	})}</script>`}
 </svelte:head>
 
-<div class="min-h-screen w-screen bg-[#0d0d0d] px-4 pb-8">
+<div class="min-h-screen w-screen bg-page px-4 pb-8">
 	<div class="m-auto w-full max-w-3xl">
-		<nav class="flex items-center gap-6 text-sm md:text-base py-6 bg-[#0d0d0d] sticky top-0 z-50">
+		<nav class="flex items-center gap-6 text-sm md:text-base py-6 bg-page sticky top-0 z-50">
 			<a
 				href="/career"
-				class="inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
+				class="inline-flex items-center gap-2 text-ink-soft transition-colors hover:text-ink"
 			>
 				<span>{"<-"}</span>
 				<span>Back to Career</span>
@@ -156,10 +156,10 @@
 		<div class="space-y-8">
 
 		<header class="space-y-4">
-			<h1 class="font-display text-3xl font-semibold text-white md:text-4xl">
+			<h1 class="font-display text-3xl font-semibold text-ink md:text-4xl">
 				{meta.title}
 			</h1>
-			<div class="flex flex-wrap items-center gap-2 text-lg text-gray-300">
+			<div class="flex flex-wrap items-center gap-2 text-lg text-ink-soft">
 				{#if meta.companyWebsite || meta.companyUrl}
 					<a
 						href={meta.companyWebsite ?? meta.companyUrl}
@@ -175,19 +175,15 @@
 				<span>-</span>
 				<span>{meta.type}</span>
 			</div>
-			<div class="text-gray-400">
+			<div class="text-ink-soft">
 				<span>{formatDateRange(meta.startDate, meta.endDate)}</span>
 				<span class="mx-2">-</span>
 				<span>{calculateDuration(meta.startDate, meta.endDate)}</span>
 			</div>
-			<div class="text-gray-400">
+			<div class="text-ink-soft">
 				{meta.location} - {meta.locationType}
 			</div>
-			<div class="flex flex-wrap gap-2">
-				{#each meta.technologies as tech}
-					<span class="bg-neutral-700 px-3 py-1 text-sm text-white">{tech}</span>
-				{/each}
-			</div>
+			<TechIcons tech={meta.technologies} />
 		</header>
 
 		{#if meta.companyWebsite || meta.companyUrl}
@@ -197,7 +193,7 @@
 						href={meta.companyWebsite}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="corner-brackets inline-flex w-fit items-center bg-[#101010] px-3 py-2 text-sm text-blue-400 transition-colors hover:text-blue-300 md:px-4 md:text-base"
+						class="inline-flex w-fit items-center rounded-md bg-card px-3 py-2 text-sm text-blue-400 transition-colors hover:text-blue-300 md:px-4 md:text-base"
 					>
 						View Company Website
 					</a>
@@ -207,7 +203,7 @@
 						href={meta.companyUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="corner-brackets inline-flex w-fit items-center bg-[#101010] px-3 py-2 text-sm text-blue-400 transition-colors hover:text-blue-300 md:px-4 md:text-base"
+						class="inline-flex w-fit items-center rounded-md bg-card px-3 py-2 text-sm text-blue-400 transition-colors hover:text-blue-300 md:px-4 md:text-base"
 					>
 						View Company on LinkedIn
 					</a>
@@ -219,16 +215,9 @@
 			<props.data.content />
 		</article>
 
-		<section class="space-y-4">
-			<h2 class="text-xl md:text-2xl font-bold text-white">
-				<span>$</span> Tech Stack
-			</h2>
-			<SkillsGrid skills={meta.technologies} />
-		</section>
-
-		<footer class="space-y-6 border-t border-neutral-800 pt-8">
-			<div class="corner-brackets bg-[#101010] p-5">
-				<p class="text-gray-300">
+		<footer class="space-y-6 border-t border-line pt-8">
+			<div class="rounded-md bg-card p-5">
+				<p class="text-ink-soft">
 					Want to learn more about my experience? Connect with me on
 					<a
 						href="https://www.linkedin.com/in/ar7al"
@@ -256,21 +245,21 @@
 
 <style>
 	:global(.prose h2) {
-		color: #fff;
+		color: var(--color-ink);
 		font-weight: 700;
 		margin-top: 2rem;
 		margin-bottom: 1rem;
 	}
 
 	:global(.prose h3) {
-		color: #fff;
+		color: var(--color-ink);
 		font-weight: 600;
 		margin-top: 1.5rem;
 		margin-bottom: 0.75rem;
 	}
 
 	:global(.prose p) {
-		color: #d1d5db;
+		color: var(--color-ink-soft);
 		margin-bottom: 1rem;
 		line-height: 1.75;
 	}
@@ -285,7 +274,7 @@
 
 	:global(.prose ul),
 	:global(.prose ol) {
-		color: #d1d5db;
+		color: var(--color-ink-soft);
 		margin-bottom: 1rem;
 		padding-left: 1.5rem;
 	}
@@ -300,19 +289,21 @@
 	}
 
 	:global(.prose strong) {
-		color: #fff;
+		color: var(--color-ink);
 		font-weight: 600;
 	}
 
 	:global(.prose code) {
-		background-color: #202020;
+		background-color: var(--color-raised);
+		border-radius: 0.25rem;
 		padding: 0.125rem 0.375rem;
 		font-size: 0.875em;
-		color: #f9fafb;
+		color: var(--color-ink);
 	}
 
 	:global(.prose pre) {
-		background-color: #101010 !important;
+		background-color: var(--color-card) !important;
+		border-radius: 0.375rem;
 		padding: 1.25rem;
 		overflow-x: auto;
 		margin-bottom: 1rem;
@@ -324,14 +315,14 @@
 	}
 
 	:global(.prose blockquote) {
-		border-left: 4px solid #4b5563;
+		border-left: 4px solid var(--color-ink-faint);
 		padding-left: 1rem;
-		color: #9ca3af;
+		color: var(--color-ink-mute);
 		font-style: italic;
 	}
 
 	:global(.prose hr) {
-		border-color: #374151;
+		border-color: var(--color-line);
 		margin: 2rem 0;
 	}
 </style>

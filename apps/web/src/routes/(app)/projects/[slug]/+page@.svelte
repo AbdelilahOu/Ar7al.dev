@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Component } from 'svelte';
+	import TechIcons from '$lib/components/TechIcons.svelte';
 	import type { ProjectMetadata } from '$lib/data/projects';
 
 	let props: { data: { content: Component; meta: ProjectMetadata; slug: string; origin: string } } = $props();
@@ -138,12 +139,12 @@
 	})}</script>`}
 </svelte:head>
 
-<div class="min-h-screen w-screen bg-[#0d0d0d] px-4 pb-8">
+<div class="min-h-screen w-screen bg-page px-4 pb-8">
 	<div class="m-auto w-full max-w-3xl">
-		<nav class="flex items-center gap-6 text-sm md:text-base py-6 bg-[#0d0d0d] sticky top-0 z-50">
+		<nav class="flex items-center gap-6 text-sm md:text-base py-6 bg-page sticky top-0 z-50">
 			<a
 				href="/projects"
-				class="inline-flex items-center gap-2 text-gray-400 transition-colors hover:text-white"
+				class="inline-flex items-center gap-2 text-ink-soft transition-colors hover:text-ink"
 			>
 				<span>{"<-"}</span>
 				<span>Back to Projects</span>
@@ -153,17 +154,13 @@
 		<div class="space-y-8">
 
 		<header class="space-y-4">
-			<h1 class="font-display text-3xl font-semibold text-white md:text-4xl">
+			<h1 class="font-display text-3xl font-semibold text-ink md:text-4xl">
 				{meta.title}
 			</h1>
-			<p class="text-base md:text-lg text-gray-300">
+			<p class="text-base md:text-lg text-ink-soft">
 				{meta.description}
 			</p>
-			<div class="flex flex-wrap gap-2">
-				{#each meta.tech as tech}
-					<span class="bg-neutral-700 px-3 py-1 text-sm text-white">{tech}</span>
-				{/each}
-			</div>
+			<TechIcons tech={meta.tech} />
 		</header>
 
 		{#if meta.github || meta.web}
@@ -173,7 +170,7 @@
 						href={meta.github}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="corner-brackets inline-flex w-fit items-center bg-[#101010] px-3 py-2 text-sm text-blue-400 transition-colors hover:text-blue-300 md:px-4 md:text-base"
+						class="inline-flex w-fit items-center rounded-md bg-card px-3 py-2 text-sm text-blue-400 transition-colors hover:text-blue-300 md:px-4 md:text-base"
 					>
 						View on GitHub
 					</a>
@@ -183,7 +180,7 @@
 						href={meta.web}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="corner-brackets inline-flex w-fit items-center bg-[#101010] px-3 py-2 text-sm text-blue-400 transition-colors hover:text-blue-300 md:px-4 md:text-base"
+						class="inline-flex w-fit items-center rounded-md bg-card px-3 py-2 text-sm text-blue-400 transition-colors hover:text-blue-300 md:px-4 md:text-base"
 					>
 						View Live Demo
 					</a>
@@ -195,9 +192,9 @@
 			<props.data.content />
 		</article>
 
-		<footer class="space-y-6 border-t border-neutral-800 pt-8">
-			<div class="corner-brackets bg-[#101010] p-5">
-				<p class="text-gray-300">
+		<footer class="space-y-6 border-t border-line pt-8">
+			<div class="rounded-md bg-card p-5">
+				<p class="text-ink-soft">
 					Thanks for reading! If you found this helpful, feel free to share it or connect with me
 					on
 					<a
@@ -217,21 +214,21 @@
 
 <style>
 	:global(.prose h2) {
-		color: #fff;
+		color: var(--color-ink);
 		font-weight: 700;
 		margin-top: 2rem;
 		margin-bottom: 1rem;
 	}
 
 	:global(.prose h3) {
-		color: #fff;
+		color: var(--color-ink);
 		font-weight: 600;
 		margin-top: 1.5rem;
 		margin-bottom: 0.75rem;
 	}
 
 	:global(.prose p) {
-		color: #d1d5db;
+		color: var(--color-ink-soft);
 		margin-bottom: 1rem;
 		line-height: 1.75;
 	}
@@ -246,7 +243,7 @@
 
 	:global(.prose ul),
 	:global(.prose ol) {
-		color: #d1d5db;
+		color: var(--color-ink-soft);
 		margin-bottom: 1rem;
 		padding-left: 1.5rem;
 	}
@@ -261,19 +258,21 @@
 	}
 
 	:global(.prose strong) {
-		color: #fff;
+		color: var(--color-ink);
 		font-weight: 600;
 	}
 
 	:global(.prose code) {
-		background-color: #202020;
+		background-color: var(--color-raised);
+		border-radius: 0.25rem;
 		padding: 0.125rem 0.375rem;
 		font-size: 0.875em;
-		color: #f9fafb;
+		color: var(--color-ink);
 	}
 
 	:global(.prose pre) {
-		background-color: #101010 !important;
+		background-color: var(--color-card) !important;
+		border-radius: 0.375rem;
 		padding: 1.25rem;
 		overflow-x: auto;
 		margin-bottom: 1rem;
@@ -285,14 +284,14 @@
 	}
 
 	:global(.prose blockquote) {
-		border-left: 4px solid #4b5563;
+		border-left: 4px solid var(--color-ink-faint);
 		padding-left: 1rem;
-		color: #9ca3af;
+		color: var(--color-ink-mute);
 		font-style: italic;
 	}
 
 	:global(.prose hr) {
-		border-color: #374151;
+		border-color: var(--color-line);
 		margin: 2rem 0;
 	}
 </style>

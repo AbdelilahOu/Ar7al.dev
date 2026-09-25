@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Experience } from '$lib/data/experiences';
-	import ExperienceCard from '$lib/components/ExperienceCard.svelte';
-	import SkillsGrid from '$lib/components/SkillsGrid.svelte';
+	import ExperienceRow from '$lib/components/ExperienceRow.svelte';
 
 	let props: { data: { experiences: Experience[]; origin: string } } = $props();
 
@@ -141,32 +140,32 @@
 </svelte:head>
 
 <header class="space-y-4">
-	<h1 class="font-display text-3xl font-semibold text-white md:text-4xl">
+	<h1 class="font-display text-3xl font-semibold text-ink md:text-4xl">
 		Career
-		<span class="block text-xl font-normal normal-case text-gray-300 md:text-2xl">
+		<span class="block text-xl font-normal normal-case text-ink-soft md:text-2xl">
 			Professional Experience
 		</span>
 	</h1>
-	<p class="text-base text-gray-300 md:text-lg">
+	<p class="text-base text-ink-soft md:text-lg">
 		My journey as a Full Stack Engineer, building backend systems and applications
 		across healthcare, education, and enterprise domains.
 	</p>
 </header>
 
-<section class="space-y-4">
-	<h2 class="text-xl font-bold text-white md:text-2xl">
-		<span>$</span> Work Experience
+<section class="space-y-6">
+	<h2 class="text-xl font-bold text-ink md:text-2xl">
+		Work Experience
 	</h2>
 
 	{#if props.data.experiences.length > 0}
-		<div class="space-y-4">
+		<ul class="group/list space-y-10">
 			{#each props.data.experiences as experience}
-				<ExperienceCard {experience} />
+				<li><ExperienceRow {experience} /></li>
 			{/each}
-		</div>
+		</ul>
 
-		<div class="corner-brackets bg-[#101010] p-5 text-center">
-			<p class="text-gray-400">
+		<div class="mt-10 rounded-md bg-card p-5 text-center">
+			<p class="text-ink-soft">
 				Want to connect? Find me on
 				<a
 					href="https://www.linkedin.com/in/ar7al"
@@ -188,17 +187,10 @@
 			</p>
 		</div>
 	{:else}
-		<div class="corner-brackets bg-[#101010] p-8 text-center">
-			<p class="text-gray-400">
+		<div class="rounded-md bg-card p-8 text-center">
+			<p class="text-ink-soft">
 				No experience entries yet. Check back soon.
 			</p>
 		</div>
 	{/if}
-</section>
-
-<section class="space-y-4">
-	<h2 class="text-xl font-bold text-white md:text-2xl">
-		<span>$</span> Skills
-	</h2>
-	<SkillsGrid skills={['Go/Golang', 'Rust', 'TypeScript', 'Node.js', 'React', 'Angular', 'PostgreSQL', 'Docker', 'Kafka', 'REST APIs']} />
 </section>
