@@ -16,21 +16,21 @@ createdAt: "2026-01-15"
 published: true
 ---
 
-Mahalli is a desktop application for inventory and invoicing, built specifically around the B2B document chain used by Moroccan businesses. The name means "local" in Arabic.
+Mahalli is a desktop app for inventory and invoicing, built around the B2B document chain Moroccan businesses use. The name means "local" in Arabic.
 
-Built with Tauri v2, it combines a Nuxt 4 frontend with a Rust backend powered by SeaORM, delivering native performance with a modern UI. All data is stored locally in SQLite, so no external server is required.
+It runs on Tauri v2: a Nuxt 4 frontend on top of a native Rust backend that uses SeaORM. Everything is stored locally in SQLite, so there's no server to run.
 
-The app supports multiple independent workspaces. Each workspace is a separate SQLite tenant database, hot-swappable at runtime. A persistent system catalog database tracks all registered workspaces and the active one, letting users create, clone, and switch between them without restarting.
+You can keep several independent workspaces. Each one is its own SQLite tenant database that can be swapped in at runtime. A separate system catalog database tracks every workspace and which one is active, so users can create, clone, and switch workspaces without restarting the app.
 
-## Document Chain
+## Document chain
 
-The full Moroccan B2B workflow is covered end to end:
+It covers the whole Moroccan B2B workflow:
 
 1. **Quote / Devis**: generate and send a quote to the client for approval
 2. **Customer Order / Bon de commande**: convert an approved quote into a purchase order
 3. **Delivery Note / Bon de livraison**: issue a delivery note when goods are dispatched
 4. **Invoice / Facture**: generate the final billing document after delivery; invoices are immutable once finalized
-5. **Payment Tracking**: record partial and full payments against invoices with outstanding balance per client
+5. **Payment tracking**: record partial and full payments against invoices, with the outstanding balance per client
 6. **Credit Note / Avoir**: issue a credit note against a finalized invoice for returns or pricing corrections
 
 All printed documents carry the required Moroccan legal identity fields: ICE, IF, RC, and Patente/TP for both clients and the seller's own profile.

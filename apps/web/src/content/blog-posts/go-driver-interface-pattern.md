@@ -21,9 +21,9 @@ published: true
 	import DriverDelegationDiagram from '$lib/components/diagrams/DriverDelegationDiagram.svelte';
 </script>
 
-I've been building [DBMcp](https://github.com/AbdelilahOu/DBMcp), an MCP server that lets AI assistants introspect databases: list tables, describe schemas, analyze foreign keys, and so on. It started with PostgreSQL support. Then MySQL. Then SQLite.
+I've been building [DBMcp](https://github.com/AbdelilahOu/DBMcp), an MCP server that lets AI assistants introspect databases: list tables, describe schemas, analyze foreign keys, and so on. It started with PostgreSQL, then got MySQL, then SQLite.
 
-By the time I had three databases, the codebase had a problem that I couldn't ignore.
+By the third database, the codebase had a problem I couldn't ignore.
 
 ## The old way
 
@@ -58,7 +58,7 @@ func listTablesHandler(ctx context.Context, dbType string, conn *sql.DB, schema 
 
 <BranchingCheckDiagram />
 
-And `describe_table` had the same shape. And `list_views`. And `list_foreign_keys`. Every single tool, three branches, repeated.
+`describe_table` had the same shape, and so did `list_views`, `list_foreign_keys`, and every other tool: three branches, copied again and again.
 
 The session state carried a plain string to track which database was active:
 
@@ -70,7 +70,7 @@ type DBSessionState struct {
 }
 ```
 
-This worked fine. Then you had to think about what happens when you want to add a fourth database.
+This worked fine, until I thought about adding a fourth database.
 
 ## Why this hurts
 
@@ -80,7 +80,7 @@ Say you want to add CockroachDB support. You'd have to:
 2. Open `describeTable.go` and do the same
 3. Open `analyzeTable.go`, `listViews.go`, `foreignKeys.go`, `triggers.go`, `functions.go`, `constraints.go`, `columnSearch.go`, `sequences.go`, `getEnumValues.go`, and add the branch in each one
 
-That's 20 files to edit for one new database. Every edit is a chance to introduce a bug. Every file is now coupled to a list of databases it has to know about. The tools, which should only care about *what* they're doing, are polluted with *how* each database does it differently.
+That's 20 files to edit for one new database, and every edit is a chance to introduce a bug. Each file is also tied to a list of databases it has to know about. The tools should only care about *what* they do, but they're full of *how* each database does it.
 
 This violates the open/closed principle: you can't extend the system without modifying it.
 
@@ -123,13 +123,13 @@ func listTablesHandler(...) {
 }
 ```
 
-No branches. No string comparisons. The tool doesn't know or care whether it's talking to Postgres or SQLite.
+There are no branches or string comparisons left. The tool doesn't know or care whether it's talking to Postgres or SQLite.
 
 <DriverDelegationDiagram />
 
 ## Return types without json tags
 
-One design decision worth calling out: the driver interface returns plain structs with no json or jsonschema tags.
+The driver interface returns plain structs, with no json or jsonschema tags.
 
 ```go
 // driver package: raw data, no presentation concerns
@@ -151,7 +151,7 @@ type TableInfo struct {
 }
 ```
 
-There's a simple field-by-field mapping between them in each tool handler. This keeps the driver layer free of presentation concerns, and means you can evolve the MCP output format without touching the driver queries.
+Each tool handler copies one into the other, field by field. That keeps presentation out of the driver layer, so the MCP output format can change without touching the driver queries.
 
 ## Capability flags
 
@@ -234,7 +234,7 @@ case "cockroachdb":
     drv = &driver.CockroachDBDriver{}
 ```
 
-That's it. Zero changes to any tool file. The 20 tool handlers work without knowing CockroachDB exists. The compiler tells you immediately if you've missed any interface method.
+No tool file changes. The 20 tool handlers work without knowing CockroachDB exists, and the compiler tells you right away if you've missed an interface method.
 
 ## Cleaning up hidden state
 
@@ -247,15 +247,15 @@ if schema == "" {
 }
 ```
 
-This meant the same tool call could produce different results depending on what schema was current when the connection was established. It was implicit and invisible.
+So the same tool call could return different results depending on which schema was current when the connection was set up, and nothing in the call told you that.
 
 The new approach removes `CurrentSchema` entirely. Instead, a `list_schemas` tool gives callers an explicit way to discover what schemas are available. When a schema is required and none is provided, the driver handles the default internally: for PostgreSQL that's `public`, for SQLite the schema parameter is irrelevant and ignored.
 
-Schema is now a parameter you pass deliberately, not a side effect of connection setup.
+Now you pass the schema on purpose instead of inheriting it from connection setup.
 
 ## The result
 
-The directory structure tells the story clearly:
+The driver package now looks like this:
 
 ```
 internal/driver/
@@ -266,6 +266,6 @@ internal/driver/
     helpers.go      <- shared parsing utilities
 ```
 
-Each file is self-contained. Adding a driver is additive, not invasive. The tool files dropped thousands of lines of duplicated query logic and became straightforward delegations that are easy to read and easy to test.
+Each file stands on its own, and adding a driver means adding a file instead of editing the ones already there. The tool files lost thousands of lines of duplicated query logic and are now simple delegations that are easy to read and test.
 
-The underlying idea isn't new. It's just the standard Go interface pattern applied consistently. But it's a good reminder that the payoff from designing around interfaces shows up most clearly when you need to extend something you didn't plan to extend.
+None of this is new. It's the standard Go interface pattern, applied consistently. Where it paid off most was when I had to extend the server in a direction I hadn't planned for.

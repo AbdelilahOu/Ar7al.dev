@@ -20,7 +20,7 @@ published: true
 	import FailFastTimelineDiagram from '$lib/components/diagrams/FailFastTimelineDiagram.svelte';
 </script>
 
-As I dive deeper into Go and its concurrency model, I’ve been building various CLI tools and backend services, etc.
+As I get deeper into Go and its concurrency model, I've been building CLI tools and backend services with it.
 
 I'm relying on this [Github repo](https://github.com/MedUnes/go-kata) that explores those concepts using problem solving, for example the first Kata is about building a fail-fast data aggregator using solely [errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup).
 
@@ -30,7 +30,7 @@ Package errgroup provides synchronization, error propagation and context cancell
 
 Imagine we want to build a dashboard, for this dashboard we must fetch data from two independent services, and we must fetch them in parallel, however, if either fails or global timeout is reached, the entire operation must abort immediately.
 
-## The Challenge
+## The challenge
 
 Create a `DashboardAggregator` struct and a method `Aggregate(id int)` that orchestrates this fetching.
 
@@ -45,7 +45,7 @@ Requirements:
 
 Before I got into this challenge, I thought that using goroutines with `sync.WaitGroup` is enough and that it's the only solution, to be fair it was the only way I knew, but `sync.WaitGroup` doesn't fail-fast, let's say we run 100 goroutines using `sync.WaitGroup` our program will have to wait for all those 100 goroutines to finish which isn't what we want, if one fails we stop.
 
-### Functional Options
+### Functional options
 
 before we get into the concurrency stuff, let's talk about how we configure our aggregator. you could do the classic constructor with all the params:
 
@@ -83,7 +83,7 @@ func NewAggregator(opts ...Option) *DashboardAggregator {
 
 usage becomes clean and readable: `NewAggregator(WithTimeout(5*time.Second), WithLogger(myLogger))`. no more guessing what nil means or which param goes where.
 
-### Errgroup and Context Propagation
+### Errgroup and context propagation
 
 now for the main part, this is where errgroup and context work together. the idea of context propagation is simple: you pass a context from the top level down to every function that does work, and when that context gets cancelled, everything stops.
 
@@ -111,14 +111,14 @@ func (a *DashboardAggregator) Aggregate(ctx context.Context, id int) (string, er
 }
 ```
 
-let's break this down:
+what each piece does:
 
 - `context.WithTimeout` wraps our context with a deadline, if we exceed it everything cancels
 - `errgroup.WithContext` creates a group that shares a context, if any goroutine fails the context cancels
 - `g.Go` spawns a goroutine and tracks it
 - `g.Wait` blocks until all goroutines finish and returns the first error if any
 
-### Context Propagation in Action
+### Context propagation in action
 
 these are mock functions that simulate API calls, but they show the important part: how to make your goroutines respect context cancellation. in real life you'd have HTTP requests or database queries here.
 

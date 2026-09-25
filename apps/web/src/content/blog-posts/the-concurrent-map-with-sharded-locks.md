@@ -21,11 +21,11 @@ published: true
 	import MapOperationsDiagram from '$lib/components/diagrams/MapOperationsDiagram.svelte';
 </script>
 
-In this post, I'll walk through how to build a concurrent map with sharded locks. It's based on the [KATA-02 exercise](https://github.com/MedUnes/go-kata).
+This post builds a concurrent map with sharded locks, based on the [KATA-02 exercise](https://github.com/MedUnes/go-kata).
 
 ## What is a map?
 
-To understand how a map works, let's start with the basic idea. A map maps one value to another. Given one value, called a `key`, it returns a second value.
+The basic idea: a map maps one value to another. Give it a value, called a `key`, and it returns a second value.
 
 ```go
 map(key) -> value // a key maps to a value
@@ -45,7 +45,7 @@ delete(map, key) // remove data
 
 <MapOperationsDiagram />
 
-There are other interesting properties of map implementations like checking whether a key exists or listing all keys, but they're outside the scope of what we're covering today. We'll just focus on insertion, deletion, and mapping keys to values.
+Real map implementations do more, like checking whether a key exists or listing every key, but for now we only need insert, delete, and lookup.
 
 ## What is a `sharded` lock?
 
@@ -71,11 +71,11 @@ shardIndex := hash(key) % numShards // pick a shard
 
 <HashRoutingDiagram />
 
-That means two different keys will most likely land in different shards, so they won't block each other. That's the whole win.
+So two different keys will most likely land in different shards and won't block each other, which is the whole point.
 
 ## The solution
 
-Let's implement a sharded map. We'll keep it clean and type-safe with generics.
+The implementation uses generics, so the map stays type-safe.
 
 ### The data structures
 
@@ -179,7 +179,7 @@ func (sm *ShardedMap[K, V]) Delete(key K) {
 }
 ```
 
-This is the key point: no global lock. Each shard can be used independently, which massively reduces contention.
+There's no global lock anywhere. Each shard is used on its own, which cuts contention a lot.
 
 ### Keys
 

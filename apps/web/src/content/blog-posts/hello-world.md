@@ -15,23 +15,21 @@ tags:
 published: true
 ---
 
-Welcome to my blog! This is my first post where I'll be sharing my journey as a fullstack developer.
+Welcome to my blog. This is the first post, and the plan is simple: write down what I learn as a fullstack developer.
 
 ## What to expect
 
 I'll be writing about:
 
-- Go/Golang: building performant APIs and CLI tools
+- Go/Golang: fast APIs and CLI tools
 - Rust: systems programming and desktop apps with Tauri
 - TypeScript: full-stack web development with Next.js and SvelteKit
 - Developer tools: MCP servers, automation, and productivity
 
 ## Why I started this blog
 
-As developers, we solve interesting problems every day. I wanted a place to document solutions, share what I've learned, and connect with others in the community.
+I run into interesting problems most days. I wanted somewhere to write down how I solved them, share what I picked up along the way, and meet other developers working on the same kind of stuff.
 
 ## Let's connect
 
-You can find me on [Twitter](https://x.com/Abdelilah4dev) or check out my projects on [GitHub](https://github.com/AbdelilahOu).
-
-Stay tuned for more posts!
+You can find me on [Twitter](https://x.com/Abdelilah4dev), and my projects are on [GitHub](https://github.com/AbdelilahOu).

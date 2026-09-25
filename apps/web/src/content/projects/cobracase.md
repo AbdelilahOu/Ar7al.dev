@@ -15,24 +15,24 @@ createdAt: "2026-01-10"
 published: true
 ---
 
-Cobracase is an e-commerce platform that lets customers design and purchase custom phone cases. The design tool lets users upload their own images, add text overlays, and see a real-time preview of their custom case before purchasing.
+Cobracase is an online store for custom phone cases. Customers upload their own image, put text on top of it, and see a live preview of the case before they buy.
 
-The technical stack centers on Next.js for the frontend and API routes, with PostgreSQL as the database managed through Drizzle ORM. Stripe handles payment processing, supporting multiple payment methods and currencies.
+It's a Next.js app, with API routes for the backend and PostgreSQL through Drizzle ORM for data. Stripe takes the payments and supports several payment methods and currencies.
 
-The image processing pipeline handles uploads, applies transformations for the case preview, and generates production-ready files for manufacturing. The system includes order management, shipping integration, and customer notifications.
+Uploaded images go through a pipeline that transforms them for the preview and produces print-ready files for manufacturing. Around that sit order management, shipping, and customer notifications.
 
 ## Features
 
-- Drag-and-drop image upload for case customization
-- Real-time case preview with accurate mockups
-- Text overlay with font and color options
-- Secure checkout with Stripe payment processing
+- Drag-and-drop image upload
+- Live case preview with accurate mockups
+- Text overlays with font and color options
+- Checkout with Stripe
 - Order tracking and email notifications
-- Admin dashboard for order management
+- Admin dashboard for orders
 
 ## Challenges
 
-- Building an intuitive drag-and-drop design interface
-- Generating accurate phone case mockup previews
+- Making the drag-and-drop editor easy to use
+- Getting the mockup preview to match the real case
 - Handling image uploads and processing at scale
-- Implementing a reliable Stripe checkout flow
+- Making the Stripe checkout flow reliable

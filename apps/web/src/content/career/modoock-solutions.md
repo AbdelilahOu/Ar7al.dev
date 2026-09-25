@@ -20,14 +20,14 @@ technologies:
 published: true
 ---
 
-We built an Electronic Medical Record and hospital management platform. I worked on the backend services using Node.js and Go, with Dockerized microservices talking to PostgreSQL.
+We built an electronic medical record (EMR) and hospital management platform. I worked on the backend in Node.js and Go, as Dockerized microservices on top of PostgreSQL.
 
-I designed and maintained an event-driven pipeline with Kafka so patient data, billing, and appointments stayed in sync across services. On top of that, I exposed these services through clear REST APIs and collaborated with the frontend/DevOps teams whenever something weird happened in production.
+I designed and ran the Kafka pipeline that kept patient data, billing, and appointments in sync between services. I also exposed those services through REST APIs, and worked with the frontend and DevOps teams whenever something weird happened in production.
 
 ## Highlights
 
-- Built backend services for an Electronic Medical Record system
-- Designed an event-driven architecture with Kafka for data synchronization
-- Implemented Dockerized microservices communicating with PostgreSQL
-- Exposed services through clean REST APIs
-- Collaborated with frontend and DevOps teams for production troubleshooting
+- Backend services for the EMR platform
+- Event-driven sync between services with Kafka
+- Dockerized microservices on PostgreSQL
+- REST APIs for the frontend
+- Production troubleshooting with the frontend and DevOps teams

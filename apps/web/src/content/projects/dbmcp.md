@@ -12,20 +12,20 @@ createdAt: "2026-01-20"
 published: true
 ---
 
-DBMcp is a Model Context Protocol (MCP) server written in Go that gives AI assistants full introspection access to relational databases. It started with PostgreSQL, grew to MySQL, then SQLite, and the architecture was refactored around a driver interface so adding a fourth database requires creating exactly one file.
+DBMcp is a Model Context Protocol (MCP) server, written in Go, that lets AI assistants look inside relational databases. It started with PostgreSQL, then picked up MySQL and SQLite, and was later restructured around a driver interface. Adding a fourth database now means writing exactly one file.
 
-The server exposes around 20 tools covering the full range of database introspection: listing tables and views, describing columns and constraints, exploring foreign keys, triggers, functions, sequences, and enums. Each tool delegates to a `Driver` interface, so the tool files contain no database-specific logic and no branching on database type.
+The server has about 20 tools. They list tables and views, describe columns and constraints, and dig into foreign keys, triggers, functions, sequences, and enums. Every tool delegates to the `Driver` interface, so the tool files have no database-specific code and never branch on the database type.
 
-Capability flags on the interface handle feature differences between databases. PostgreSQL supports enums, sequences, and materialized views; SQLite supports none of them. Tools are registered at connection time based on what the connected database actually supports.
+Databases don't all support the same things. PostgreSQL has enums, sequences, and materialized views; SQLite has none of them. Capability flags on the interface describe what each database can do, and tools are registered at connection time based on that.
 
 ## Features
 
-- Full schema introspection: tables, views, columns, constraints, foreign keys
-- Database-specific features: enums and enum values, sequences, materialized views, triggers, stored functions
-- Schema search: find columns by name across tables and schemas
-- Queries are parameterized throughout, avoiding string interpolation
-- Capability-aware tool registration: only tools the connected database supports are exposed
-- Multi-database support: PostgreSQL, MySQL, SQLite
+- Schema introspection for tables, views, columns, constraints, and foreign keys
+- Enums and their values, sequences, materialized views, triggers, and stored functions, where the database has them
+- Column search by name across tables and schemas
+- Parameterized queries everywhere instead of string interpolation
+- Only the tools the connected database supports get registered
+- Works with PostgreSQL, MySQL, and SQLite
 
 ## Architecture
 
@@ -38,7 +38,7 @@ internal/driver/
     helpers.go      <- shared parsing utilities
 ```
 
-The `Driver` interface owns all database-specific queries. Session state holds a `Driver` instance rather than a type string, so every tool handler is a straight delegation with no branching:
+All database-specific queries live behind the `Driver` interface. The session holds a `Driver` instead of a type string, so each tool handler just calls through to it:
 
 ```go
 type DBSessionState struct {
@@ -62,7 +62,7 @@ type Driver interface {
 
 ## Challenges
 
-- Designing the driver abstraction so that tool files contain zero database-specific logic
-- Handling capability differences across databases without reverting to type-string branching
-- Keeping driver return types free of presentation concerns while maintaining a clean mapping to MCP output types
-- Removing implicit schema state from session in favor of explicit schema parameters per tool call
+- Designing the driver abstraction so tool files have no database-specific code at all
+- Handling feature differences between databases without going back to branching on a type string
+- Keeping driver return types free of presentation details while still mapping cleanly to MCP output types
+- Replacing the implicit schema in the session with an explicit schema parameter on each tool call

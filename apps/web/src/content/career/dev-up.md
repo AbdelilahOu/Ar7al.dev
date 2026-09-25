@@ -19,13 +19,13 @@ technologies:
 published: true
 ---
 
-I work with a remote team building backend-heavy apps for clients. Most of my time is spent in Go and TypeScript, designing APIs, modelling data in PostgreSQL, and wiring everything up to clean frontends.
+I work with a remote team building backend-heavy apps for clients. I spend most of my time in Go and TypeScript: designing APIs, modelling data in PostgreSQL, and wiring it all up to the frontend.
 
-Lately I also build small AI agents that plug into existing tools (dashboards, CRMs, internal panels) to automate boring tasks like data entry and reporting. I'm usually the person making sure these agents have the right backend hooks, permissions, and observability so they're safe to run in production.
+Lately I also build small AI agents that plug into tools people already use (dashboards, CRMs, internal panels) and take over boring work like data entry and reporting. I'm usually the one making sure an agent has the right backend hooks, permissions, and observability before it runs in production.
 
 ## Highlights
 
-- Build backend-heavy applications for various clients
-- Design and implement REST APIs with Go and TypeScript
-- Model data and shape database architecture with PostgreSQL
-- Build AI-powered automation tools for internal workflows
+- Backend-heavy apps for clients
+- REST APIs in Go and TypeScript
+- Data modelling in PostgreSQL
+- AI automation tools for internal workflows
