@@ -23,7 +23,7 @@
 
 	const title = 'Abdelilah Ouaadouch - Senior Backend Engineer';
 	const description =
-		'Senior backend engineer with 3+ years of building and running backend systems end to end, mostly in Go, Rust, and TypeScript.';
+		'Senior backend engineer with 3+ years of building and running backend systems end to end, mostly in Go and TypeScript.';
 	const url = `${props.data.origin}/`;
 	const image = `${props.data.origin}/social.png`;
 	const personId = `${props.data.origin}#person`;
@@ -111,7 +111,7 @@
 				"@id": websiteId,
 				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
 				"url": url,
-				"description": "Portfolio of Abdelilah Ouaadouch, a senior backend engineer working in Go, Rust, and TypeScript.",
+				"description": "Portfolio of Abdelilah Ouaadouch, a senior backend engineer working in Go and TypeScript.",
 				"publisher": {
 					"@id": personId
 				}
@@ -149,8 +149,8 @@
 	</h1>
  <p class="text-base text-ink-soft md:text-lg">
 		I've spent over 3 years building and running backend systems end to end, from design to
-		production. I work mostly in Go, Rust, and TypeScript, and also build cross-platform desktop
-		and mobile apps.
+		production. I work mostly in Go and TypeScript, and also build cross-platform desktop and
+		mobile apps.
 	</p>
 	<p class="text-sm text-ink-soft md:text-base">
 		Currently working at

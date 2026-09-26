@@ -2,7 +2,7 @@
 	import OgFrame from './OgFrame.svelte';
 	import { colors, iconFor } from './og';
 
-	const stack = ['Go', 'Rust', 'TypeScript', 'PostgreSQL', 'Docker', 'Tauri'];
+	const stack = ['Go', 'TypeScript', 'PostgreSQL', 'Docker', 'Next.js', 'Tauri'];
 </script>
 
 <OgFrame label="Portfolio" path="ar7al.com" showName={false}>

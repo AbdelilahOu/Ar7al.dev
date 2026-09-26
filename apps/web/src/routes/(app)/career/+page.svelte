@@ -7,7 +7,7 @@
 
 	const title = 'Career - Abdelilah Ouaadouch';
 	const description =
-		'Professional experience as a Full Stack Engineer. Building backend systems with Go, Rust, TypeScript, and modern frameworks across healthcare, education, and enterprise applications.';
+		'Professional experience as a senior backend engineer, building backend systems with Go and TypeScript across healthcare, education, and enterprise applications.';
 	const url = `${props.data.origin}/career`;
 	const image = `${props.data.origin}/career/social.png`;
 	const personId = `${props.data.origin}#person`;

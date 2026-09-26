@@ -34,6 +34,10 @@ const iconFiles: Record<string, string> = {
   angular: "angular.svg",
   angularjs: "angular.svg",
   kafka: "kafka.svg",
+  java: "java.svg",
+  spring: "spring.svg",
+  springboot: "spring.svg",
+  "spring boot": "spring.svg",
   mysql: "mysql.svg",
   "shadcn/vue": "shadcn.svg",
   "shadcn/ui": "shadcn.svg",
@@ -50,6 +54,7 @@ const iconFiles: Record<string, string> = {
   drizzle: "drizzle.png",
   "drizzle orm": "drizzle.png",
   kinde: "kinde.svg",
+  expo: "expo.png",
   mcp: "mcp.png",
   seaorm: "seaorm.png",
 };
