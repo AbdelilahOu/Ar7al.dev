@@ -10,9 +10,10 @@ endDate: "2022-08"
 location: Morocco
 locationType: Remote
 technologies:
-  - Angular
   - AngularJS
   - TypeScript
+  - Java
+  - SpringBoot
   - i18n
 published: true
 ---
