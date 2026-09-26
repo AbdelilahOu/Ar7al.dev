@@ -54,7 +54,7 @@ const iconFiles: Record<string, string> = {
   drizzle: "drizzle.png",
   "drizzle orm": "drizzle.png",
   kinde: "kinde.svg",
-  expo: "expo.png",
+  expo: "expo.svg",
   mcp: "mcp.png",
   seaorm: "seaorm.png",
 };
