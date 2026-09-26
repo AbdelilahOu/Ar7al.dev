@@ -9,7 +9,7 @@
 	let { posts }: Props = $props();
 </script>
 
-<OgFrame label="Blog" path="ar7al.com/blog">
+<OgFrame label="Blog" path="ar7al.dev/blog">
 	<div style="display: flex; font-size: 52px; line-height: 1.1; color: {colors.ink};">Writing</div>
 	<div style="display: flex; margin-top: 12px; font-size: 24px; color: {colors.inkSoft};">
 		Thoughts on Go, Rust, TypeScript, and building software that works

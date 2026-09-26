@@ -10,7 +10,7 @@
 	let { roles }: Props = $props();
 </script>
 
-<OgFrame label="Career" path="ar7al.com/career">
+<OgFrame label="Career" path="ar7al.dev/career">
 	<div style="display: flex; font-size: 44px; line-height: 1.1; color: {colors.ink};">
 		Professional experience
 	</div>

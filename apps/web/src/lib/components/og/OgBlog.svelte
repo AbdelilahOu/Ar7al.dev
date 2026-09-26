@@ -12,7 +12,7 @@
 	let { title, description, date, tags }: Props = $props();
 </script>
 
-<OgFrame label="Blog post" path="ar7al.com/blog">
+<OgFrame label="Blog post" path="ar7al.dev/blog">
 	<div style="display: flex; font-size: {titleSize(title)}px; line-height: 1.15; color: {colors.ink};">
 		{title}
 	</div>

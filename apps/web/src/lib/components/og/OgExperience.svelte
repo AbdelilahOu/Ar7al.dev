@@ -15,7 +15,7 @@
 	let { title, company, description, technologies, logo, meta }: Props = $props();
 </script>
 
-<OgFrame label="Experience" path="ar7al.com/career">
+<OgFrame label="Experience" path="ar7al.dev/career">
 	<div style="display: flex; align-items: center; gap: 28px;">
 		<OgLogo {company} {logo} size={76} />
 		<div style="display: flex; flex-direction: column;">

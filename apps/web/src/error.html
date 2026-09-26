@@ -12,77 +12,66 @@
         box-sizing: border-box;
       }
       body {
-        font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-        background-color: #0a0a0a;
-        color: #f5f3ee;
-        min-height: 100vh;
         display: flex;
+        min-height: 100vh;
         align-items: center;
         justify-content: center;
         padding: 1rem;
+        background-color: #0a0a0a;
+        color: #f5f3ee;
+        font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
       }
-      .container {
-        max-width: 32rem;
+      main {
         width: 100%;
-        text-align: center;
+        max-width: 48rem;
       }
-      .error-box {
-        background-color: #141414;
-        padding: 2rem;
+      .label {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #6e6c66;
       }
       h1 {
-        font-size: 4rem;
-        font-weight: 700;
+        margin-top: 1rem;
+        font-size: clamp(4rem, 14vw, 6rem);
+        font-weight: 400;
         line-height: 1;
       }
       .message {
-        margin-top: 1rem;
+        margin-top: 1.25rem;
         font-size: 1.125rem;
+        line-height: 1.6;
         color: #a5a29a;
       }
-      .log {
-        margin-top: 1.5rem;
-        color: #a5a29a;
-      }
-      .log-cmd {
+      nav {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #2a2a28;
         font-size: 0.875rem;
       }
-      .log-cmd span {
-        color: #f87171;
+      a {
+        color: #a5a29a;
+        text-decoration: underline;
+        text-decoration-color: #2a2a28;
+        text-underline-offset: 4px;
+        transition:
+          color 150ms,
+          text-decoration-color 150ms;
       }
-      .log-msg {
-        margin-top: 0.5rem;
-        font-size: 0.75rem;
-        color: #6e6c66;
-      }
-      .home-link {
-        display: inline-block;
-        margin-top: 1.5rem;
-        background-color: #141414;
-        padding: 0.75rem 1.5rem;
+      a:hover {
         color: #f5f3ee;
-        text-decoration: none;
-        transition: background-color 0.2s;
-      }
-      .home-link:hover {
-        background-color: #1c1c1c;
-      }
-      .home-link span {
-        color: #4ade80;
+        text-decoration-color: #6e6c66;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="error-box">
-        <h1>%sveltekit.status%</h1>
-        <p class="message">%sveltekit.error.message%</p>
-      </div>
-      <div class="log">
-        <p class="log-cmd"><span>$</span> cat ./error.log</p>
-        <p class="log-msg">Error: %sveltekit.error.message%</p>
-      </div>
-      <a href="/" class="home-link"> <span>$</span> cd ~ </a>
-    </div>
+    <main>
+      <p class="label">Error</p>
+      <h1>%sveltekit.status%</h1>
+      <p class="message">%sveltekit.error.message%</p>
+      <nav>
+        <a href="/">&larr; Back to home</a>
+      </nav>
+    </main>
   </body>
 </html>

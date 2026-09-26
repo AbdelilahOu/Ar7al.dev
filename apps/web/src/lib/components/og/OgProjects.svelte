@@ -9,7 +9,7 @@
 	let { projects }: Props = $props();
 </script>
 
-<OgFrame label="Projects" path="ar7al.com/projects">
+<OgFrame label="Projects" path="ar7al.dev/projects">
 	<div style="display: flex; font-size: 52px; line-height: 1.1; color: {colors.ink};">
 		Software I've built
 	</div>

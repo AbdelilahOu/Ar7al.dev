@@ -5,7 +5,7 @@
 	const stack = ['Go', 'TypeScript', 'PostgreSQL', 'Docker', 'Next.js', 'Tauri'];
 </script>
 
-<OgFrame label="Portfolio" path="ar7al.com" showName={false}>
+<OgFrame label="Portfolio" path="ar7al.dev" showName={false}>
 	<div style="display: flex; font-size: 80px; line-height: 1.05; color: {colors.ink};">
 		Abdelilah Ouaadouch
 	</div>

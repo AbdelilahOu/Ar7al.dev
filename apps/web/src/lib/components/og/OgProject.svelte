@@ -16,7 +16,7 @@
 	let meta = $derived(github ? `${date} · ${github.replace('https://', '')}` : date);
 </script>
 
-<OgFrame label="Project" path="ar7al.com/projects">
+<OgFrame label="Project" path="ar7al.dev/projects">
 	<div style="display: flex; font-size: {titleSize(title)}px; line-height: 1.15; color: {colors.ink};">
 		{title}
 	</div>
