@@ -11,17 +11,14 @@
 		col: number;
 		row: number;
 		month: number;
-		/** -1 marks a future day in the current year */
 		contributions: number;
 	}
 
 	let props: Props = $props();
 
-	// Grid geometry in SVG units. The SVG scales to the container height, so these are ratios.
 	const TILE = 10;
 	const GAP = 2;
 	const PITCH = TILE + GAP;
-	// Room around the tiles so the month outline (drawn in the gaps) is not clipped
 	const PAD = 1.5;
 	const MONTHS = [
 		'January', 'February', 'March', 'April', 'May', 'June',
@@ -37,7 +34,6 @@
 	let scrollLeft = $state(0);
 	let hoveredMonth: number | null = $state(null);
 
-	// The current month is highlighted until another month is hovered (December for a past year)
 	let currentMonth = $derived(props.year === today.getFullYear() ? today.getMonth() : 11);
 	let activeMonth = $derived(hoveredMonth ?? currentMonth);
 
@@ -77,27 +73,21 @@
 	const viewHeight = 7 * PITCH - GAP + 2 * PAD;
 	const POPOVER_GAP = 12;
 
-	// Pixel position of an SVG x coordinate inside the visible graph area
 	function toPx(x: number): number {
 		return (x + PAD) * (rootHeight / viewHeight) - scrollLeft;
 	}
 
-	// Next to the hovered month: on the right if it fits, otherwise on the left
 	let popoverLeft = $derived.by(() => {
 		if (rootHeight === 0) return 0;
 		const left = toPx(months[activeMonth].left);
 		const right = toPx(months[activeMonth].right);
-		if (right + POPOVER_GAP + popoverWidth <= rootWidth) return right + POPOVER_GAP;
-		if (left - POPOVER_GAP - popoverWidth >= 0) return left - POPOVER_GAP - popoverWidth;
-		return rootWidth - right > left
-			? Math.min(right + POPOVER_GAP, rootWidth - popoverWidth)
-			: Math.max(left - POPOVER_GAP - popoverWidth, 0);
+		let x: number;
+		if (right + POPOVER_GAP + popoverWidth <= rootWidth) x = right + POPOVER_GAP;
+		else if (left - POPOVER_GAP - popoverWidth >= 0) x = left - POPOVER_GAP - popoverWidth;
+		else x = rootWidth - right > left ? right + POPOVER_GAP : left - POPOVER_GAP - popoverWidth;
+		return Math.min(Math.max(x, 0), Math.max(rootWidth - popoverWidth, 0));
 	});
 
-	/**
-	 * Outline around a month's cells, which run column by column from (c1, r1) to (c2, r2):
-	 * a partial first week, full weeks in between, and a partial last week.
-	 */
 	function outlinePath(c1: number, r1: number, c2: number, r2: number): string {
 		const x = (col: number) => col * PITCH - GAP / 2;
 		const y = (row: number) => row * PITCH - GAP / 2;
@@ -128,12 +118,16 @@
 		if (month !== null) hoveredMonth = Number(month);
 	}
 
-	// Start scrolled so the current month is centered
 	$effect(() => {
 		if (!scrollContainer || rootHeight === 0 || rootWidth === 0) return;
+		const scale = rootHeight / viewHeight;
 		const month = months[currentMonth];
-		const center = ((month.left + month.right) / 2 + PAD) * (rootHeight / viewHeight);
-		scrollContainer.scrollLeft = center - rootWidth / 2;
+		const center = ((month.left + month.right) / 2 + PAD) * scale;
+		const popoverRoom = POPOVER_GAP + 150;
+		const maxScroll = Math.max(viewWidth * scale - rootWidth, 0);
+		const target = Math.min(Math.max(center - (rootWidth - popoverRoom) / 2, 0), maxScroll);
+		scrollContainer.scrollLeft = target;
+		scrollLeft = target;
 	});
 </script>
 
@@ -185,7 +179,7 @@
 		<div
 			class="pointer-events-none absolute top-1/2 z-10 -translate-y-1/2 whitespace-nowrap rounded-md border border-line bg-page px-3 py-2 text-xs shadow-lg"
 			style="left: {popoverLeft}px"
-			bind:clientWidth={popoverWidth}
+			bind:offsetWidth={popoverWidth}
 			transition:fade={{ duration: 150 }}
 		>
 			<p class="font-medium text-ink">{MONTHS[activeMonth]} {props.year}</p>
