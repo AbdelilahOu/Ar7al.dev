@@ -130,10 +130,10 @@
 
 	// Start scrolled so the current month is centered
 	$effect(() => {
-		if (!scrollContainer || rootHeight === 0) return;
+		if (!scrollContainer || rootHeight === 0 || rootWidth === 0) return;
 		const month = months[currentMonth];
 		const center = ((month.left + month.right) / 2 + PAD) * (rootHeight / viewHeight);
-		scrollContainer.scrollLeft = center - scrollContainer.clientWidth / 2;
+		scrollContainer.scrollLeft = center - rootWidth / 2;
 	});
 </script>
 

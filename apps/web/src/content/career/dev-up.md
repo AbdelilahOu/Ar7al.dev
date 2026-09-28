@@ -3,7 +3,7 @@ title: Senior Software Engineer
 company: DEV-UP
 companyWebsite: https://dev-up.io/
 companyUrl: https://www.linkedin.com/company/80668205/
-logo: /logos/dev-up.svg
+logo: /logos/dev-up.png
 type: Full-time
 description: "Build backend-heavy products for clients end to end, plus AI agents and Expo mobile apps published to the App Store and Play Store."
 startDate: "2025-04"

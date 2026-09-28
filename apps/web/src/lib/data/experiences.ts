@@ -3,7 +3,7 @@ export interface ExperienceMetadata {
   company: string;
   companyWebsite?: string;
   companyUrl?: string;
-  /** Path under static/, e.g. "/logos/dev-up.svg". Falls back to the company's initial. */
+  /** Path under static/, e.g. "/logos/dev-up.png". Falls back to the company's initial. */
   logo?: string;
   type: "Full-time" | "Part-time" | "Contract" | "Internship";
   description: string;
