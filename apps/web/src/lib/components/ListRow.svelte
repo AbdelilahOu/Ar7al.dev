@@ -1,4 +1,3 @@
-<!-- Borderless list row (winglee.dev style). Place inside a `group/list` container so hovering one row dims the others. -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import HoverArrow from '$lib/components/HoverArrow.svelte';

@@ -37,7 +37,6 @@ export const apiHandler = new OpenAPIHandler(appRouter, {
 });
 
 export const rpcHandler = new RPCHandler(appRouter, {
-  // plugins: [new CORSPlugin()],
   interceptors: [
     onError((error) => {
       console.error(error);

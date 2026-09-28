@@ -39,7 +39,6 @@ const config = {
 
   kit: {
     adapter: alchemy(),
-    // Inline all CSS into the HTML so first paint doesn't wait on a stylesheet request
     inlineStyleThreshold: Infinity,
     alias: {
       "@posts": "src/content/blog-posts",

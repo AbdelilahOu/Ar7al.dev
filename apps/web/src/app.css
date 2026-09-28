@@ -9,7 +9,6 @@
   --font-mono: "JetBrains Mono Variable", monospace;
 }
 
-/* Near-black surfaces with warm "ink" text, adapted from winglee.dev */
 @theme static {
   --color-page: #0a0a0a;
   --color-card: #0f0f0f;
@@ -35,7 +34,6 @@ body {
   display: none;
 }
 
-/* Markdown articles on the blog, project, and career pages (mdsvex output can't take utility classes) */
 .prose {
   color: var(--color-ink-soft);
   line-height: 1.8;
@@ -109,7 +107,6 @@ body {
   overflow-x: auto;
   border: 1px solid var(--color-line);
   border-radius: 0.375rem;
-  /* Shiki sets an inline background; keep code blocks on the card surface */
   background-color: var(--color-card) !important;
   padding: 1.25rem;
   line-height: 1.6;

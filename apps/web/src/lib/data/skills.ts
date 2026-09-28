@@ -1,7 +1,3 @@
-// Icons live in static/icons/skills/. Most come from https://github.com/xandemon/developer-icons (MIT);
-// the ones it lacks (Tauri, Hono, Gin, Chi, Actix, SQLite, Stripe, Drizzle, Kinde, MCP, SeaORM)
-// come from each project's official site. Monochrome dark logos are recolored to the ink color.
-// Keys are lowercased skill names; several spellings map to the same file.
 const iconFiles: Record<string, string> = {
   go: "go.svg",
   golang: "go.svg",
@@ -59,7 +55,6 @@ const iconFiles: Record<string, string> = {
   seaorm: "seaorm.png",
 };
 
-/** Icon URL for a skill, or undefined when there is no icon for it. */
 export function skillIcon(name: string): string | undefined {
   const file = iconFiles[name.toLowerCase()];
   return file ? `/icons/skills/${file}` : undefined;

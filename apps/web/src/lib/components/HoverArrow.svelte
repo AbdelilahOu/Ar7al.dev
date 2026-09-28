@@ -1,4 +1,3 @@
-<!-- Up-right arrow that slides in when the nearest `group` ancestor is hovered. -->
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	viewBox="0 0 24 24"

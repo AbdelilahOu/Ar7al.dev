@@ -1,4 +1,3 @@
-<!-- Underlined external link for use inside a sentence. -->
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 
