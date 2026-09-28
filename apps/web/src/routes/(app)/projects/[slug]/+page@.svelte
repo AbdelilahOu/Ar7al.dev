@@ -164,7 +164,7 @@
 				<p class="text-sm text-ink-mute">
 					<time datetime={meta.createdAt}>{created}</time>
 				</p>
-				<h1 class="font-display text-3xl leading-tight font-semibold text-ink md:text-4xl">
+				<h1 class="font-display text-4xl leading-tight italic text-ink md:text-5xl">
 					{meta.title}
 				</h1>
 				<p class="text-lg text-ink-soft">{meta.description}</p>

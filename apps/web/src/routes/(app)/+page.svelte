@@ -141,9 +141,9 @@
 </svelte:head>
 
 <section class="space-y-4">
-	<h1 class="font-display text-3xl font-semibold text-ink md:text-4xl">
+	<h1 class="font-display text-5xl italic text-ink md:text-6xl">
 		Abdelilah Ouaadouch
-		<span class="block text-xl font-normal normal-case text-ink-soft md:text-2xl">
+		<span class="mt-1 block font-mono text-xl not-italic normal-case text-ink-soft md:text-2xl">
 			Senior Backend Engineer
 		</span>
 	</h1>
@@ -158,7 +158,7 @@
 			href="https://dev-up.io/"
 			target="_blank"
 			rel="noopener noreferrer"
-			class="text-blue-400 transition-colors hover:text-blue-300"
+			class="text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink-mute"
 		>
 			DEV-UP
 		</a>.
@@ -167,14 +167,14 @@
 
 <div class="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-4">
 	<section class="space-y-4">
-		<h2 class="text-xl font-bold text-ink md:text-2xl">
+		<h2 class="font-display text-3xl italic text-ink md:text-4xl">
 			Contact
 		</h2>
 		<ContactLinks />
 	</section>
 
 	<section class="flex flex-col gap-4">
-		<h2 class="text-xl font-bold text-ink md:text-2xl">
+		<h2 class="font-display text-3xl italic text-ink md:text-4xl">
 			GitHub Activity
 		</h2>
 		<div class="h-28 md:h-auto md:flex-1">
@@ -185,7 +185,7 @@
 
 <section class="space-y-6">
 	<div class="flex items-center justify-between">
-		<h2 class="text-xl font-bold text-ink md:text-2xl">
+		<h2 class="font-display text-3xl italic text-ink md:text-4xl">
 			Experience
 		</h2>
 		<a href="/career" class="text-sm text-ink-soft transition-colors hover:text-ink">
@@ -201,7 +201,7 @@
 
 <section class="space-y-6">
 	<div class="flex items-center justify-between">
-		<h2 class="text-xl font-bold text-ink md:text-2xl">
+		<h2 class="font-display text-3xl italic text-ink md:text-4xl">
 			Featured Projects
 		</h2>
 		<a href="/projects" class="text-sm text-ink-soft transition-colors hover:text-ink">
@@ -217,7 +217,7 @@
 
 <section class="space-y-6">
 	<div class="flex items-center justify-between">
-		<h2 class="text-xl font-bold text-ink md:text-2xl">
+		<h2 class="font-display text-3xl italic text-ink md:text-4xl">
 			Latest Posts
 		</h2>
 		<a href="/blog" class="text-sm text-ink-soft transition-colors hover:text-ink">
@@ -236,7 +236,7 @@
 </section>
 
 <section class="space-y-6">
-	<h2 class="text-xl font-bold text-ink md:text-2xl">
+	<h2 class="font-display text-3xl italic text-ink md:text-4xl">
 		Skills
 	</h2>
 	<SkillList label="Languages" skills={languages} />

@@ -15,7 +15,7 @@ export const colors = {
   line: "#2a2a28",
   ink: "#f5f3ee",
   inkSoft: "#a5a29a",
-  inkMute: "#6e6c66",
+  inkMute: "#8a877f",
 };
 
 export function truncate(text: string, max: number) {

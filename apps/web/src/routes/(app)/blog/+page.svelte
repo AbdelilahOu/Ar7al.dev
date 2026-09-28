@@ -143,9 +143,9 @@
 </svelte:head>
 
 <header class="space-y-4">
-	<h1 class="font-display text-3xl font-semibold text-ink md:text-4xl">
+	<h1 class="font-display text-5xl italic text-ink md:text-6xl">
 		Blog
-		<span class="block text-xl font-normal normal-case text-ink-soft md:text-2xl">
+		<span class="mt-1 block font-mono text-xl not-italic normal-case text-ink-soft md:text-2xl">
 			Technical Articles & Tutorials
 		</span>
 	</h1>
@@ -156,7 +156,7 @@
 </header>
 
 <section class="space-y-6">
-	<h2 class="text-xl font-bold text-ink md:text-2xl">
+	<h2 class="font-display text-3xl italic text-ink md:text-4xl">
 		Blog Posts
 	</h2>
 
@@ -175,7 +175,7 @@
 </section>
 
 <section class="space-y-4">
-	<h2 class="text-xl font-bold text-ink md:text-2xl">
+	<h2 class="font-display text-3xl italic text-ink md:text-4xl">
 		Topics
 	</h2>
 	<SkillList skills={['Go/Golang', 'Rust', 'TypeScript', 'APIs', 'System Design', 'Developer Tools', 'Database Optimization', 'Desktop Apps']} />

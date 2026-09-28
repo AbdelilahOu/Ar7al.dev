@@ -1,9 +1,11 @@
 @import "tailwindcss";
 @import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
 
 @theme {
   --color-accent: #10b981;
-  --font-display: "JetBrains Mono Variable", monospace;
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
   --font-mono: "JetBrains Mono Variable", monospace;
 }
 
@@ -15,7 +17,7 @@
   --color-line: #2a2a28;
   --color-ink: #f5f3ee;
   --color-ink-soft: #a5a29a;
-  --color-ink-mute: #6e6c66;
+  --color-ink-mute: #8a877f;
   --color-ink-faint: #3f3e3a;
 }
 

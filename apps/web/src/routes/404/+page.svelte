@@ -6,7 +6,7 @@
 <div class="flex min-h-screen w-screen flex-col items-center justify-center bg-page px-4">
 	<div class="m-auto w-full max-w-lg space-y-6 text-center">
 		<div class="rounded-md bg-card p-8">
-			<h1 class="font-display text-6xl font-bold text-ink md:text-8xl">
+			<h1 class="font-display text-7xl italic text-ink md:text-9xl">
 				404
 			</h1>
 			<p class="mt-4 text-lg text-ink-soft md:text-xl">

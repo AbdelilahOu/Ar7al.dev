@@ -169,7 +169,7 @@
 				<div class="flex items-center gap-4">
 					<CompanyLogo company={meta.company} logo={meta.logo} size="lg" />
 					<div class="min-w-0">
-						<h1 class="font-display text-3xl leading-tight font-semibold text-ink md:text-4xl">
+						<h1 class="font-display text-4xl leading-tight italic text-ink md:text-5xl">
 							{meta.company}
 						</h1>
 						<p class="mt-1 text-ink-soft">{meta.title}</p>
