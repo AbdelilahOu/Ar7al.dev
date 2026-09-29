@@ -155,7 +155,7 @@
 	})}</script>`}
 </svelte:head>
 
-<div class="min-h-screen w-screen bg-page px-4 pb-8">
+<div class="min-h-screen w-full bg-page px-4 pb-8">
 	<div class="m-auto w-full max-w-3xl">
 		<BackLink href="/projects" label="Projects" />
 

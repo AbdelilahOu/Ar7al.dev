@@ -4,6 +4,7 @@ export interface ExperienceMetadata {
   companyWebsite?: string;
   companyUrl?: string;
   logo?: string;
+  logoMono?: boolean;
   type: "Full-time" | "Part-time" | "Contract" | "Internship";
   description: string;
   startDate: string;
