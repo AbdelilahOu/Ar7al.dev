@@ -20,12 +20,6 @@ features:
 challenges:
   - name: An editor anyone can use
     summary: "The drag-and-drop upload, the text overlays, and the live preview all had to be easy to use."
-  - name: Mockups that match the case
-    summary: "The preview has to match the real case. Uploaded images go through a pipeline that transforms them for the preview and also produces the print-ready files for manufacturing."
-  - name: Images at scale
-    summary: "Image uploads, and the processing behind them, had to hold up at scale."
-  - name: A reliable checkout
-    summary: "The Stripe checkout had to stay reliable across several payment methods and currencies."
 web: https://case-ecommerce.vercel.app/
 github: https://github.com/AbdelilahOu/Case-ecommerce
 createdAt: "2026-01-10"

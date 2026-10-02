@@ -23,12 +23,6 @@ features:
 challenges:
   - name: Two layers of SQLite
     summary: "Each workspace is its own SQLite tenant database. A separate system catalog database tracks every workspace and which one is active, and the app hot-swaps the tenant connection when you switch."
-  - name: Invoices that can't change
-    summary: "Once an invoice is finalized it's immutable, so returns and pricing corrections go through credit notes instead."
-  - name: Legal PDFs
-    summary: "Quotes, delivery notes, and invoices print with the legal identity fields Moroccan documents require (ICE, IF, RC, and Patente/TP) for both the client and the seller."
-  - name: Nuxt on Tauri
-    summary: "Nuxt 4 talks to the Rust backend over Tauri v2 IPC, and its state has to stay right when you switch workspaces."
 web: https://mahalli-web.pages.dev/
 github: https://github.com/AbdelilahOu/Mahalli
 createdAt: "2026-01-15"
