@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { skillIcon } from '$lib/data/skills';
+	import { isMonoIcon, skillIcon } from '$lib/data/skills';
 
 	interface Props {
 		skills: string[];
@@ -18,7 +18,11 @@
 			{@const icon = skillIcon(skill)}
 			<li class="flex items-center gap-2 text-sm text-ink-soft">
 				{#if icon}
-					<img src={icon} alt="" class="size-5 object-contain" />
+					<img
+						src={icon}
+						alt=""
+						class="size-5 object-contain {isMonoIcon(skill) ? 'light:invert' : ''}"
+					/>
 				{:else}
 					<span
 						class="flex size-5 items-center justify-center rounded-sm border border-line text-[10px] text-ink-mute"

@@ -4,6 +4,7 @@ company: Modoock Solutions
 companyWebsite: https://www.modoock.com/
 companyUrl: https://www.linkedin.com/company/102614308/
 logo: /logos/modoock.png
+logoMono: true
 type: Full-time
 description: "Built backend services for an electronic medical record and hospital management platform, with an event-driven core."
 startDate: "2023-06"

@@ -9,15 +9,46 @@
   --font-mono: "JetBrains Mono Variable", monospace;
 }
 
+@custom-variant light {
+  &:where([data-theme="light"], [data-theme="light"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: light) {
+    &:where(:root:not([data-theme]), :root:not([data-theme]) *) {
+      @slot;
+    }
+  }
+}
+
 @theme static {
-  --color-page: #0a0a0a;
-  --color-card: #0f0f0f;
-  --color-raised: #1c1c1c;
-  --color-line: #2a2a28;
-  --color-ink: #f5f3ee;
-  --color-ink-soft: #a5a29a;
-  --color-ink-mute: #8a877f;
-  --color-ink-faint: #3f3e3a;
+  --color-page: light-dark(#faf9f6, #0a0a0a);
+  --color-card: light-dark(#f3f2ee, #0f0f0f);
+  --color-raised: light-dark(#e9e7e2, #1c1c1c);
+  --color-line: light-dark(#dcd9d1, #2a2a28);
+  --color-ink: light-dark(#1c1b19, #f5f3ee);
+  --color-ink-soft: light-dark(#55524c, #a5a29a);
+  --color-ink-mute: light-dark(#67645d, #8a877f);
+  --color-ink-faint: light-dark(#c4c1b9, #3f3e3a);
+  --color-gh-1: light-dark(#9be9a8, #0e4429);
+  --color-gh-2: light-dark(#40c463, #006d32);
+  --color-gh-3: light-dark(#30a14e, #26a641);
+  --color-gh-4: light-dark(#216e39, #39d353);
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+.theme-switching * {
+  transition: none !important;
 }
 
 body {
@@ -130,6 +161,13 @@ body {
   padding: 0;
 }
 
+.shiki,
+.shiki span {
+  @variant light {
+    color: var(--shiki-light) !important;
+  }
+}
+
 .prose blockquote {
   margin-bottom: 1.25rem;
   border-left: 2px solid var(--color-line);
@@ -146,4 +184,8 @@ body {
   display: block;
   margin: 2rem 0;
   max-width: 100%;
+
+  @variant light {
+    filter: invert(1) hue-rotate(180deg);
+  }
 }
