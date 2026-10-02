@@ -1,3 +1,5 @@
+import type { NumberedItem } from "$lib/components/NumberedList.svelte";
+
 export interface ExperienceMetadata {
   title: string;
   company: string;
@@ -11,6 +13,9 @@ export interface ExperienceMetadata {
   location: string;
   locationType: "Remote" | "Hybrid" | "On-site";
   technologies: string[];
+  intro?: string;
+  work?: NumberedItem[];
+  takeaway?: string;
   published: boolean;
 }
 

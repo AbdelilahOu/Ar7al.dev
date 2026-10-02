@@ -17,19 +17,22 @@ technologies:
   - Next.js
   - Expo
   - AI-Agents
+intro: "I'm on a remote team that builds backend-heavy apps for clients, and I spend most of my time in Go and TypeScript."
+work:
+  - name: Client backends
+    summary: "I design the APIs in Go and TypeScript, model the data in PostgreSQL, and wire it all up to the frontend."
+    tech:
+      - Go
+      - TypeScript
+      - PostgreSQL
+      - Next.js
+  - name: AI agents
+    summary: "I build small agents that plug into tools people already use (dashboards, CRMs, internal panels) and take over boring work like data entry and reporting."
+    tech:
+      - AI-Agents
+  - name: Mobile apps
+    summary: "I build mobile apps with Expo, and a few of them are out on the App Store and Play Store."
+    tech:
+      - Expo
 published: true
 ---
-
-I work with a remote team building backend-heavy apps for clients. I spend most of my time in Go and TypeScript: designing APIs, modelling data in PostgreSQL, and wiring it all up to the frontend.
-
-Lately I also build small AI agents that plug into tools people already use (dashboards, CRMs, internal panels) and take over boring work like data entry and reporting. I'm usually the one making sure an agent has the right backend hooks, permissions, and observability before it runs in production.
-
-On top of the backend work, I build mobile apps with Expo, and I've published a few of them to the App Store and Play Store.
-
-## Highlights
-
-- Backend-heavy apps for clients
-- REST APIs in Go and TypeScript
-- Data modelling in PostgreSQL
-- AI automation tools for internal workflows
-- Mobile apps with Expo, published to the App Store and Play Store

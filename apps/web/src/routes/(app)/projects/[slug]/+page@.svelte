@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Component } from 'svelte';
 	import ActionLink from '$lib/components/ActionLink.svelte';
 	import BackLink from '$lib/components/BackLink.svelte';
+	import NumberedList from '$lib/components/NumberedList.svelte';
 	import PrevNext from '$lib/components/PrevNext.svelte';
 	import SignOff from '$lib/components/SignOff.svelte';
 	import TechIcons from '$lib/components/TechIcons.svelte';
@@ -9,7 +9,6 @@
 
 	let props: {
 		data: {
-			content: Component;
 			meta: ProjectMetadata;
 			slug: string;
 			origin: string;
@@ -161,13 +160,12 @@
 
 		<div class="space-y-12">
 			<header class="space-y-4">
-				<p class="text-sm text-ink-mute">
-					<time datetime={meta.createdAt}>{created}</time>
-				</p>
 				<h1 class="font-display text-4xl leading-tight italic text-ink md:text-5xl">
 					{meta.title}
 				</h1>
-				<p class="text-lg text-ink-soft">{meta.description}</p>
+				<p class="text-sm text-ink-mute">
+					<time datetime={meta.createdAt}>{created}</time>
+				</p>
 				<div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 pt-2">
 					<TechIcons tech={meta.tech} />
 					{#if meta.github || meta.web}
@@ -183,9 +181,21 @@
 				</div>
 			</header>
 
-			<article class="prose">
-				<props.data.content />
-			</article>
+			<p class="text-lg leading-8 text-ink">{meta.intro ?? meta.description}</p>
+
+			{#if meta.features?.length}
+				<section class="space-y-8">
+					<h2 class="font-display text-3xl italic text-ink md:text-4xl">What it does</h2>
+					<NumberedList items={meta.features} />
+				</section>
+			{/if}
+
+			{#if meta.challenges?.length}
+				<section class="space-y-8">
+					<h2 class="font-display text-3xl italic text-ink md:text-4xl">What was hard</h2>
+					<NumberedList items={meta.challenges} />
+				</section>
+			{/if}
 
 			<footer class="space-y-10 border-t border-line pt-10">
 				<PrevNext
