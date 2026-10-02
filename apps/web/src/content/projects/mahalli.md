@@ -19,7 +19,7 @@ features:
   - name: Inventory and clients
     summary: "It tracks stock, keeps each client's full transaction history, and has a dashboard with charts and analytics."
   - name: Works offline
-    summary: "Everything is stored locally in SQLite, so there's no server to run. The interface supports more than one language through i18n."
+    summary: "It stores everything locally in SQLite, so there's no server to run. The interface supports more than one language through i18n."
 challenges:
   - name: Two layers of SQLite
     summary: "Each workspace is its own SQLite tenant database. A separate system catalog database tracks every workspace and which one is active, and the app hot-swaps the tenant connection when you switch."

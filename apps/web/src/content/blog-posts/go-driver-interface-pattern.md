@@ -1,7 +1,7 @@
 ---
 title: "DBMcp: Refactoring to a Driver Interface"
 description: How I restructured DBMcp's multi-database support, replacing scattered if/else checks with a Go interface so adding a new driver only requires one new file.
-seoDescription: A look at how DBMcp moved from scattered database type checks to a clean Go driver interface, making the codebase easier to extend and maintain.
+seoDescription: How DBMcp moved from scattered database type checks to a Go driver interface, so each database's queries live in one file.
 seoKeywords:
   - DBMcp
   - MCP server Go
@@ -27,7 +27,7 @@ By the third database, the codebase had a problem I couldn't ignore.
 
 ## The old way
 
-Every tool function (and there were around 20 of them) had the same shape. Here is what `list_tables` looked like:
+Every tool function (and there were around 20 of them) had the same shape. `list_tables` looked like this:
 
 ```go
 func listTablesHandler(ctx context.Context, dbType string, conn *sql.DB, schema string) ([]TableInfo, error) {
@@ -201,11 +201,11 @@ func RegisterTools(s *mcp.Server, drv driver.Driver) {
 }
 ```
 
-The server registers exactly the tools the connected database can actually use.
+The server registers only the tools the connected database can use.
 
 ## Adding a new driver
 
-Here is what adding CockroachDB support looks like now. Create one file:
+Adding CockroachDB support now means creating one file:
 
 ```go
 // internal/driver/cockroachdb.go
@@ -234,7 +234,7 @@ case "cockroachdb":
     drv = &driver.CockroachDBDriver{}
 ```
 
-No tool file changes. The 20 tool handlers work without knowing CockroachDB exists, and the compiler tells you right away if you've missed an interface method.
+The tool files don't change. The 20 tool handlers work without knowing CockroachDB exists, and the compiler tells you right away if you've missed an interface method.
 
 ## Cleaning up hidden state
 
@@ -268,4 +268,4 @@ internal/driver/
 
 Each file stands on its own, and adding a driver means adding a file instead of editing the ones already there. The tool files lost thousands of lines of duplicated query logic and are now simple delegations that are easy to read and test.
 
-None of this is new. It's the standard Go interface pattern, applied consistently. Where it paid off most was when I had to extend the server in a direction I hadn't planned for.
+None of this is new. It's the standard Go interface pattern, applied consistently.

@@ -1,6 +1,6 @@
 ---
 title: Hello World - My First Blog Post
-description: Welcome to my blog where I share thoughts on Go, Rust, TypeScript, and building software.
+description: Notes on Go, Rust, TypeScript, and building software, written as I learn.
 seoDescription: A quick intro to my new developer blog, covering Go, Rust, TypeScript, and the kind of software I plan to build and share.
 seoKeywords:
   - developer blog
@@ -15,11 +15,9 @@ tags:
 published: true
 ---
 
-Welcome to my blog. This is the first post, and the plan is simple: write down what I learn as a fullstack developer.
+Welcome to my blog. This is the first post, and the plan is to write down what I learn as a fullstack developer.
 
-## What to expect
-
-I'll be writing about:
+## What I'll write about
 
 - Go/Golang: fast APIs and CLI tools
 - Rust: systems programming and desktop apps with Tauri
@@ -30,6 +28,6 @@ I'll be writing about:
 
 I run into interesting problems most days. I wanted somewhere to write down how I solved them, share what I picked up along the way, and meet other developers working on the same kind of stuff.
 
-## Let's connect
+## Find me online
 
-You can find me on [Twitter](https://x.com/Abdelilah4dev), and my projects are on [GitHub](https://github.com/AbdelilahOu).
+I'm on [Twitter](https://x.com/Abdelilah4dev), and my projects are on [GitHub](https://github.com/AbdelilahOu).
