@@ -17,17 +17,21 @@ technologies:
   - PostgreSQL
   - Kafka
   - REST APIs
+intro: "Modoock builds an electronic medical record (EMR) and hospital management platform. I worked on its backend in Node.js and Go."
+work:
+  - name: Kafka sync between services
+    summary: "I designed and ran the Kafka pipeline that kept patient data, billing, and appointments in sync between services."
+    tech:
+      - Kafka
+      - Go
+      - Node.js
+  - name: Backend services
+    summary: "The backend ran as Dockerized microservices on PostgreSQL, and I exposed them to the frontend through REST APIs. When something weird happened in production, I dug into it with the frontend and DevOps teams."
+    tech:
+      - Node.js
+      - Go
+      - Docker
+      - PostgreSQL
+      - REST APIs
 published: true
 ---
-
-We built an electronic medical record (EMR) and hospital management platform. I worked on the backend in Node.js and Go, as Dockerized microservices on top of PostgreSQL.
-
-I designed and ran the Kafka pipeline that kept patient data, billing, and appointments in sync between services. I also exposed those services through REST APIs, and worked with the frontend and DevOps teams whenever something weird happened in production.
-
-## Highlights
-
-- Backend services for the EMR platform
-- Event-driven sync between services with Kafka
-- Dockerized microservices on PostgreSQL
-- REST APIs for the frontend
-- Production troubleshooting with the frontend and DevOps teams

@@ -77,6 +77,19 @@ body {
   color: var(--color-ink-mute);
 }
 
+.prose ol {
+  counter-reset: step;
+}
+
+.prose ol > li {
+  counter-increment: step;
+}
+
+.prose ol > li::before {
+  content: counter(step, decimal-leading-zero) " ";
+  margin-right: 0.5rem;
+}
+
 .prose a {
   color: var(--color-ink);
   text-decoration: underline;

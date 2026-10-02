@@ -15,16 +15,16 @@ technologies:
   - Java
   - SpringBoot
   - i18n
+intro: "I joined the team in the middle of a big migration from an old AngularJS codebase to modern Angular with TypeScript."
+work:
+  - name: AngularJS to Angular migration
+    summary: "Most days I was turning controllers into components, cleaning up templates, and fixing the UI bugs the migration kept turning up."
+    tech:
+      - AngularJS
+      - TypeScript
+  - name: Multi-language support
+    summary: "I helped add multi-language support with Angular's i18n tools, so the app worked in more than one language without duplicating views."
+    tech:
+      - i18n
 published: true
 ---
-
-I joined the team in the middle of a big migration from an old AngularJS codebase to modern Angular with TypeScript. Most days I was turning controllers into components, cleaning up templates, and fixing the UI bugs the migration kept turning up.
-
-I also helped add multi-language support with Angular's i18n tools, so the app worked in more than one language without duplicating views.
-
-## Highlights
-
-- Moved a legacy AngularJS codebase to modern Angular
-- Refactored controllers into components
-- Fixed UI bugs that surfaced during the migration
-- Added multi-language support with Angular i18n
