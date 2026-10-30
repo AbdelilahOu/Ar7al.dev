@@ -2,10 +2,11 @@
 	interface Props {
 		company: string;
 		logo?: string;
+		mono?: boolean;
 		size?: 'md' | 'lg';
 	}
 
-	let { company, logo, size = 'md' }: Props = $props();
+	let { company, logo, mono = false, size = 'md' }: Props = $props();
 </script>
 
 <span
@@ -17,7 +18,9 @@
 		<img
 			src={logo}
 			alt=""
-			class="object-contain grayscale {size === 'lg' ? 'size-7' : 'size-5 sm:size-6'}"
+			class="object-contain grayscale {mono ? 'light:invert' : ''} {size === 'lg'
+				? 'size-7'
+				: 'size-5 sm:size-6'}"
 		/>
 	{:else}
 		<span class="font-semibold text-ink-soft {size === 'lg' ? 'text-lg' : 'text-sm sm:text-base'}">

@@ -56,7 +56,25 @@ const iconFiles: Record<string, string> = {
   seaorm: "seaorm.png",
 };
 
+const monoIcons = new Set([
+  "rust.svg",
+  "nextjs.svg",
+  "express.svg",
+  "github.svg",
+  "kafka.svg",
+  "mysql.svg",
+  "shadcn.svg",
+  "tauri.svg",
+  "actix.png",
+  "kinde.svg",
+  "expo.svg",
+]);
+
 export function skillIcon(name: string): string | undefined {
   const file = iconFiles[name.toLowerCase()];
   return file ? `/icons/skills/${file}` : undefined;
+}
+
+export function isMonoIcon(name: string): boolean {
+  return monoIcons.has(iconFiles[name.toLowerCase()] ?? "");
 }

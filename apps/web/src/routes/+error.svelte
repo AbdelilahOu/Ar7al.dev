@@ -16,7 +16,7 @@
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
-<div class="flex min-h-screen w-screen items-center justify-center bg-page px-4">
+<div class="flex min-h-screen w-full items-center justify-center bg-page px-4">
 	<main class="w-full max-w-3xl">
 		<p class="text-xs uppercase tracking-[0.2em] text-ink-mute">Error</p>
 		<h1 class="mt-4 font-display text-8xl leading-none italic text-ink md:text-9xl">
