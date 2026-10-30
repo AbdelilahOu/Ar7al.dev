@@ -1,5 +1,4 @@
 import { appendFileSync } from "node:fs";
-
 import alchemy from "alchemy";
 import { Ruleset, SvelteKit, Worker } from "alchemy/cloudflare";
 import { config } from "dotenv";
@@ -8,13 +7,21 @@ config({ path: "./.env" });
 config({ path: "./apps/web/.env" });
 config({ path: "./apps/server/.env" });
 
+// Set by the PR preview workflow to something like "pr-42". Unset in production.
 const previewId = process.env.ALCHEMY_PREVIEW_ID;
 const isPreview = Boolean(previewId);
 
+// Cloudflare account's workers.dev subdomain, taken from the production
+// CORS_ORIGINS value (https://api-portfolio.ar7al.workers.dev). Used to predict
+// a preview Worker's URL before it exists, so the other Worker's bindings can
+// reference it without a second deploy.
 const WORKERS_DEV_SUBDOMAIN = "ar7al";
 
 const app = await alchemy("Personal-website", {
   password: alchemy.env.SECRET_PASSPHRASE!,
+  // A distinct stage keeps preview state and resources (Worker names, no
+  // custom domains) completely separate from the production stage, so a
+  // preview deploy can never affect ar7al.dev's domain bindings.
   ...(isPreview ? { stage: `pr-${previewId}` } : {}),
 });
 
