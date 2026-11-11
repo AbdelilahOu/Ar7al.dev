@@ -1,7 +1,7 @@
 import { read } from "$app/server";
 import fontSource from "$lib/assets/fonts/JetBrainsMono-Regular.ttf";
 import OgBlog from "$lib/components/og/OgBlog.svelte";
-import { getPosts } from "$lib/data/posts";
+import { getPostBySlug, getPosts } from "$lib/data/posts";
 import { ImageResponse } from "@ethercorps/sveltekit-og";
 import { CustomFont, resolveFonts } from "@ethercorps/sveltekit-og/fonts";
 
@@ -9,8 +9,8 @@ const fontData = read(fontSource).arrayBuffer();
 
 export const GET = async ({ params }) => {
   try {
-    const post = await import(`@posts/${params.slug}.md`);
-    const meta = post.metadata;
+    const meta = getPostBySlug(params.slug);
+    if (!meta) return new Response("Not found", { status: 404 });
 
     const fonts = [new CustomFont("JetBrainsMono", fontData, { weight: 400 })];
 
