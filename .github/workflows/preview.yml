@@ -32,7 +32,6 @@ jobs:
         run: bun run deploy
         env:
           ALCHEMY_PREVIEW_ID: pr-${{ github.event.pull_request.number }}
-          # secrets
           SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -97,7 +96,6 @@ jobs:
         run: bun run destroy
         env:
           ALCHEMY_PREVIEW_ID: pr-${{ github.event.pull_request.number }}
-          # secrets
           SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
