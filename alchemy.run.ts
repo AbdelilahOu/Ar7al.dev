@@ -1,4 +1,5 @@
 import { appendFileSync } from "node:fs";
+
 import alchemy from "alchemy";
 import { Ruleset, SvelteKit, Worker } from "alchemy/cloudflare";
 import { config } from "dotenv";

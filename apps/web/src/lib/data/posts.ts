@@ -9,7 +9,7 @@ export function getPosts(): Post[] {
 
   for (const path in paths) {
     const file = paths[path];
-    const slug = path.split("/").pop()?.replace(".md", "") ?? "";
+    const [postNumber, slug] = path.split("/").pop()?.replace(".md", "").split(".") ?? ["", ""];
 
     if (file && typeof file === "object" && "metadata" in file && slug) {
       const metadata = file.metadata as PostMetadata;
@@ -18,6 +18,7 @@ export function getPosts(): Post[] {
         posts.push({
           ...metadata,
           slug,
+          postNumber,
         });
       }
     }
@@ -34,16 +35,23 @@ export function getLatestPosts(count: number): Post[] {
   return getPosts().slice(0, count);
 }
 
-export function getAdjacentPosts(slug: string): { previous: Post | null; next: Post | null } {
+type PostContext = {
+  previous: Post | null;
+  next: Post | null;
+  postNumber: string | null;
+};
+
+export function getPostContext(slug: string): PostContext {
   const posts = getPosts();
   const index = posts.findIndex((post) => post.slug === slug);
 
   if (index === -1) {
-    return { previous: null, next: null };
+    return { previous: null, next: null, postNumber: null };
   }
 
   return {
     previous: posts[index + 1] ?? null,
     next: posts[index - 1] ?? null,
+    postNumber: posts[index].postNumber,
   };
 }

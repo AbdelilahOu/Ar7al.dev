@@ -7,6 +7,7 @@ export interface Post {
   date: string;
   tags: string[];
   published: boolean;
+  postNumber: string;
 }
 
 export interface PostMetadata {
