@@ -20,6 +20,6 @@
 	tech={experience.technologies}
 >
 	{#snippet icon()}
-		<CompanyLogo company={experience.company} logo={experience.logo} />
+		<CompanyLogo company={experience.company} logo={experience.logo} mono={experience.logoMono} />
 	{/snippet}
 </ListRow>

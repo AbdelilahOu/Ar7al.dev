@@ -161,14 +161,14 @@
 	})}</script>`}
 </svelte:head>
 
-<div class="min-h-screen w-screen bg-page px-4 pb-8">
+<div class="min-h-screen w-full bg-page px-4 pb-8">
 	<div class="m-auto w-full max-w-3xl">
 		<BackLink href="/career" label="Career" />
 
 		<div class="space-y-12">
 			<header class="space-y-4">
 				<div class="flex items-center gap-4">
-					<CompanyLogo company={meta.company} logo={meta.logo} size="lg" />
+					<CompanyLogo company={meta.company} logo={meta.logo} mono={meta.logoMono} size="lg" />
 					<div class="min-w-0">
 						<h1 class="font-display text-4xl leading-tight italic text-ink md:text-5xl">
 							{meta.company}

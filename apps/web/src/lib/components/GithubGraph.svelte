@@ -107,10 +107,10 @@
 	function tileColor(contributions: number): string {
 		if (contributions === -1) return 'fill-raised/50';
 		if (contributions === 0) return 'fill-raised';
-		if (contributions <= 2) return 'fill-[#0e4429]';
-		if (contributions <= 4) return 'fill-[#006d32]';
-		if (contributions <= 6) return 'fill-[#26a641]';
-		return 'fill-[#39d353]';
+		if (contributions <= 2) return 'fill-gh-1';
+		if (contributions <= 4) return 'fill-gh-2';
+		if (contributions <= 6) return 'fill-gh-3';
+		return 'fill-gh-4';
 	}
 
 	function handlePointerOver(event: PointerEvent): void {
