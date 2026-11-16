@@ -1,14 +1,18 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
+
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import alchemy from "alchemy/cloudflare/sveltekit";
 import { escapeSvelte, mdsvex } from "mdsvex";
 import { createHighlighter } from "shiki";
 
 const themes = { light: "github-light", dark: "poimandres" };
-const langs = ["go", "markdown"];
+const langs = ["go", "markdown", "powershell", "bash"];
 
-const appHtml = readFileSync(new URL("./src/app.html", import.meta.url), "utf8").replace(/\r\n?/g, "\n");
+const appHtml = readFileSync(new URL("./src/app.html", import.meta.url), "utf8").replace(
+  /\r\n?/g,
+  "\n",
+);
 const themeScript = appHtml.match(/<script>([\s\S]*?)<\/script>/)?.[1] ?? "";
 const themeScriptHash = `sha256-${createHash("sha256").update(themeScript).digest("base64")}`;
 
@@ -35,7 +39,7 @@ const mdsvexOptions = {
       const html = escapeSvelte(
         highlighter.codeToHtml(code, { lang: supportedLang, themes, defaultColor: "dark" }),
       );
-      return `{@html \`${html}\`}`;
+      return `{@html \`${html.replace(/\\/g, "\\\\")}\`}`;
     },
   },
 };
