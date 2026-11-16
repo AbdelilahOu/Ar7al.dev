@@ -190,6 +190,14 @@ body {
   }
 }
 
+.prose img {
+  margin: 1.75rem auto;
+  width: auto;
+  max-height: 30rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.375rem;
+}
+
 .prose blockquote {
   margin-bottom: 1.25rem;
   border-left: 2px solid var(--color-line);
