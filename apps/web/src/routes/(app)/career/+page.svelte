@@ -159,7 +159,7 @@
 	</h2>
 
 	{#if props.data.experiences.length > 0}
-		<ul class="group/list space-y-10">
+		<ul class="group/list space-y-8">
 			{#each props.data.experiences as experience}
 				<li><ExperienceRow {experience} /></li>
 			{/each}

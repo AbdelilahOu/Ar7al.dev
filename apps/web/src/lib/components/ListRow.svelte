@@ -11,7 +11,6 @@
 		description?: string;
 		meta?: string;
 		tech?: string[];
-		size?: 'lg' | 'md';
 		icon?: Snippet;
 	}
 
@@ -23,7 +22,6 @@
 		description,
 		meta,
 		tech,
-		size = 'lg',
 		icon
 	}: Props = $props();
 </script>
@@ -37,11 +35,7 @@
 		<div class="min-w-0">
 			<div class="flex items-center gap-3">
 				{@render icon?.()}
-				<h3
-					class="text-ink {size === 'lg'
-						? 'text-2xl leading-none sm:text-3xl'
-						: 'text-xl leading-snug sm:text-2xl'}"
-				>
+				<h3 class="text-xl leading-snug text-ink sm:text-2xl">
 					{title}
 				</h3>
 				<HoverArrow />

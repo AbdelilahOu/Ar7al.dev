@@ -24,5 +24,4 @@
 	subtitle={post.tags.join(' · ')}
 	description={post.description}
 	meta={published}
-	size="md"
 />

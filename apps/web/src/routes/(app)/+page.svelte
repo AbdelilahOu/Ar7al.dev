@@ -192,7 +192,7 @@
 			View all {"->"}
 		</a>
 	</div>
-	<ul class="group/list space-y-10">
+	<ul class="group/list space-y-8">
 		{#each props.data.experiences as experience}
 			<li><ExperienceRow {experience} /></li>
 		{/each}
@@ -208,7 +208,7 @@
 			View all {"->"}
 		</a>
 	</div>
-	<ul class="group/list space-y-10">
+	<ul class="group/list space-y-8">
 		{#each props.data.featuredProjects as project}
 			<li><ProjectRow {project} /></li>
 		{/each}
@@ -225,7 +225,7 @@
 		</a>
 	</div>
 	{#if props.data.latestPosts.length > 0}
-		<ul class="group/list space-y-10">
+		<ul class="group/list space-y-8">
 			{#each props.data.latestPosts as post}
 				<li><PostRow {post} /></li>
 			{/each}

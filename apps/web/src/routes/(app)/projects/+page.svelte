@@ -147,7 +147,7 @@
 	</h2>
 
 	{#if props.data.projects.length > 0}
-		<ul class="group/list space-y-10">
+		<ul class="group/list space-y-8">
 			{#each props.data.projects as project}
 				<li><ProjectRow {project} /></li>
 			{/each}

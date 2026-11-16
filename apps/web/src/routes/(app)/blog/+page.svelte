@@ -161,7 +161,7 @@
 	</h2>
 
 	{#if props.data.posts.length > 0}
-		<ul class="group/list space-y-10">
+		<ul class="group/list space-y-8">
 			{#each props.data.posts as post}
 				<li><PostRow {post} /></li>
 			{/each}
