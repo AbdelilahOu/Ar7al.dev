@@ -6,6 +6,7 @@
 	import PrevNext from '$lib/components/PrevNext.svelte';
 	import SignOff from '$lib/components/SignOff.svelte';
 	import TechIcons from '$lib/components/TechIcons.svelte';
+	import NumberedList from '$lib/components/NumberedList.svelte';
 	import {
 		formatDateRange,
 		calculateDuration,
@@ -196,9 +197,27 @@
 				</div>
 			</header>
 
-			<article class="prose">
+			{#if meta.intro}
+				<p class="text-lg leading-8 text-ink">{meta.intro}</p>
+			{/if}
+
+			{#if meta.work?.length}
+				<section class="space-y-8">
+					<h2 class="font-display text-3xl italic text-ink md:text-4xl">What I worked on</h2>
+					<NumberedList items={meta.work} />
+				</section>
+			{/if}
+
+			<article class="prose empty:hidden">
 				<props.data.content />
 			</article>
+
+			{#if meta.takeaway}
+				<section class="space-y-4">
+					<h2 class="font-display text-3xl italic text-ink md:text-4xl">What I took away</h2>
+					<p class="max-w-2xl leading-8 text-ink-soft">{meta.takeaway}</p>
+				</section>
+			{/if}
 
 			<footer class="space-y-10 border-t border-line pt-10">
 				<PrevNext

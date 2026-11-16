@@ -41,7 +41,7 @@ export async function GET({ url }) {
   const latestPost = latestDate(posts.map((post) => normalizeLastmod(post.date)));
   const latestProject = latestDate(projects.map((project) => normalizeLastmod(project.createdAt)));
   const latestExperience = latestDate(
-    experiences.map((experience) => normalizeLastmod(experience.endDate ?? experience.startDate))
+    experiences.map((experience) => normalizeLastmod(experience.endDate ?? experience.startDate)),
   );
 
   const urls: string[] = [];

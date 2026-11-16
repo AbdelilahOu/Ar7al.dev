@@ -1,7 +1,12 @@
+import type { NumberedItem } from "$lib/components/NumberedList.svelte";
+
 export interface ProjectMetadata {
   title: string;
   description: string;
   tech: string[];
+  intro?: string;
+  features?: NumberedItem[];
+  challenges?: NumberedItem[];
   github?: string;
   web?: string;
   createdAt: string;

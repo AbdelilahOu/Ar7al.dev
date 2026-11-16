@@ -14,7 +14,6 @@ export async function load({ params, url }) {
     const { previous, next } = getAdjacentProjects(params.slug);
 
     return {
-      content: post.default,
       meta: post.metadata,
       slug: params.slug,
       origin: url.origin,

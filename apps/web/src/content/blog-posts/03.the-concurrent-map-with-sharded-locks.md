@@ -204,7 +204,7 @@ This stays safe even under concurrent writes because each shard is protected by 
 
 ### Takeaways
 
-With this setup, reads scale well, writes don't block each other unless they hit the same shard, and you get a clean, type-safe API without `sync.Map`.
+With this setup, reads scale well and writes only block each other when they hit the same shard. You also get a type-safe API without `sync.Map`.
 
 - Sharding keeps lock contention low by spreading keys across buckets.
 - `RWMutex` gives you cheap reads while still keeping writes safe.

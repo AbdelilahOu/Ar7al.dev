@@ -21,6 +21,7 @@ const iconFiles: Record<string, string> = {
   docker: "docker.svg",
   git: "git.svg",
   github: "github.svg",
+  "github actions": "githubactions.svg",
   postman: "postman.svg",
   postgresql: "postgresql.svg",
   postgres: "postgresql.svg",
