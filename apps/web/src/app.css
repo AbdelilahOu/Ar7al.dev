@@ -65,6 +65,28 @@ body {
   display: none;
 }
 
+.nav-fade {
+  background: linear-gradient(
+    to bottom,
+    var(--color-page) calc(100% - 1.5rem),
+    transparent calc(100% - 1.5rem)
+  );
+}
+
+.nav-fade::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: calc(100% - 1.5rem);
+  height: 2.5rem;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--color-page), transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+
 .prose {
   color: var(--color-ink-soft);
   line-height: 1.8;
