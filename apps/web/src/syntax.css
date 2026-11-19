@@ -1,0 +1,57 @@
+.twinkleplop {
+  color: light-dark(#24292e, #a6accd);
+}
+
+.twinkleplop .tok.keyword {
+  color: light-dark(#d73a49, #a6accd);
+}
+
+.twinkleplop .tok.storage,
+.twinkleplop .tok.operator {
+  color: light-dark(#d73a49, #91b4d5);
+}
+
+.twinkleplop .tok.function {
+  color: light-dark(#6f42c1, #add7ff);
+}
+
+.twinkleplop .tok.identifier,
+.twinkleplop .tok.type {
+  color: light-dark(#6f42c1, #a6accdc0);
+}
+
+.twinkleplop .tok.namespace {
+  color: light-dark(#6f42c1, #91b4d5);
+}
+
+.twinkleplop .tok.parameter,
+.twinkleplop .tok.variable {
+  color: light-dark(#e36209, #e4f0fb);
+}
+
+.twinkleplop .tok.string,
+.twinkleplop .tok.string_body {
+  color: light-dark(#032f62, #5de4c7);
+}
+
+.twinkleplop .tok.string_escape_start {
+  color: light-dark(#005cc5, #91b4d5);
+}
+
+.twinkleplop .tok.number,
+.twinkleplop .tok.boolean {
+  color: light-dark(#005cc5, #5de4c7);
+}
+
+.twinkleplop .tok.constant {
+  color: light-dark(#005cc5, #add7ff);
+}
+
+.twinkleplop .tok.punctuation {
+  color: light-dark(#24292e, #a6accd);
+}
+
+.twinkleplop .tok.comment {
+  color: light-dark(#6a737d, #767c9db0);
+  font-style: italic;
+}
