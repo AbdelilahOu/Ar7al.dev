@@ -7,6 +7,7 @@
 	import SignOff from '$lib/components/SignOff.svelte';
 	import TechIcons from '$lib/components/TechIcons.svelte';
 	import NumberedList from '$lib/components/NumberedList.svelte';
+	import { SITE_ORIGIN } from '$lib/site';
 	import {
 		formatDateRange,
 		calculateDuration,
@@ -19,19 +20,18 @@
 			content: Component;
 			meta: ExperienceMetadata;
 			slug: string;
-			origin: string;
 			previous: Experience | null;
 			next: Experience | null;
 		};
 	} = $props();
 
 	let meta = $derived(props.data.meta);
-	let url = $derived(`${props.data.origin}/career/${props.data.slug}`);
-	let image = $derived(`${props.data.origin}/career/${props.data.slug}/social.png`);
+	let url = $derived(`${SITE_ORIGIN}/career/${props.data.slug}`);
+	let image = $derived(`${SITE_ORIGIN}/career/${props.data.slug}/social.png`);
 	let title = $derived(`${meta.title} at ${meta.company} - Abdelilah Ouaadouch`);
 	let description = $derived(meta.description);
-	let personId = $derived(`${props.data.origin}#person`);
-	let websiteId = $derived(`${props.data.origin}#website`);
+	let personId = $derived(`${SITE_ORIGIN}#person`);
+	let websiteId = $derived(`${SITE_ORIGIN}#website`);
 	let webpageId = $derived(`${url}#webpage`);
 	let breadcrumbId = $derived(`${url}#breadcrumb`);
 	let roleId = $derived(`${url}#role`);
@@ -76,8 +76,8 @@
 				"name": "Abdelilah Ouaadouch",
 				"alternateName": "Ar7al",
 				"jobTitle": "Senior Backend Engineer",
-				"url": `${props.data.origin}`,
-				"image": `${props.data.origin}/social.png`,
+				"url": `${SITE_ORIGIN}`,
+				"image": `${SITE_ORIGIN}/social.png`,
 				"sameAs": [
 					"https://www.linkedin.com/in/ar7al/",
 					"https://github.com/AbdelilahOu",
@@ -88,7 +88,7 @@
 				"@type": "WebSite",
 				"@id": websiteId,
 				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
-				"url": `${props.data.origin}`,
+				"url": `${SITE_ORIGIN}`,
 				"publisher": {
 					"@id": personId
 				}
@@ -141,13 +141,13 @@
 						"@type": "ListItem",
 						"position": 1,
 						"name": "Home",
-						"item": `${props.data.origin}`
+						"item": `${SITE_ORIGIN}`
 					},
 					{
 						"@type": "ListItem",
 						"position": 2,
 						"name": "Career",
-						"item": `${props.data.origin}/career`
+						"item": `${SITE_ORIGIN}/career`
 					},
 					{
 						"@type": "ListItem",

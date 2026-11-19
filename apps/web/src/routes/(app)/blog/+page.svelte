@@ -3,29 +3,30 @@
 	import PostRow from '$lib/components/PostRow.svelte';
 	import SkillList from '$lib/components/SkillList.svelte';
 	import type { Post } from '$lib/types';
+	import { SITE_ORIGIN } from '$lib/site';
 
-	let props: { data: { posts: Post[]; origin: string } } = $props();
+	let props: { data: { posts: Post[] } } = $props();
 
 	const title = 'Blog - Abdelilah Ouaadouch';
 	const description =
 		'Technical articles about Go, Rust, TypeScript, and backend development. Tips, tutorials, and insights from a backend engineer.';
-	const url = `${props.data.origin}/blog`;
-	const image = `${props.data.origin}/blog/social.png`;
-	const personId = `${props.data.origin}#person`;
-	const websiteId = `${props.data.origin}#website`;
+	const url = `${SITE_ORIGIN}/blog`;
+	const image = `${SITE_ORIGIN}/blog/social.png`;
+	const personId = `${SITE_ORIGIN}#person`;
+	const websiteId = `${SITE_ORIGIN}#website`;
 	const webpageId = `${url}#webpage`;
 	const breadcrumbId = `${url}#breadcrumb`;
 	const blogId = `${url}#blog`;
 	const blogPosts = props.data.posts.map((post) => ({
 		"@type": "BlogPosting",
-		"@id": `${props.data.origin}/blog/${post.slug}#blogposting`,
+		"@id": `${SITE_ORIGIN}/blog/${post.slug}#blogposting`,
 		"headline": post.title,
 		"description": post.description,
 		"datePublished": post.date,
 		"author": {
 			"@id": personId
 		},
-		"url": `${props.data.origin}/blog/${post.slug}`,
+		"url": `${SITE_ORIGIN}/blog/${post.slug}`,
 		"keywords": post.tags
 	}));
 </script>
@@ -38,7 +39,7 @@
 		rel="alternate"
 		type="application/rss+xml"
 		title="Abdelilah Ouaadouch's Blog"
-		href={`${props.data.origin}/rss.xml`}
+		href={`${SITE_ORIGIN}/rss.xml`}
 	/>
 
 	<meta property="og:type" content="website" />
@@ -66,8 +67,8 @@
 				"name": "Abdelilah Ouaadouch",
 				"alternateName": "Ar7al",
 				"jobTitle": "Senior Backend Engineer",
-				"url": `${props.data.origin}`,
-				"image": `${props.data.origin}/social.png`,
+				"url": `${SITE_ORIGIN}`,
+				"image": `${SITE_ORIGIN}/social.png`,
 				"sameAs": [
 					"https://www.linkedin.com/in/ar7al/",
 					"https://github.com/AbdelilahOu",
@@ -78,7 +79,7 @@
 				"@type": "WebSite",
 				"@id": websiteId,
 				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
-				"url": `${props.data.origin}`,
+				"url": `${SITE_ORIGIN}`,
 				"publisher": {
 					"@id": personId
 				}
@@ -128,7 +129,7 @@
 						"@type": "ListItem",
 						"position": 1,
 						"name": "Home",
-						"item": `${props.data.origin}`
+						"item": `${SITE_ORIGIN}`
 					},
 					{
 						"@type": "ListItem",

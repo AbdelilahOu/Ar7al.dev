@@ -1,4 +1,5 @@
 import { getPosts } from "$lib/data/posts";
+import { SITE_ORIGIN } from "$lib/site";
 
 function escapeXml(value: string): string {
   return value
@@ -9,8 +10,8 @@ function escapeXml(value: string): string {
     .replace(/'/g, "&apos;");
 }
 
-export async function GET({ url }) {
-  const origin = url.origin;
+export async function GET() {
+  const origin = SITE_ORIGIN;
   const posts = getPosts();
 
   const items = posts

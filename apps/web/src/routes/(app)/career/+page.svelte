@@ -2,16 +2,17 @@
 	import InlineLink from '$lib/components/InlineLink.svelte';
 	import type { Experience } from '$lib/data/experiences';
 	import ExperienceRow from '$lib/components/ExperienceRow.svelte';
+	import { SITE_ORIGIN } from '$lib/site';
 
-	let props: { data: { experiences: Experience[]; origin: string } } = $props();
+	let props: { data: { experiences: Experience[] } } = $props();
 
 	const title = 'Career - Abdelilah Ouaadouch';
 	const description =
 		'Professional experience as a senior backend engineer, building backend systems with Go and TypeScript across healthcare, education, and enterprise applications.';
-	const url = `${props.data.origin}/career`;
-	const image = `${props.data.origin}/career/social.png`;
-	const personId = `${props.data.origin}#person`;
-	const websiteId = `${props.data.origin}#website`;
+	const url = `${SITE_ORIGIN}/career`;
+	const image = `${SITE_ORIGIN}/career/social.png`;
+	const personId = `${SITE_ORIGIN}#person`;
+	const websiteId = `${SITE_ORIGIN}#website`;
 	const webpageId = `${url}#webpage`;
 	const breadcrumbId = `${url}#breadcrumb`;
 	const normalizeDate = (value: string | null) => {
@@ -73,8 +74,8 @@
 				"name": "Abdelilah Ouaadouch",
 				"alternateName": "Ar7al",
 				"jobTitle": "Senior Backend Engineer",
-				"url": `${props.data.origin}`,
-				"image": `${props.data.origin}/social.png`,
+				"url": `${SITE_ORIGIN}`,
+				"image": `${SITE_ORIGIN}/social.png`,
 				"sameAs": [
 					"https://www.linkedin.com/in/ar7al/",
 					"https://github.com/AbdelilahOu",
@@ -85,7 +86,7 @@
 				"@type": "WebSite",
 				"@id": websiteId,
 				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
-				"url": `${props.data.origin}`,
+				"url": `${SITE_ORIGIN}`,
 				"publisher": {
 					"@id": personId
 				}
@@ -126,7 +127,7 @@
 						"@type": "ListItem",
 						"position": 1,
 						"name": "Home",
-						"item": `${props.data.origin}`
+						"item": `${SITE_ORIGIN}`
 					},
 					{
 						"@type": "ListItem",

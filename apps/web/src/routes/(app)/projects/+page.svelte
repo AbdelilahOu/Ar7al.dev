@@ -2,16 +2,17 @@
 	import InlineLink from '$lib/components/InlineLink.svelte';
 	import type { Project } from '$lib/data/projects';
 	import ProjectRow from '$lib/components/ProjectRow.svelte';
+	import { SITE_ORIGIN } from '$lib/site';
 
-	let props: { data: { projects: Project[]; origin: string } } = $props();
+	let props: { data: { projects: Project[] } } = $props();
 
 	const title = 'Projects - Abdelilah Ouaadouch';
 	const description =
 		'Portfolio of software projects including cross-platform apps, web applications, and developer tools. Built with Go, Rust, TypeScript, and modern frameworks.';
-	const url = `${props.data.origin}/projects`;
-	const image = `${props.data.origin}/projects/social.png`;
-	const personId = `${props.data.origin}#person`;
-	const websiteId = `${props.data.origin}#website`;
+	const url = `${SITE_ORIGIN}/projects`;
+	const image = `${SITE_ORIGIN}/projects/social.png`;
+	const personId = `${SITE_ORIGIN}#person`;
+	const websiteId = `${SITE_ORIGIN}#website`;
 	const webpageId = `${url}#webpage`;
 	const breadcrumbId = `${url}#breadcrumb`;
 	const projectItems = props.data.projects.map((project, index) => ({
@@ -19,10 +20,10 @@
 		"position": index + 1,
 		"item": {
 			"@type": "SoftwareSourceCode",
-			"@id": `${props.data.origin}/projects/${project.slug}#software`,
+			"@id": `${SITE_ORIGIN}/projects/${project.slug}#software`,
 			"name": project.title,
 			"description": project.description,
-			"url": `${props.data.origin}/projects/${project.slug}`,
+			"url": `${SITE_ORIGIN}/projects/${project.slug}`,
 			"dateCreated": project.createdAt,
 			"programmingLanguage": project.tech,
 			...(project.github ? { "codeRepository": project.github } : {}),
@@ -61,8 +62,8 @@
 				"name": "Abdelilah Ouaadouch",
 				"alternateName": "Ar7al",
 				"jobTitle": "Senior Backend Engineer",
-				"url": `${props.data.origin}`,
-				"image": `${props.data.origin}/social.png`,
+				"url": `${SITE_ORIGIN}`,
+				"image": `${SITE_ORIGIN}/social.png`,
 				"sameAs": [
 					"https://www.linkedin.com/in/ar7al/",
 					"https://github.com/AbdelilahOu",
@@ -73,7 +74,7 @@
 				"@type": "WebSite",
 				"@id": websiteId,
 				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
-				"url": `${props.data.origin}`,
+				"url": `${SITE_ORIGIN}`,
 				"publisher": {
 					"@id": personId
 				}
@@ -114,7 +115,7 @@
 						"@type": "ListItem",
 						"position": 1,
 						"name": "Home",
-						"item": `${props.data.origin}`
+						"item": `${SITE_ORIGIN}`
 					},
 					{
 						"@type": "ListItem",

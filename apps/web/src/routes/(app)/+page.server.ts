@@ -6,7 +6,7 @@ import type { ContributionData } from "$lib/types";
 
 export const prerender = true;
 
-export async function load({ url }) {
+export async function load() {
   const year = new Date().getFullYear();
   let githubContributions: ContributionData | null = null;
   try {
@@ -21,6 +21,5 @@ export async function load({ url }) {
     latestPosts: getLatestPosts(2),
     githubContributions,
     year,
-    origin: url.origin,
   };
 }

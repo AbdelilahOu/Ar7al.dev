@@ -7,7 +7,7 @@ export function entries() {
   return getProjects().map((p) => ({ slug: p.slug }));
 }
 
-export async function load({ params, url }) {
+export async function load({ params }) {
   try {
     const post = await import(`@projects/${params.slug}.md`);
 
@@ -16,7 +16,6 @@ export async function load({ params, url }) {
     return {
       meta: post.metadata,
       slug: params.slug,
-      origin: url.origin,
       previous,
       next,
     };

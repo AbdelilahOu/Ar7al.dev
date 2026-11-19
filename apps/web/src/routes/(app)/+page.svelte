@@ -8,6 +8,7 @@
 	import type { Experience } from '$lib/data/experiences';
 	import type { Project } from '$lib/data/projects';
 	import ProjectRow from '$lib/components/ProjectRow.svelte';
+	import { SITE_ORIGIN } from '$lib/site';
 
 
 	let props: {
@@ -17,17 +18,16 @@
 			latestPosts: Post[];
 			githubContributions: ContributionData | null;
 			year: number;
-			origin: string;
 		};
 	} = $props();
 
 	const title = 'Abdelilah Ouaadouch - Senior Backend Engineer';
 	const description =
 		'Senior backend engineer with 3+ years of building and running backend systems end to end, mostly in Go and TypeScript.';
-	const url = `${props.data.origin}/`;
-	const image = `${props.data.origin}/social.png`;
-	const personId = `${props.data.origin}#person`;
-	const websiteId = `${props.data.origin}#website`;
+	const url = `${SITE_ORIGIN}/`;
+	const image = `${SITE_ORIGIN}/social.png`;
+	const personId = `${SITE_ORIGIN}#person`;
+	const websiteId = `${SITE_ORIGIN}#website`;
 	const webpageId = `${url}#webpage`;
 
 	const languages = ['Go', 'Rust', 'TypeScript', 'JavaScript', 'HTML', 'CSS'];
@@ -53,7 +53,7 @@
 		rel="alternate"
 		type="application/rss+xml"
 		title="Abdelilah Ouaadouch's Blog"
-		href={`${props.data.origin}/rss.xml`}
+		href={`${SITE_ORIGIN}/rss.xml`}
 	/>
 
 	<meta property="og:type" content="website" />

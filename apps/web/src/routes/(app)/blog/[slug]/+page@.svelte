@@ -4,27 +4,27 @@
 	import PrevNext from '$lib/components/PrevNext.svelte';
 	import SignOff from '$lib/components/SignOff.svelte';
 	import type { Post, PostMetadata } from '$lib/types';
+	import { SITE_ORIGIN } from '$lib/site';
 
 	let props: {
 		data: {
 			content: Component;
 			meta: PostMetadata;
 			slug: string;
-			origin: string;
 			previous: Post | null;
 			next: Post | null;
 		};
 	} = $props();
 
 	let meta = $derived(props.data.meta);
-	let url = $derived(`${props.data.origin}/blog/${props.data.slug}`);
-	let image = $derived(`${props.data.origin}/blog/${props.data.slug}/social.png`);
+	let url = $derived(`${SITE_ORIGIN}/blog/${props.data.slug}`);
+	let image = $derived(`${SITE_ORIGIN}/blog/${props.data.slug}/social.png`);
 	let title = $derived(`${props.data.meta.title} - Abdelilah Ouaadouch`);
 	let description = $derived(meta.seoDescription ?? meta.description);
 	let keywords = $derived((meta.seoKeywords && meta.seoKeywords.length > 0) ? meta.seoKeywords : meta.tags);
-	let personId = $derived(`${props.data.origin}#person`);
-	let websiteId = $derived(`${props.data.origin}#website`);
-	let blogId = $derived(`${props.data.origin}/blog#blog`);
+	let personId = $derived(`${SITE_ORIGIN}#person`);
+	let websiteId = $derived(`${SITE_ORIGIN}#website`);
+	let blogId = $derived(`${SITE_ORIGIN}/blog#blog`);
 	let webpageId = $derived(`${url}#webpage`);
 	let breadcrumbId = $derived(`${url}#breadcrumb`);
 	let postingId = $derived(`${url}#blogposting`);
@@ -73,8 +73,8 @@
 				"name": "Abdelilah Ouaadouch",
 				"alternateName": "Ar7al",
 				"jobTitle": "Senior Backend Engineer",
-				"url": `${props.data.origin}`,
-				"image": `${props.data.origin}/social.png`,
+				"url": `${SITE_ORIGIN}`,
+				"image": `${SITE_ORIGIN}/social.png`,
 				"sameAs": [
 					"https://www.linkedin.com/in/ar7al/",
 					"https://github.com/AbdelilahOu",
@@ -85,7 +85,7 @@
 				"@type": "WebSite",
 				"@id": websiteId,
 				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
-				"url": `${props.data.origin}`,
+				"url": `${SITE_ORIGIN}`,
 				"publisher": {
 					"@id": personId
 				}
@@ -94,7 +94,7 @@
 				"@type": "Blog",
 				"@id": blogId,
 				"name": "Abdelilah Ouaadouch's Blog",
-				"url": `${props.data.origin}/blog`,
+				"url": `${SITE_ORIGIN}/blog`,
 				"isPartOf": {
 					"@id": websiteId
 				},
@@ -158,13 +158,13 @@
 						"@type": "ListItem",
 						"position": 1,
 						"name": "Home",
-						"item": `${props.data.origin}`
+						"item": `${SITE_ORIGIN}`
 					},
 					{
 						"@type": "ListItem",
 						"position": 2,
 						"name": "Blog",
-						"item": `${props.data.origin}/blog`
+						"item": `${SITE_ORIGIN}/blog`
 					},
 					{
 						"@type": "ListItem",

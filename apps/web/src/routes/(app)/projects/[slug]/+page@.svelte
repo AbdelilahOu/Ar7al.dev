@@ -6,24 +6,24 @@
 	import SignOff from '$lib/components/SignOff.svelte';
 	import TechIcons from '$lib/components/TechIcons.svelte';
 	import type { Project, ProjectMetadata } from '$lib/data/projects';
+	import { SITE_ORIGIN } from '$lib/site';
 
 	let props: {
 		data: {
 			meta: ProjectMetadata;
 			slug: string;
-			origin: string;
 			previous: Project | null;
 			next: Project | null;
 		};
 	} = $props();
 
 	let meta = $derived(props.data.meta);
-	let url = $derived(`${props.data.origin}/projects/${props.data.slug}`);
-	let image = $derived(`${props.data.origin}/projects/${props.data.slug}/social.png`);
+	let url = $derived(`${SITE_ORIGIN}/projects/${props.data.slug}`);
+	let image = $derived(`${SITE_ORIGIN}/projects/${props.data.slug}/social.png`);
 	let title = $derived(`${meta.title} - Abdelilah Ouaadouch`);
 	let description = $derived(meta.description);
-	let personId = $derived(`${props.data.origin}#person`);
-	let websiteId = $derived(`${props.data.origin}#website`);
+	let personId = $derived(`${SITE_ORIGIN}#person`);
+	let websiteId = $derived(`${SITE_ORIGIN}#website`);
 	let webpageId = $derived(`${url}#webpage`);
 	let breadcrumbId = $derived(`${url}#breadcrumb`);
 	let projectId = $derived(`${url}#software`);
@@ -62,8 +62,8 @@
 				"name": "Abdelilah Ouaadouch",
 				"alternateName": "Ar7al",
 				"jobTitle": "Senior Backend Engineer",
-				"url": `${props.data.origin}`,
-				"image": `${props.data.origin}/social.png`,
+				"url": `${SITE_ORIGIN}`,
+				"image": `${SITE_ORIGIN}/social.png`,
 				"sameAs": [
 					"https://www.linkedin.com/in/ar7al/",
 					"https://github.com/AbdelilahOu",
@@ -74,7 +74,7 @@
 				"@type": "WebSite",
 				"@id": websiteId,
 				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
-				"url": `${props.data.origin}`,
+				"url": `${SITE_ORIGIN}`,
 				"publisher": {
 					"@id": personId
 				}
@@ -134,13 +134,13 @@
 						"@type": "ListItem",
 						"position": 1,
 						"name": "Home",
-						"item": `${props.data.origin}`
+						"item": `${SITE_ORIGIN}`
 					},
 					{
 						"@type": "ListItem",
 						"position": 2,
 						"name": "Projects",
-						"item": `${props.data.origin}/projects`
+						"item": `${SITE_ORIGIN}/projects`
 					},
 					{
 						"@type": "ListItem",

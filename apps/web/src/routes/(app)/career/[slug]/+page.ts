@@ -7,7 +7,7 @@ export function entries() {
   return getExperiences().map((e) => ({ slug: e.slug }));
 }
 
-export async function load({ params, url }) {
+export async function load({ params }) {
   try {
     const post = await import(`@career/${params.slug}.md`);
 
@@ -17,7 +17,6 @@ export async function load({ params, url }) {
       content: post.default,
       meta: post.metadata,
       slug: params.slug,
-      origin: url.origin,
       previous,
       next,
     };

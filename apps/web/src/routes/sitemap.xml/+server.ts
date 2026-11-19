@@ -1,6 +1,7 @@
 import { getExperiences } from "$lib/data/experiences";
 import { getPosts } from "$lib/data/posts";
 import { getProjects } from "$lib/data/projects";
+import { SITE_ORIGIN } from "$lib/site";
 
 function escapeXml(value: string): string {
   return value
@@ -32,8 +33,8 @@ function latestDate(dates: (string | undefined)[]): string | undefined {
   return valid.at(-1);
 }
 
-export async function GET({ url }) {
-  const origin = url.origin;
+export async function GET() {
+  const origin = SITE_ORIGIN;
   const posts = getPosts();
   const projects = getProjects();
   const experiences = getExperiences();

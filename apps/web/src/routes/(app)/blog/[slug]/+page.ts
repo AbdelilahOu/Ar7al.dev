@@ -8,7 +8,7 @@ export async function entries() {
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-export async function load({ params, url }) {
+export async function load({ params }) {
   try {
     const { previous, next, postNumber } = getPostContext(params.slug);
     const post = await import(`@posts/${postNumber}.${params.slug}.md`);
@@ -17,7 +17,6 @@ export async function load({ params, url }) {
       content: post.default,
       meta: post.metadata,
       slug: params.slug,
-      origin: url.origin,
       previous,
       next,
     };
