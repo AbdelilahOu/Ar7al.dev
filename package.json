@@ -21,29 +21,29 @@
   },
   "dependencies": {
     "dotenv": "^17.4.2",
-    "zod": "^4.4.3"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260702.1",
-    "@types/node": "^25.9.5",
+    "@types/node": "^25.9.9",
     "alchemy": "^0.85.2",
     "oxfmt": "^0.34.0",
-    "oxlint": "^1.74.0",
-    "turbo": "^2.10.5",
+    "oxlint": "^1.94.0",
+    "turbo": "^2.11.13",
     "typescript": "^5.9.3"
   },
   "packageManager": "bun@1.3.9",
   "catalog": {
-    "@cloudflare/workers-types": "^4.20260124.0",
-    "@orpc/client": "^1.13.4",
-    "@orpc/openapi": "^1.12.2",
-    "@orpc/server": "^1.12.2",
-    "@orpc/zod": "^1.12.2",
-    "@types/node": "^22.19.7",
-    "alchemy": "^0.81.4",
-    "dotenv": "^17.2.3",
-    "hono": "^4.8.2",
+    "@cloudflare/workers-types": "^4.20260702.1",
+    "@orpc/client": "^1.16.4",
+    "@orpc/openapi": "^1.16.4",
+    "@orpc/server": "^1.16.4",
+    "@orpc/zod": "^1.16.4",
+    "@types/node": "^25.9.9",
+    "alchemy": "^0.85.2",
+    "dotenv": "^17.4.2",
+    "hono": "^4.13.19",
     "typescript": "^5.9.3",
-    "zod": "^4.3.6"
+    "zod": "^4.6.7"
   }
 }

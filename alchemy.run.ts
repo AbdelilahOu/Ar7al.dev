@@ -55,65 +55,72 @@ export const web = await SvelteKit("web", {
 });
 
 if (!isPreview) {
-  await Ruleset("www-redirect-ruleset", {
-    zone: "ar7al.dev",
-    phase: "http_request_dynamic_redirect",
-    rules: [
-      {
-        description: "Redirect www to apex",
-        expression: '(http.host eq "www.ar7al.dev")',
-        action: "redirect",
-        action_parameters: {
-          from_value: {
-            status_code: 301,
-            target_url: {
-              expression: 'concat("https://ar7al.dev", http.request.uri.path)',
-            },
-            preserve_query_string: true,
-          },
-        },
-      },
-    ],
-  });
+  await alchemy.run("edge-rules", async (scope) => {
+    if (app.local) {
+      scope.skip();
+      return;
+    }
 
-  await Ruleset("security-headers-ruleset", {
-    zone: "ar7al.dev",
-    phase: "http_response_headers_transform",
-    rules: [
-      {
-        description: "Add security headers",
-        expression: "true",
-        action: "rewrite",
-        action_parameters: {
-          headers: {
-            "Strict-Transport-Security": {
-              operation: "set",
-              value: "max-age=31536000; includeSubDomains",
-            },
-            "X-Content-Type-Options": {
-              operation: "set",
-              value: "nosniff",
-            },
-            "X-Frame-Options": {
-              operation: "set",
-              value: "DENY",
-            },
-            "Referrer-Policy": {
-              operation: "set",
-              value: "strict-origin-when-cross-origin",
-            },
-            "Cross-Origin-Opener-Policy": {
-              operation: "set",
-              value: "same-origin",
-            },
-            "Permissions-Policy": {
-              operation: "set",
-              value: "camera=(), microphone=(), geolocation=()",
+    await Ruleset("www-redirect-ruleset", {
+      zone: "ar7al.dev",
+      phase: "http_request_dynamic_redirect",
+      rules: [
+        {
+          description: "Redirect www to apex",
+          expression: '(http.host eq "www.ar7al.dev")',
+          action: "redirect",
+          action_parameters: {
+            from_value: {
+              status_code: 301,
+              target_url: {
+                expression: 'concat("https://ar7al.dev", http.request.uri.path)',
+              },
+              preserve_query_string: true,
             },
           },
         },
-      },
-    ],
+      ],
+    });
+
+    await Ruleset("security-headers-ruleset", {
+      zone: "ar7al.dev",
+      phase: "http_response_headers_transform",
+      rules: [
+        {
+          description: "Add security headers",
+          expression: "true",
+          action: "rewrite",
+          action_parameters: {
+            headers: {
+              "Strict-Transport-Security": {
+                operation: "set",
+                value: "max-age=31536000; includeSubDomains",
+              },
+              "X-Content-Type-Options": {
+                operation: "set",
+                value: "nosniff",
+              },
+              "X-Frame-Options": {
+                operation: "set",
+                value: "DENY",
+              },
+              "Referrer-Policy": {
+                operation: "set",
+                value: "strict-origin-when-cross-origin",
+              },
+              "Cross-Origin-Opener-Policy": {
+                operation: "set",
+                value: "same-origin",
+              },
+              "Permissions-Policy": {
+                operation: "set",
+                value: "camera=(), microphone=(), geolocation=()",
+              },
+            },
+          },
+        },
+      ],
+    });
   });
 }
 

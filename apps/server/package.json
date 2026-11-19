@@ -24,8 +24,8 @@
     "@portfolio/config": "workspace:*",
     "@types/node": "catalog:",
     "alchemy": "catalog:",
-    "tsdown": "^0.16.5",
+    "tsdown": "^0.16.8",
     "typescript": "catalog:",
-    "wrangler": "^4.54.0"
+    "wrangler": "^4.165.0"
   }
 }
