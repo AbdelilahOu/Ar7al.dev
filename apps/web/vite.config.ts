@@ -5,11 +5,6 @@ import { mdsvex } from "mdsvex";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [
-    tailwindcss(),
-    mdsvex({ extensions: [".md", ".svx"] }),
-    sveltekit(),
-    sveltekitOG(),
-  ],
+  plugins: [tailwindcss(), mdsvex({ extensions: [".md", ".svx"] }), sveltekit(), sveltekitOG()],
   logLevel: "info",
 });

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { navigating, page } from '$app/state';
-  import { onDestroy } from 'svelte';
+  import { navigating, page } from "$app/state";
+  import { onDestroy } from "svelte";
 
   let progress = $state(0);
   let rafId: number | null = null;
@@ -39,7 +39,11 @@
   }
 
   $effect(() => {
-    if (navigating?.from !== null && navigating?.from.url.href !== navigating?.to?.url.href && navigating?.to?.url.origin === page.url.origin) {
+    if (
+      navigating?.from !== null &&
+      navigating?.from.url.href !== navigating?.to?.url.href &&
+      navigating?.to?.url.origin === page.url.origin
+    ) {
       finishing = false;
       start();
     } else {

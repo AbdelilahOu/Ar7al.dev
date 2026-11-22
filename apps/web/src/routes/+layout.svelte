@@ -1,11 +1,11 @@
 <script lang="ts">
-    import LoadingIndecator from '$lib/components/LoadingIndecator.svelte';
-	import '../app.css';
+  import LoadingIndecator from "$lib/components/LoadingIndecator.svelte";
+  import "../app.css";
 
-	let { children } = $props();
+  let { children } = $props();
 </script>
 
 <main class="min-h-svh">
-    <LoadingIndecator/>
-	{@render children()}
+  <LoadingIndecator />
+  {@render children()}
 </main>

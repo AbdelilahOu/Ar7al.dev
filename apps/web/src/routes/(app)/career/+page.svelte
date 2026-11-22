@@ -1,175 +1,175 @@
 <script lang="ts">
-	import InlineLink from '$lib/components/InlineLink.svelte';
-	import type { Experience } from '$lib/data/experiences';
-	import ExperienceRow from '$lib/components/ExperienceRow.svelte';
-	import { SITE_ORIGIN } from '$lib/site';
+  import ExperienceRow from "$lib/components/ExperienceRow.svelte";
+  import InlineLink from "$lib/components/InlineLink.svelte";
+  import type { Experience } from "$lib/data/experiences";
+  import { SITE_ORIGIN } from "$lib/site";
 
-	let props: { data: { experiences: Experience[] } } = $props();
+  let props: { data: { experiences: Experience[] } } = $props();
 
-	const title = 'Career - Abdelilah Ouaadouch';
-	const description =
-		'Professional experience as a senior backend engineer, building backend systems with Go and TypeScript across healthcare, education, and enterprise applications.';
-	const url = `${SITE_ORIGIN}/career`;
-	const image = `${SITE_ORIGIN}/career/social.png`;
-	const personId = `${SITE_ORIGIN}#person`;
-	const websiteId = `${SITE_ORIGIN}#website`;
-	const webpageId = `${url}#webpage`;
-	const breadcrumbId = `${url}#breadcrumb`;
-	const normalizeDate = (value: string | null) => {
-		if (!value) return undefined;
-		if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
-		if (/^\d{4}-\d{2}$/.test(value)) return `${value}-01`;
-		if (/^\d{4}$/.test(value)) return `${value}-01-01`;
-		const parsed = new Date(value);
-		if (Number.isNaN(parsed.getTime())) return undefined;
-		return parsed.toISOString().slice(0, 10);
-	};
-	const experienceItems = props.data.experiences.map((experience, index) => ({
-		"@type": "ListItem",
-		"position": index + 1,
-		"item": {
-			"@type": "Role",
-			"roleName": experience.title,
-			"description": experience.description,
-			"startDate": normalizeDate(experience.startDate),
-			...(experience.endDate ? { "endDate": normalizeDate(experience.endDate) } : {}),
-			"employmentType": experience.type,
-			"worksFor": {
-				"@type": "Organization",
-				"name": experience.company,
-				...(experience.companyUrl ? { "url": experience.companyUrl } : {})
-			},
-			"location": experience.location
-		}
-	}));
+  const title = "Career - Abdelilah Ouaadouch";
+  const description =
+    "Professional experience as a senior backend engineer, building backend systems with Go and TypeScript across healthcare, education, and enterprise applications.";
+  const url = `${SITE_ORIGIN}/career`;
+  const image = `${SITE_ORIGIN}/career/social.png`;
+  const personId = `${SITE_ORIGIN}#person`;
+  const websiteId = `${SITE_ORIGIN}#website`;
+  const webpageId = `${url}#webpage`;
+  const breadcrumbId = `${url}#breadcrumb`;
+  const normalizeDate = (value: string | null) => {
+    if (!value) return undefined;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    if (/^\d{4}-\d{2}$/.test(value)) return `${value}-01`;
+    if (/^\d{4}$/.test(value)) return `${value}-01-01`;
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) return undefined;
+    return parsed.toISOString().slice(0, 10);
+  };
+  const experienceItems = props.data.experiences.map((experience, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Role",
+      roleName: experience.title,
+      description: experience.description,
+      startDate: normalizeDate(experience.startDate),
+      ...(experience.endDate ? { endDate: normalizeDate(experience.endDate) } : {}),
+      employmentType: experience.type,
+      worksFor: {
+        "@type": "Organization",
+        name: experience.company,
+        ...(experience.companyUrl ? { url: experience.companyUrl } : {}),
+      },
+      location: experience.location,
+    },
+  }));
 </script>
 
 <svelte:head>
-	<title>{title}</title>
-	<meta name="description" content={description} />
-	<link rel="canonical" href={url} />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={url} />
 
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content={url} />
-	<meta property="og:title" content={title} />
-	<meta property="og:description" content={description} />
-	<meta property="og:image" content={image} />
-	<meta property="og:site_name" content="Abdelilah Ouaadouch" />
-	<meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={url} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={image} />
+  <meta property="og:site_name" content="Abdelilah Ouaadouch" />
+  <meta property="og:locale" content="en_US" />
 
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:site" content="@Abdelilah4dev" />
-	<meta name="twitter:url" content={url} />
-	<meta name="twitter:title" content={title} />
-	<meta name="twitter:description" content={description} />
-	<meta name="twitter:image" content={image} />
-	<meta name="twitter:creator" content="@Abdelilah4dev" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@Abdelilah4dev" />
+  <meta name="twitter:url" content={url} />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={image} />
+  <meta name="twitter:creator" content="@Abdelilah4dev" />
 
-	{@html `<script type="application/ld+json">${JSON.stringify({
-		"@context": "https://schema.org",
-		"@graph": [
-			{
-				"@type": "Person",
-				"@id": personId,
-				"name": "Abdelilah Ouaadouch",
-				"alternateName": "Ar7al",
-				"jobTitle": "Senior Backend Engineer",
-				"url": `${SITE_ORIGIN}`,
-				"image": `${SITE_ORIGIN}/social.png`,
-				"sameAs": [
-					"https://www.linkedin.com/in/ar7al/",
-					"https://github.com/AbdelilahOu",
-					"https://x.com/Abdelilah4dev"
-				]
-			},
-			{
-				"@type": "WebSite",
-				"@id": websiteId,
-				"name": "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
-				"url": `${SITE_ORIGIN}`,
-				"publisher": {
-					"@id": personId
-				}
-			},
-			{
-				"@type": "ItemList",
-				"@id": `${url}#experience-list`,
-				"itemListElement": experienceItems
-			},
-			{
-				"@type": "CollectionPage",
-				"@id": webpageId,
-				"name": title,
-				"description": description,
-				"url": url,
-				"isPartOf": {
-					"@id": websiteId
-				},
-				"about": {
-					"@id": personId
-				},
-				"mainEntity": {
-					"@id": `${url}#experience-list`
-				},
-				"breadcrumb": {
-					"@id": breadcrumbId
-				},
-				"primaryImageOfPage": {
-					"@type": "ImageObject",
-					"url": image
-				}
-			},
-			{
-				"@type": "BreadcrumbList",
-				"@id": breadcrumbId,
-				"itemListElement": [
-					{
-						"@type": "ListItem",
-						"position": 1,
-						"name": "Home",
-						"item": `${SITE_ORIGIN}`
-					},
-					{
-						"@type": "ListItem",
-						"position": 2,
-						"name": "Career",
-						"item": url
-					}
-				]
-			}
-		]
-	})}</script>`}
+  {@html `<${"script"} type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": personId,
+        name: "Abdelilah Ouaadouch",
+        alternateName: "Ar7al",
+        jobTitle: "Senior Backend Engineer",
+        url: `${SITE_ORIGIN}`,
+        image: `${SITE_ORIGIN}/social.png`,
+        sameAs: [
+          "https://www.linkedin.com/in/ar7al/",
+          "https://github.com/AbdelilahOu",
+          "https://x.com/Abdelilah4dev",
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": websiteId,
+        name: "Abdelilah Ouaadouch - Senior Backend Engineer Portfolio",
+        url: `${SITE_ORIGIN}`,
+        publisher: {
+          "@id": personId,
+        },
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${url}#experience-list`,
+        itemListElement: experienceItems,
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": webpageId,
+        name: title,
+        description: description,
+        url: url,
+        isPartOf: {
+          "@id": websiteId,
+        },
+        about: {
+          "@id": personId,
+        },
+        mainEntity: {
+          "@id": `${url}#experience-list`,
+        },
+        breadcrumb: {
+          "@id": breadcrumbId,
+        },
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          url: image,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": breadcrumbId,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: `${SITE_ORIGIN}`,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Career",
+            item: url,
+          },
+        ],
+      },
+    ],
+  })}</script>`}
 </svelte:head>
 
 <header class="space-y-4">
-	<h1 class="font-display text-5xl italic text-ink md:text-6xl">
-		Career
-		<span class="mt-1 block font-mono text-xl not-italic normal-case text-ink-soft md:text-2xl">
-			Professional Experience
-		</span>
-	</h1>
-	<p class="text-base text-ink-soft md:text-lg">
-		My journey as a backend engineer, building systems and applications
-		across healthcare, education, and enterprise domains.
-	</p>
+  <h1 class="font-display text-5xl italic text-ink md:text-6xl">
+    Career
+    <span class="mt-1 block font-mono text-xl not-italic normal-case text-ink-soft md:text-2xl">
+      Professional Experience
+    </span>
+  </h1>
+  <p class="text-base text-ink-soft md:text-lg">
+    My journey as a backend engineer, building systems and applications across healthcare,
+    education, and enterprise domains.
+  </p>
 </header>
 
 <section class="space-y-6">
-	<h2 class="font-display text-3xl italic text-ink md:text-4xl">
-		Work Experience
-	</h2>
+  <h2 class="font-display text-3xl italic text-ink md:text-4xl">Work Experience</h2>
 
-	{#if props.data.experiences.length > 0}
-		<ul class="group/list space-y-8">
-			{#each props.data.experiences as experience}
-				<li><ExperienceRow {experience} /></li>
-			{/each}
-		</ul>
+  {#if props.data.experiences.length > 0}
+    <ul class="group/list space-y-8">
+      {#each props.data.experiences as experience}
+        <li><ExperienceRow {experience} /></li>
+      {/each}
+    </ul>
 
-		<p class="mt-10 text-sm text-ink-mute">
-			Want to connect? Find me on <InlineLink href="https://www.linkedin.com/in/ar7al">LinkedIn</InlineLink> or check out my <InlineLink href="https://github.com/AbdelilahOu">GitHub</InlineLink>.
-		</p>
-	{:else}
-		<p class="text-sm text-ink-soft">No experience entries yet. Check back soon.</p>
-	{/if}
+    <p class="mt-10 text-sm text-ink-mute">
+      Want to connect? Find me on <InlineLink href="https://www.linkedin.com/in/ar7al"
+        >LinkedIn</InlineLink
+      > or check out my <InlineLink href="https://github.com/AbdelilahOu">GitHub</InlineLink>.
+    </p>
+  {:else}
+    <p class="text-sm text-ink-soft">No experience entries yet. Check back soon.</p>
+  {/if}
 </section>
