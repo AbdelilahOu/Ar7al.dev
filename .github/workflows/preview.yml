@@ -29,9 +29,9 @@ jobs:
 
       - name: Deploy preview
         id: deploy
-        run: bun run deploy
+        run: bun run deploy:preview
         env:
-          ALCHEMY_PREVIEW_ID: pr-${{ github.event.pull_request.number }}
+          ALCHEMY_PREVIEW_ID: ${{ github.event.pull_request.number }}
           SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -93,9 +93,9 @@ jobs:
         run: bun install
 
       - name: Destroy preview
-        run: bun run destroy
+        run: bun run destroy:preview
         env:
-          ALCHEMY_PREVIEW_ID: pr-${{ github.event.pull_request.number }}
+          ALCHEMY_PREVIEW_ID: ${{ github.event.pull_request.number }}
           SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

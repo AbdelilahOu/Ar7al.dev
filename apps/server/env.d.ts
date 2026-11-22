@@ -1,4 +1,4 @@
-import { type server } from "../../alchemy.run";
+import { type server } from "../../alchemy.prod";
 
 export type CloudflareEnv = typeof server.Env;
 

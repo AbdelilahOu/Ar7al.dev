@@ -10,14 +10,16 @@
     "check": "oxlint --fix --fix-suggestions --fix-dangerously",
     "fmt": "oxfmt --write .",
     "fmt:check": "oxfmt --check .",
-    "dev": "alchemy dev",
+    "dev": "alchemy dev alchemy.dev.ts",
     "build": "turbo build",
     "check-types": "turbo check-types",
     "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",
     "dev:server": "turbo -F server dev",
-    "deploy": "alchemy deploy",
-    "destroy": "alchemy destroy"
+    "deploy": "alchemy deploy alchemy.prod.ts",
+    "destroy": "alchemy destroy alchemy.prod.ts",
+    "deploy:preview": "alchemy deploy alchemy.preview.ts",
+    "destroy:preview": "alchemy destroy alchemy.preview.ts"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
