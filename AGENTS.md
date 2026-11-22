@@ -1,201 +1,35 @@
-﻿# Repository Guidelines
+# Repository Guidelines
 
-## Project Overview
+Personal portfolio at [ar7al.dev](https://ar7al.dev): a Bun + Turborepo workspace with a SvelteKit 5 / Tailwind v4 site, a Hono API on Cloudflare Workers, oRPC between them, and Alchemy for dev and deploys. Lint and format with oxlint and oxfmt.
 
-**Fingerlings**: A personal portfolio website built as a modern TypeScript monorepo. The project showcases career history, projects, and blog posts with a full-stack architecture using edge computing and type-safe APIs.
+## Layout
 
-### Tech Stack
+- `apps/web` — the site (port 5173). Routes in `src/routes/(app)`, content in `src/content/{blog-posts,career,projects}`, components and data in `src/lib`.
+- `apps/server` — the API worker (port 3000), `src/index.ts`. Runs oRPC's `RPCHandler` at `/rpc/*` and `OpenAPIHandler` at `/api-reference`.
+- `packages/api` — the shared `appRouter` and context. Procedures live in `src/routers/<name>/index.ts` and are composed in `src/routers/index.ts`; the web app imports `AppRouter` for end-to-end types.
+- `packages/config` — shared tsconfig and lint presets.
+- `alchemy.{dev,prod,preview}.ts` — one deploy config per environment.
 
-- **Frontend**: SvelteKit 5 + Svelte 5 with TailwindCSS v4, mdsvex for markdown posts
-- **Backend**: Hono 4 running on Cloudflare Workers with compatibility: "node"
-- **API Layer**: oRPC (OpenAPI + RPC handlers) for end-to-end type safety
-- **Build & Deploy**: Turborepo monorepo, Alchemy for local dev & Cloudflare deployment
-- **Code Quality**: oxlint + oxfmt for linting/formatting
-- **Utilities**: Zod for schema validation, shiki for syntax highlighting, @ethercorps/sveltekit-og for OG images
+## Commands
 
-## Project Structure & Module Organization
+- `bun run dev` — web + server via Alchemy; `bun run dev:web` / `bun run dev:server` for one at a time.
+- `bun run build` — build everything with Turborepo.
+- `bun run check` (oxlint, autofix), `bun run fmt` (oxfmt), `bun run check-types` (tsc). Run the first two before committing.
+- `bun run deploy` / `bun run destroy` — production.
+- `bun run deploy:preview` / `bun run destroy:preview` — a PR preview; needs `ALCHEMY_PREVIEW_ID` set to the PR number.
 
-```
-portfolio/
-├── apps/
-│   ├── web/              # SvelteKit frontend (port 5173 in dev)
-│   │   ├── src/
-│   │   │   ├── routes/   # SvelteKit routes
-│   │   │   │   ├── (marketing)/  # Layout group for public pages
-│   │   │   │   │   ├── ar7al/    # Personal name route (Arabic)
-│   │   │   │   │   ├── blog/     # Blog listing & posts
-│   │   │   │   │   ├── career/   # Career/experience page
-│   │   │   │   │   ├── projects/ # Projects portfolio
-│   │   │   │   │   └── social.png/ # Social image generation
-│   │   │   │   ├── api/     # Server-side API routes (unused currently)
-│   │   │   │   ├── 404/     # 404 error page
-│   │   │   │   └── sitemap.xml/ # Dynamic sitemap route
-│   │   │   ├── posts/   # Markdown blog posts (mdsvex)
-│   │   │   ├── lib/     # Shared utilities & components
-│   │   │   └── app.{css,html,d.ts} # Global styles & app shell
-│   │   ├── static/      # Static assets
-│   │   ├── svelte.config.js
-│   │   ├── vite.config.ts
-│   │   └── .env         # Example: PUBLIC_SERVER_URL=http://localhost:3000
-│   │
-│   └── server/          # Cloudflare Worker API (port 3000 in dev)
-│       ├── src/
-│       │   └── index.ts # Hono app with oRPC handlers
-│       ├── dist/        # Compiled output
-│       ├── env.d.ts     # Cloudflare env types
-│       ├── tsdown.config.ts
-│       └── .env         # Example: CORS_ORIGINS=http://localhost:5173
-│
-├── packages/
-│   ├── api/             # Shared oRPC router & context
-│   │   ├── src/
-│   │   │   ├── routers/
-│   │   │   │   └── index.ts  # appRouter with oRPC procedures
-│   │   │   ├── context.ts    # Context factory for API requests
-│   │   │   └── index.ts      # Exports procedure builder
-│   │   └── package.json (exports "." and "./*" for tree-shaking)
-│   │
-│   └── config/          # Shared build/lint config presets
-│
-├── alchemy.run.ts       # Alchemy dev/deploy config
-├── turbo.json          # Turborepo config
-├── .oxlintrc.json      # oxlint rules
-├── .oxfmtrc.json       # oxfmt config
-└── package.json        # Workspace root config
+There is no test framework; `check-types` plus a manual pass in `bun run dev` is the whole check.
 
-```
+## Deployment
 
-## Key Features
+Each environment is its own Alchemy entrypoint, passed to the CLI by the scripts above. They are standalone copies on purpose — keep them in sync by hand when bindings or worker options change.
 
-- **Type-Safe API**: oRPC with Zod validation ensures type safety from database to frontend
-- **Markdown Blog**: mdsvex converts .md files to Svelte components; shiki syntax highlighting
-- **OG Image Generation**: SvelteKit endpoint for dynamic social media card images
-- **OpenAPI Docs**: oRPC auto-generates `/api-reference` documentation
-- **CORS-Enabled**: Hono CORS middleware routes configured in .env
-- **Deployment**: Alchemy manages local dev & Cloudflare Workers deployment in one command
+- `alchemy.dev.ts` — local workers, no custom domains, bindings from the `.env` files.
+- `alchemy.prod.ts` — `ar7al.dev` and `api.ar7al.dev`, plus the `edge-rules` scope (www→apex redirect, security headers). `apps/server/env.d.ts` and `packages/api/env.d.ts` derive `Env` from this file, so it's the reference for bindings.
+- `alchemy.preview.ts` — stage `pr-<id>`, `portfolio-pr-<id>` / `api-portfolio-pr-<id>` on `workers.dev` URLs, and writes `web_url` / `server_url` to `$GITHUB_OUTPUT` for the PR comment.
 
-## Build, Test, and Development Commands
+Bindings: `PUBLIC_SERVER_URL` on web; `CORS_ORIGINS` and `GH_TOKEN` on the server. Env files: `.env` (`SECRET_PASSPHRASE`), `apps/web/.env` (`PUBLIC_SERVER_URL`), `apps/server/.env` (`CORS_ORIGINS`, `GH_TOKEN`).
 
-- `bun run dev`: Run all apps via Alchemy (web + server).
-- `bun run dev:web`: Run only the SvelteKit app (port 5173).
-- `bun run dev:server`: Run only the API worker (port 3000).
-- `bun run build`: Build all apps with Turborepo.
-- `bun run deploy`: Deploy via Alchemy to Cloudflare.
-- `bun run destroy`: Tear down Alchemy environment.
-- `bun run check`: Lint/auto-fix with `oxlint --fix --fix-suggestions --fix-dangerously`.
-- `bun run check-types`: Type-check all packages with Turborepo.
-- `bun run fmt` / `bun run fmt:check`: Format with `oxfmt`.
+## Commits
 
-## Coding Style & Naming Conventions
-
-- **TypeScript-first**: All source code is `.ts` or `.svelte` files; ESM modules.
-- **SvelteKit routing**: Use `+page.svelte`, `+page.ts`, `+server.ts`, `+layout.svelte` naming.
-- **API routers**: Define procedures in `packages/api/routers/*.ts`, export from `routers/index.ts`.
-- **Markdown posts**: Place `.md` files in `apps/web/src/posts/` for mdsvex processing.
-- **Tailwind**: Use TailwindCSS v4 utilities; no custom CSS classes unless necessary.
-- **Lists**: Projects, posts, and experiences render as borderless rows (`ProjectRow` / `PostRow` / `ExperienceRow`, all built on `ListRow.svelte`) inside a `<ul class="group/list space-y-8">`, which dims the other rows on hover. Pass `tech` to show the item's stack as icons under the description (`TechIcons.svelte`). Build new lists the same way instead of boxed cards.
-- **Detail pages**: The blog, project, and career `[slug]` pages share `BackLink`, `ActionLink` (external links with a ↗), `PrevNext`, and `SignOff`. Article typography for the Markdown content lives in the `.prose` block in `app.css`; don't add per-page `<style>` blocks for it.
-- **Career pages**: A role in `src/content/career/` lives in its frontmatter. `intro` is a sentence or two on what the company does and where you fit. `work` holds 2-4 things you built: each gets a `name` and a first-person `summary` of the problem, what you did, and how it turned out (with a real number if you have one), plus an optional `link` and `tech`. `NumberedList.svelte` renders them as numbered rows under "What I worked on". `takeaway` is a short lesson, shown last under "What I took away". The Markdown body is optional and sits between the work rows and the takeaway. Use it for a longer write-up or a diagram, but not for a highlights list, which would only repeat the rows. Keep short roles short; an internship needs one or two items. `description` is the one-line summary that the career list, the meta tags, and the social image use.
-- **Project pages**: Projects in `src/content/projects/` follow the same pattern. `intro` says what the project is, who it's for, and what it's built with; the page falls back to `description` without it. `features` (3-4 rows under "What it does") and `challenges` (rows under "What was hard", each saying how you handled it) use the same `name` / `summary` / `link` / `tech` shape and render with `NumberedList.svelte`. The page doesn't render a Markdown body, so keep project files to frontmatter only.
-- **Social images**: Each `social.png/+server.ts` renders a component from `lib/components/og/` with `ImageResponse`. The components share `OgFrame` (brand mark, name, section label, URL footer); style them with inline styles only, and pull colors, icons (`iconFor`), and logos (`asset`) from `og.ts`. Design each image around its own content and check it at its URL in the dev server. Keep each piece of text a single `{expression}`: satori drops text that sits next to `{#if}` or `{@html}` blocks, so build combined strings in the script. Write "and" instead of "&" in titles and descriptions: satori doesn't decode Svelte's `&amp;`, so it would show literally in the image.
-- **Skills**: Render with `SkillList.svelte` (icon + name, no boxes). Icons live in `static/icons/skills/`, from [developer-icons](https://github.com/xandemon/developer-icons) (MIT) or, when it lacks one, the project's official site; map new names in `src/lib/data/skills.ts`. Concepts without an icon (e.g. "REST APIs") get a letter tile. Use the light variant of any icon meant for dark backgrounds, and add single-color light icons to `monoIcons` in `skills.ts` so they flip dark in light mode (company logos use `logoMono: true` in the career frontmatter).
-- **Fonts**: Only page titles (each page's `h1`) and section headings (`h2` like "Contact", "Experience") use `font-display italic` with normal weight: Instrument Serif, which only ships at 400, so never pair it with `font-semibold`/`font-bold`. List-row titles, article headings, and everything else stay JetBrains Mono.
-- **Colors**: Use the theme tokens from `app.css` instead of hardcoded hex or Tailwind grays: surfaces `bg-page` / `bg-card` / `bg-raised`, borders `border-line`, text `text-ink` (headings) / `text-ink-soft` (body) / `text-ink-mute` (dates, meta). In `<style>` blocks use `var(--color-*)`.
-- **Light mode**: The site follows the system theme, and `ThemeToggle.svelte` (in `Navbar` and `BackLink`) overrides it through `data-theme` on `<html>` plus `localStorage`. Tokens in `app.css` are `light-dark(light, dark)` pairs, so add a color by giving both values there. For one-off light styles use the `light:` variant (`light:invert`). Blog diagrams keep their dark-palette hex colors; `.prose svg` inverts them in light mode, so check new diagrams in both themes. The inline theme script in `app.html` is allowed by a CSP hash that `svelte.config.js` computes from the file, so edit it freely.
-- **Zod schemas**: Use for API validation and type inference; define in api layer.
-- **Formatting/linting**: Run `bun run check` and `bun run fmt` before commits.
-
-## Testing Guidelines
-
-- No dedicated test framework configured yet.
-- Use `bun run check-types` for TypeScript compilation checks.
-- Use `bun run check` for static linting (oxlint can catch many bugs).
-- Integration testing: manually via `bun run dev` during development.
-- If adding tests, document the command and location in this section.
-
-## Deployment & Environment
-
-- **Alchemy**: Single command dev/deploy via `alchemy.run.ts`.
-- **Bindings**: Configured in `alchemy.run.ts` for web/server; synced from `.env` files.
-- **Web bindings**: `PUBLIC_SERVER_URL` (API endpoint URL).
-- **Server bindings**: `CORS_ORIGINS` (comma-separated allowed origins); `GH_TOKEN` (GitHub token for GitHub API calls if needed).
-- **Cloudflare Workers**: Node.js compatibility mode enabled (`compatibility: "node"`).
-- **Environment files**:
-  - `.env` (root): `SECRET_PASSPHRASE` for Alchemy.
-  - `apps/web/.env`: `PUBLIC_SERVER_URL`.
-  - `apps/server/.env`: `CORS_ORIGINS`, `GH_TOKEN`.
-
-## Commit & Pull Request Guidelines
-
-- Commit history mixes conventional (`feat:`/`fix:`) and simple (`Update ...`).
-- Recommendation: use short, imperative messages; prefer `feat:` or `fix:` when meaningful.
-- PRs should include: clear summary, linked issues (if any), and screenshots for UI changes.
-- Always format before committing: `bun run fmt && bun run check` (auto-fixes linting issues).
-
-## oRPC & API Architecture
-
-- **oRPC Router**: Defined in `packages/api/routers/index.ts` as `appRouter`.
-- **Procedures**: Each function in `appRouter` is an oRPC procedure with optional input/output Zod schemas.
-- **Server Handler**: `apps/server/src/index.ts` runs `RPCHandler` (for JSON-RPC calls) and `OpenAPIHandler` (for REST docs).
-- **RPC Prefix**: `/rpc/*` for JSON-RPC calls; `/api-reference` for OpenAPI docs.
-- **Client Usage**: Import `AppRouter` type in frontend for end-to-end type safety.
-
-## Common Development Workflows
-
-- **Add a new blog post**: Create `apps/web/src/posts/my-post.md`, mdsvex auto-renders it in `/blog` route.
-- **Add an API endpoint**: Define procedure in `packages/api/routers/index.ts`, re-run dev server.
-- **Update styling**: Edit Tailwind classes in `.svelte` files; v4 auto-scans and compiles.
-- **Add environment variable**: Update `.env` file, restart dev server (Alchemy reloads bindings).
-- **Test API**: Use `/api-reference` OpenAPI docs or make POST request to `/rpc/<procedure-name>`.
-
-## Blog Diagram Guidelines
-
-Blog posts under `apps/web/src/content/blog-posts/` sometimes benefit from an inline diagram to explain a concept. This section is the accumulated lesson from actually building and iterating on these — follow it rather than re-deriving the approach from scratch.
-
-### Where diagrams live
-
-- Each diagram is its own Svelte component in `apps/web/src/lib/components/diagrams/<Name>Diagram.svelte`. Never inline raw `<svg>` markup directly into a markdown post's body — it clutters the source and can't be reused.
-- Wire it into a post with a `<script>` block right after the frontmatter:
-  ```svelte
-  <script>
-  	import FooDiagram from '$lib/components/diagrams/FooDiagram.svelte';
-  </script>
-  ```
-  then drop `<FooDiagram />` at the exact point in the prose where it belongs.
-
-### Placement is what matters most
-
-- A diagram must sit immediately after the specific paragraph or code block it illustrates — not several paragraphs later, not "up front" as a preview. The reading flow is: **explain the concept in text → show the diagram → the diagram confirms and visualizes what was just said.**
-- One diagram = one concept. Don't build a single diagram trying to summarize an entire post or compare two whole systems side by side.
-- Before adding a diagram, ask: "does the paragraph right above this need a picture, or am I adding one because the post feels diagram-shaped?" Only add it if the answer is genuinely the former — not every section needs a diagram.
-
-### Keep it small, keep it simple
-
-- Target one focused visual: one flow, one comparison of two things at most, one animated sequence. If you're reaching for a third panel or a legend explaining what four colors mean, it's too big — split it or cut it.
-- Prefer several small diagrams distributed through the post over one large "capstone" diagram at the end. A big end-of-post summary diagram sounds appealing but tends to land either too abstract to add value or too busy to read at a glance.
-- Use concrete example values, not placeholders: a real-looking key like `"user:42"`, an actual computed number, real modulo math that checks out (`8213740922 % 4 = 2`). A worked example is more convincing than a generic labeled box.
-
-### Micro-animation, not spectacle
-
-- Use small SMIL `<animate>` / `<animateTransform>` loops: a handful of elements changing state over a several-second loop, not a complex simultaneous system. This keeps the component dependency-free — no JS state machine needed.
-- Sequence beats deliberately: a label/caption should appear _first_, then — after a short delay (roughly 0.5-1s) — the visual element reacts. Don't animate the label and the shape change at the same instant; simultaneous changes read as noise, not narration.
-- Loop cleanly with `repeatCount="indefinite"`, and make the `keyTimes="0"` state the idle/at-rest state, so the loop restart isn't jarring.
-
-### Visual style — match the site
-
-- Font: `'JetBrains Mono Variable', monospace` throughout (the site's loaded webfont; works fine inline since these SVGs render in the DOM, not as external images).
-- Box fill `#1a1a1a` / `#141414`, at-rest border `#52525b` (or `#3f3f46` for a fainter guide line), rounded corners to match the site: `rx="6"` on boxes (like `rounded-md` cards) and `rx="4"` on thin bars (like `rounded-sm` tags).
-- Color language, used consistently: white `#f9fafb` = primary text / neutral state; green `#10b981` = success / active / arrived; blue `#60a5fa` = in-progress / computing / links; red `#f87171` = failure / cancelled / blocked. Muted gray `#9ca3af` / `#6b7280` for captions and secondary labels, typically `font-style="italic"` for the small caption line under a diagram.
-- For a side-by-side comparison of two things, wrap both independently-sized `<svg>` elements in `<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">` so they stack to one column on small screens instead of squeezing two panels into a phone width.
-
-### What didn't work — don't repeat this
-
-- A two-panel "one lock vs. sharded locks" comparison and a "keys fan out through a router" diagram were both built, then removed — they tried to explain too much system at once and stopped being something you could read in a couple of seconds.
-- Three different "capstone summary" diagrams (independent-shard pulse, struct recap, single-key routing) were prototyped for the end of a post and all three were scrapped in favor of no diagram there at all.
-- If unsure which of several diagram concepts fits best, don't just build the most elaborate one and hope — build 2-3 small, cheap variants and ask which one lands, the same way you'd ask about any other design decision.
-
-### Verification
-
-- Run the dev server (`bun run dev:web`, or the `web` config in `.claude/launch.json` via the preview tool) and actually look at the rendered post before calling a diagram done.
-- Watch a full animation loop (several seconds) to confirm every phase plays correctly, not just the first frame.
-- Check both desktop and mobile widths for any diagram with more than one panel.
+Short imperative messages, `feat:` / `fix:` when it helps. PRs: a clear summary, linked issues, screenshots for UI changes.
