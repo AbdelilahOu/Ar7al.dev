@@ -7,9 +7,10 @@
   ],
   "type": "module",
   "scripts": {
-    "check": "oxlint --fix --fix-suggestions --fix-dangerously",
-    "fmt": "oxfmt --write .",
-    "fmt:check": "oxfmt --check .",
+    "fmt": "bun fmt",
+    "fmt:check": "bun fmt --check",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix --fix-suggestions --fix-dangerously",
     "dev": "alchemy dev alchemy.dev.ts",
     "build": "turbo build",
     "check-types": "turbo check-types",
@@ -29,12 +30,11 @@
     "@cloudflare/workers-types": "^4.20260702.1",
     "@types/node": "^25.9.9",
     "alchemy": "^0.85.2",
-    "oxfmt": "^0.34.0",
     "oxlint": "^1.94.0",
     "turbo": "^2.11.13",
     "typescript": "^5.9.3"
   },
-  "packageManager": "bun@1.3.9",
+  "packageManager": "bun@1.4.5",
   "catalog": {
     "@cloudflare/workers-types": "^4.20260702.1",
     "@orpc/client": "^1.16.4",

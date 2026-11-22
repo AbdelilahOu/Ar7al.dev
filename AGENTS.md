@@ -1,24 +1,28 @@
 # Repository Guidelines
 
-Personal portfolio at [ar7al.dev](https://ar7al.dev): a Bun + Turborepo workspace with a SvelteKit 5 / Tailwind v4 site, a Hono API on Cloudflare Workers, oRPC between them, and Alchemy for dev and deploys. Lint and format with oxlint and oxfmt.
+Personal portfolio at [ar7al.dev](https://ar7al.dev): a Bun + Turborepo workspace with a SvelteKit 5 / Tailwind v4 site, a Hono API on Cloudflare Workers, oRPC between them, and Alchemy for dev and deploys. Formatting is bun's built-in `bun fmt`, linting is oxlint.
 
 ## Layout
 
 - `apps/web` — the site (port 5173). Routes in `src/routes/(app)`, content in `src/content/{blog-posts,career,projects}`, components and data in `src/lib`.
 - `apps/server` — the API worker (port 3000), `src/index.ts`. Runs oRPC's `RPCHandler` at `/rpc/*` and `OpenAPIHandler` at `/api-reference`.
 - `packages/api` — the shared `appRouter` and context. Procedures live in `src/routers/<name>/index.ts` and are composed in `src/routers/index.ts`; the web app imports `AppRouter` for end-to-end types.
-- `packages/config` — shared tsconfig and lint presets.
+- `packages/config` — shared tsconfig presets.
 - `alchemy.{dev,prod,preview}.ts` — one deploy config per environment.
 
 ## Commands
 
 - `bun run dev` — web + server via Alchemy; `bun run dev:web` / `bun run dev:server` for one at a time.
 - `bun run build` — build everything with Turborepo.
-- `bun run check` (oxlint, autofix), `bun run fmt` (oxfmt), `bun run check-types` (tsc). Run the first two before committing.
+- `bun run fmt` / `bun run fmt:check` — `bun fmt`, configured in `bunfig.toml` (print width 100, sorted imports). It covers every tracked file type it knows — ts, svelte, md, json, yaml, css, html — and skips what `.gitignore` skips.
+- `bun run lint` / `bun run lint:fix` — oxlint, configured in `.oxlintrc.json`. Run fmt and lint before committing.
+- `bun run check-types` — tsc via Turborepo.
 - `bun run deploy` / `bun run destroy` — production.
 - `bun run deploy:preview` / `bun run destroy:preview` — a PR preview; needs `ALCHEMY_PREVIEW_ID` set to the PR number.
 
 There is no test framework; `check-types` plus a manual pass in `bun run dev` is the whole check.
+
+The JSON-LD blocks in the route pages write their opening tag as `<${"script"} type="application/ld+json">` inside the `{@html}` template literal. That renders identically but keeps oxlint's Svelte parser from choking on a literal `<script>` inside a string, so leave the split in place.
 
 ## Deployment
 

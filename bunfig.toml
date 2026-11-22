@@ -1,0 +1,4 @@
+[fmt]
+printWidth = 100
+sortImports = true
+svelte = true

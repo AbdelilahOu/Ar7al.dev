@@ -8,6 +8,10 @@ dist
 build
 *.tsbuildinfo
 
+# tsc -b emits these next to the alchemy entrypoints (env.d.ts imports them)
+alchemy.*.js
+alchemy.*.d.ts
+
 # Environment variables
 .env
 .env*.local
