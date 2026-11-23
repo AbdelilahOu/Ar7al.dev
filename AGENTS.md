@@ -22,6 +22,8 @@ Personal portfolio at [ar7al.dev](https://ar7al.dev): a Bun + Turborepo workspac
 
 There is no test framework; `check-types` plus a manual pass in `bun run dev` is the whole check.
 
+Blog post images go in `apps/web/src/content/blog-posts/images/` and are referenced with relative paths (`./images/...`), not from `static/`. mdsvex imports them through `@sveltejs/enhanced-img`, and `src/lib/components/markdown/Image.svelte` renders the AVIF/WebP picture with width, height and lazy loading. An image in `static/` gets none of that.
+
 The JSON-LD blocks in the route pages write their opening tag as `<${"script"} type="application/ld+json">` inside the `{@html}` template literal. That renders identically but keeps oxlint's Svelte parser from choking on a literal `<script>` inside a string, so leave the split in place.
 
 ## Deployment

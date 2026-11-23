@@ -7,12 +7,14 @@
   }
 
   let { href, children }: Props = $props();
+
+  let external = $derived(!href.startsWith("/"));
 </script>
 
 <a
   {href}
-  target="_blank"
-  rel="noopener noreferrer"
+  target={external ? "_blank" : undefined}
+  rel={external ? "noopener noreferrer" : undefined}
   class="text-ink-soft underline decoration-line underline-offset-4 transition-colors hover:text-ink hover:decoration-ink-mute"
   >{@render children()}</a
 >
