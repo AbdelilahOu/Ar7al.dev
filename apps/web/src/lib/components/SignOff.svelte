@@ -9,7 +9,8 @@
 </script>
 
 <p class="text-sm text-ink-mute">
-  {message} Find me on
+  {message} Read more <InlineLink href="/">about me</InlineLink>, see my
+  <InlineLink href="/projects">projects</InlineLink>, or find me on
   <InlineLink href="https://x.com/Abdelilah4dev">X</InlineLink>
   or
   <InlineLink href="https://www.linkedin.com/in/ar7al">LinkedIn</InlineLink>.

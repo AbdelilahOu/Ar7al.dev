@@ -1,0 +1,215 @@
+{
+  "version": 2,
+  "skills": {
+    "ahrefs-research": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/ahrefs-research/SKILL.md",
+      "computedHash": "7ce12befa51d2f12697f04c964fbfe0223a4c3e52333596a18ed44f580790ad4"
+    },
+    "ai-seo-report": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/ai-seo-report/SKILL.md",
+      "computedHash": "8896ab95d1fbb5e34bac1d4da77a4008d881514b9b52788f9b6bde3d32ee9795"
+    },
+    "aiseotracker": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/aiseotracker/SKILL.md",
+      "computedHash": "ce835aa66b71bedc40bf12e6739d66afa1b07ede8a43a0a94c10e7e1974fdd22"
+    },
+    "awesome-tools": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/awesome-tools/SKILL.md",
+      "computedHash": "92364297564cd8310e316449954c167f60db73c1d4a51d3fb8f4cffeb3a12947"
+    },
+    "blitz-copy": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "copywriting/blitz-copy/SKILL.md",
+      "computedHash": "fe20bfaf96e93a156316b35d33eaae625e74c09ac8fb1371e09d05de4ed0e683"
+    },
+    "blitz-seo": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/blitz-seo/SKILL.md",
+      "computedHash": "2c6f3f5824fb3e03beef4dde8e1c97a75e38e31528664b79f1cd3ac9ad7ffb84"
+    },
+    "block-ai-scrapers": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/block-ai-scrapers/SKILL.md",
+      "computedHash": "b9ed0f2a9b45ed755dae771c8175731c69124a6520948d73b760d9915bd1f704"
+    },
+    "blog-refresher": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/blog-refresher/SKILL.md",
+      "computedHash": "09d2624fe15f79acef6f437f434fd5399f5ce40d4af0be667d6f87998e61ca46"
+    },
+    "content-coverage": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/content-coverage/SKILL.md",
+      "computedHash": "cbb5e57e907dc4c2a0f8be84369bf0b64a9ac5642a3fcea2cda225d1e0c18218"
+    },
+    "customer-journey": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "marketing/customer-journey/SKILL.md",
+      "computedHash": "fc6a590947ff7cf87ddb0ba2a5e53b39bfbab266c7c4748ef1b72e294f32ec93"
+    },
+    "dataforseo-serp": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/dataforseo-serp/SKILL.md",
+      "computedHash": "6af40c2444a455319095be5c849159a8d44dac39486a114e17c9a95d20ba9ccb"
+    },
+    "diff-marketing": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "marketing/diff-marketing/SKILL.md",
+      "computedHash": "7e033244ba82225df5290c18e20e7c0f88598aa81406b3a68a710a7f61e59b9a"
+    },
+    "directory-submissions": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/directory-submissions/SKILL.md",
+      "computedHash": "f7983a31c69a60d7ed024922d00f7ca5637cd467330aede10a42866aedccbc8d"
+    },
+    "domain-migration": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/domain-migration/SKILL.md",
+      "computedHash": "3fcb09c0c0b9be1075cdf36d62c33bff2d1bd501d8f9627ef40bc68a9d0f3758"
+    },
+    "honest-link-outreach": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/honest-link-outreach/SKILL.md",
+      "computedHash": "6c9fb459b4027abf5b10033112b9bbd1efe762e6e2e2cd5d0312ec243adc4ac5"
+    },
+    "internal-linking": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/internal-linking/SKILL.md",
+      "computedHash": "0f4320f545264414447f0b438cd419c3f0a72e686439f965bd546421b3d87e4b"
+    },
+    "intro": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "content/intro/SKILL.md",
+      "computedHash": "afa1a2655b61003b7bbfa74df5856608f3514277fa33203987a55daa08fa91de"
+    },
+    "linkdr": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/linkdr/SKILL.md",
+      "computedHash": "48c9fb2bc3b58fccd53825f5007c53cc241b800162c7b710d9b175c35310c47a"
+    },
+    "parasite-and-pr": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "marketing/parasite-and-pr/SKILL.md",
+      "computedHash": "2983ada3ee14d72d530d5763c73fd0dad4c4fd5a1ecc9f7f7402becea7366895"
+    },
+    "proof-kb": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/proof-kb/SKILL.md",
+      "computedHash": "10d145477b9040ff34468684c9f5038f89f159b009cfbc8d384a6a01a3481130"
+    },
+    "reddit-serp": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/reddit-serp/SKILL.md",
+      "computedHash": "8bea8090bf50f06c217e211ff485c6566c1618626329caa61fc2827cdb3ff13a"
+    },
+    "scribiz": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "content/scribiz/SKILL.md",
+      "computedHash": "b856fc17cfbfd188f65327f58b96e0baf38806816aa5e34f73fe5b8002322640"
+    },
+    "seo-autopilot": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/seo-autopilot/SKILL.md",
+      "computedHash": "b4dfdd2ec9be714cdc21b99648df269484b08a727b916e86fda52c0b73d4b782"
+    },
+    "seo-blog-images": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "content/seo-blog-images/SKILL.md",
+      "computedHash": "51e1b38e2df2dfad1efd363b27cc0b2436e6a95f874ef31f6d2dc67b2d89ff75"
+    },
+    "seo-roast": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/seo-roast/SKILL.md",
+      "computedHash": "3e2d1da7b95e9a5f25e31ec3e159fbb99f93618c2ca5ae8cda2c1a03fbddb1d6"
+    },
+    "seo-title-optimization": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/seo-title-optimization/SKILL.md",
+      "computedHash": "c5df5d80947ef4c5a866bccde4806e573ceefcabf30d768e832e2b479082c087"
+    },
+    "understand-customers": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "copywriting/understand-customers/SKILL.md",
+      "computedHash": "ce93ed2afefcfed41e9254b5b10199e17ab98d8f3d52dbdadbbfa472e2516fb5"
+    },
+    "unslop-seo": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "content/unslop-seo/SKILL.md",
+      "computedHash": "c3ebdceb145ac6a6da2be16fdd99a7596ff29524a19f4730c439e00e36777005"
+    },
+    "vs-and-alternatives": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "seo/vs-and-alternatives/SKILL.md",
+      "computedHash": "45474ba263769fc66618c475ba94ddb51e1eabe9f6e74ed3b0c94af11327b476"
+    },
+    "youtube-seo": {
+      "source": "Illyism/seo-skills",
+      "commit": "a158c36a1c2c84a44ee7a1ae69c009caf73e1a35",
+      "sourceType": "github",
+      "skillPath": "content/youtube-seo/SKILL.md",
+      "computedHash": "1838bec0a24333deef41bcd3ad8a0a2755dc608e6dd05f5a9404f46a72b7ae84"
+    }
+  }
+}
