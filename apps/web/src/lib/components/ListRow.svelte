@@ -12,9 +12,22 @@
     meta?: string;
     tech?: string[];
     icon?: Snippet;
+    media?: Snippet;
+    transitionName?: string;
   }
 
-  let { href, title, linkTitle, subtitle, description, meta, tech, icon }: Props = $props();
+  let {
+    href,
+    title,
+    linkTitle,
+    subtitle,
+    description,
+    meta,
+    tech,
+    icon,
+    media,
+    transitionName,
+  }: Props = $props();
 </script>
 
 <a
@@ -26,11 +39,19 @@
     <div class="min-w-0">
       <div class="flex items-center gap-3">
         {@render icon?.()}
-        <h3 class="text-xl leading-snug text-ink sm:text-2xl">
+        <h3
+          class="text-xl leading-snug text-ink sm:text-2xl"
+          style:view-transition-name={transitionName}
+        >
           {title}
         </h3>
         <HoverArrow />
       </div>
+      {#if media}
+        <div class="mt-4">
+          {@render media()}
+        </div>
+      {/if}
       {#if subtitle}
         <p class="mt-3 text-sm text-ink-soft">{subtitle}</p>
       {/if}

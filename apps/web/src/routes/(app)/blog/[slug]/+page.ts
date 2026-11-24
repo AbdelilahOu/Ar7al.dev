@@ -1,4 +1,4 @@
-import { getPostContext, getPosts } from "$lib/data/posts";
+import { getPostBySlug, getPostContext, getPosts } from "$lib/data/posts";
 import { error } from "@sveltejs/kit";
 
 export const prerender = true;
@@ -16,6 +16,7 @@ export async function load({ params }) {
     return {
       content: post.default,
       meta: post.metadata,
+      cover: getPostBySlug(params.slug)?.cover ?? null,
       slug: params.slug,
       previous,
       next,

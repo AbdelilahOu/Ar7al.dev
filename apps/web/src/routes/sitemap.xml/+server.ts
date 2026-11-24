@@ -12,10 +12,13 @@ function escapeXml(value: string): string {
     .replace(/'/g, "&apos;");
 }
 
-function urlEntry(loc: string, lastmod?: string): string {
+function urlEntry(loc: string, lastmod?: string, image?: string): string {
   const locTag = `<loc>${escapeXml(loc)}</loc>`;
   const lastmodTag = lastmod ? `<lastmod>${escapeXml(lastmod)}</lastmod>` : "";
-  return `<url>${locTag}${lastmodTag}</url>`;
+  const imageTag = image
+    ? `<image:image><image:loc>${escapeXml(image)}</image:loc></image:image>`
+    : "";
+  return `<url>${locTag}${lastmodTag}${imageTag}</url>`;
 }
 
 function normalizeLastmod(value?: string | null): string | undefined {
@@ -53,11 +56,23 @@ export async function GET() {
   urls.push(urlEntry(`${origin}/career`, latestExperience));
 
   for (const post of posts) {
-    urls.push(urlEntry(`${origin}/blog/${post.slug}`, normalizeLastmod(post.date)));
+    urls.push(
+      urlEntry(
+        `${origin}/blog/${post.slug}`,
+        normalizeLastmod(post.date),
+        post.cover ? `${origin}${post.cover.img.src}` : undefined,
+      ),
+    );
   }
 
   for (const project of projects) {
-    urls.push(urlEntry(`${origin}/projects/${project.slug}`, normalizeLastmod(project.createdAt)));
+    urls.push(
+      urlEntry(
+        `${origin}/projects/${project.slug}`,
+        normalizeLastmod(project.createdAt),
+        project.cover ? `${origin}${project.cover.img.src}` : undefined,
+      ),
+    );
   }
 
   for (const experience of experiences) {
@@ -67,7 +82,7 @@ export async function GET() {
 
   const body =
     `<?xml version="1.0" encoding="UTF-8"?>` +
-    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">` +
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">` +
     urls.join("") +
     `</urlset>`;
 

@@ -1,15 +1,18 @@
 <script lang="ts">
   import BackLink from "$lib/components/BackLink.svelte";
+  import Image from "$lib/components/markdown/Image.svelte";
   import PrevNext from "$lib/components/PrevNext.svelte";
   import SignOff from "$lib/components/SignOff.svelte";
   import { SITE_ORIGIN } from "$lib/site";
   import type { Post, PostMetadata } from "$lib/types";
+  import type { Picture } from "@sveltejs/enhanced-img";
   import type { Component } from "svelte";
 
   let props: {
     data: {
       content: Component;
       meta: PostMetadata;
+      cover: Picture | null;
       slug: string;
       previous: Post | null;
       next: Post | null;
@@ -19,6 +22,15 @@
   let meta = $derived(props.data.meta);
   let url = $derived(`${SITE_ORIGIN}/blog/${props.data.slug}`);
   let image = $derived(`${SITE_ORIGIN}/blog/${props.data.slug}/social.png`);
+  let coverImage = $derived(
+    props.data.cover && {
+      "@type": "ImageObject",
+      url: `${SITE_ORIGIN}${props.data.cover.img.src}`,
+      width: props.data.cover.img.w,
+      height: props.data.cover.img.h,
+      caption: meta.imageAlt ?? meta.title,
+    },
+  );
   let title = $derived(`${props.data.meta.title} - Abdelilah Ouaadouch`);
   let description = $derived(meta.seoDescription ?? meta.description);
   let keywords = $derived(
@@ -123,10 +135,7 @@
         mainEntityOfPage: {
           "@id": webpageId,
         },
-        image: {
-          "@type": "ImageObject",
-          url: image,
-        },
+        image: coverImage ? [coverImage, image] : image,
         keywords: keywords,
       },
       {
@@ -147,7 +156,7 @@
         breadcrumb: {
           "@id": breadcrumbId,
         },
-        primaryImageOfPage: {
+        primaryImageOfPage: coverImage ?? {
           "@type": "ImageObject",
           url: image,
         },
@@ -186,15 +195,28 @@
 
     <div class="space-y-12">
       <header class="space-y-4">
+        <h1
+          class="w-fit font-display text-4xl leading-tight italic text-ink md:text-5xl"
+          style:view-transition-name="post-{props.data.slug}"
+        >
+          {meta.title}
+        </h1>
+        {#if props.data.cover}
+          <div style:view-transition-name="post-{props.data.slug}-image">
+            <Image
+              src={props.data.cover}
+              alt={meta.imageAlt ?? meta.title}
+              class="h-auto w-full rounded-md border border-line"
+              eager
+            />
+          </div>
+        {/if}
         <p class="text-sm text-ink-mute">
           <time datetime={meta.date}>{formatDate(meta.date)}</time>
           {#if meta.tags.length > 0}
             <span>· {meta.tags.join(" · ")}</span>
           {/if}
         </p>
-        <h1 class="font-display text-4xl leading-tight italic text-ink md:text-5xl">
-          {meta.title}
-        </h1>
         <p class="text-lg text-ink-soft">{meta.description}</p>
       </header>
 

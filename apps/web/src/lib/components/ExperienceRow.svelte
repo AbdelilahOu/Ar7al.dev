@@ -18,6 +18,7 @@
   description={experience.description}
   meta={formatDateRange(experience.startDate, experience.endDate)}
   tech={experience.technologies}
+  transitionName="career-{experience.slug}"
 >
   {#snippet icon()}
     <CompanyLogo company={experience.company} logo={experience.logo} mono={experience.logoMono} />

@@ -1,4 +1,4 @@
-import { getAdjacentProjects, getProjects } from "$lib/data/projects";
+import { getAdjacentProjects, getProjectBySlug, getProjects } from "$lib/data/projects";
 import { error } from "@sveltejs/kit";
 
 export const prerender = true;
@@ -9,12 +9,14 @@ export function entries() {
 
 export async function load({ params }) {
   try {
-    const post = await import(`@projects/${params.slug}.md`);
+    const project = await import(`@projects/${params.slug}.md`);
 
     const { previous, next } = getAdjacentProjects(params.slug);
 
     return {
-      meta: post.metadata,
+      content: project.default,
+      meta: project.metadata,
+      cover: getProjectBySlug(params.slug)?.cover ?? null,
       slug: params.slug,
       previous,
       next,

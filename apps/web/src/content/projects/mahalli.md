@@ -10,21 +10,36 @@ tech:
   - Rust
   - SeaORM
   - SQLite
-intro: 'Mahalli is a desktop app for inventory and invoicing, built around the B2B document chain Moroccan businesses use. The name means "local" in Arabic. It runs on Tauri v2, with a Nuxt 4 frontend on a native Rust backend that uses SeaORM.'
-features:
-  - name: Document chain
-    summary: "It covers every step of a B2B sale: quote, customer order, delivery note, invoice, payment, and credit note. Payments can be partial or full, the app tracks what each client still owes, and every document prints to PDF."
-  - name: Workspaces
-    summary: "You can create, clone, and switch between separate workspaces without restarting the app."
-  - name: Inventory and clients
-    summary: "It tracks stock, keeps each client's full transaction history, and has a dashboard with charts and analytics."
-  - name: Works offline
-    summary: "It stores everything locally in SQLite, so there's no server to run. The interface supports more than one language through i18n."
-challenges:
-  - name: Two layers of SQLite
-    summary: "Each workspace is its own SQLite tenant database. A separate system catalog database tracks every workspace and which one is active, and the app hot-swaps the tenant connection when you switch."
+image: ./images/Mahalli.png
+imageAlt: "Mahalli's invoices page, listing invoices with their client, status, total and amount paid in MAD"
 web: https://mahalli-web.pages.dev/
 github: https://github.com/AbdelilahOu/Mahalli
 createdAt: "2026-01-15"
 published: true
 ---
+
+Mahalli is a desktop app for inventory and invoicing, built around the B2B document chain Moroccan businesses use. The name means "local" in Arabic. It runs on Tauri v2, with a Nuxt 4 frontend on a native Rust backend that uses SeaORM.
+
+## What it does
+
+### Document chain
+
+It covers every step of a B2B sale: quote, customer order, delivery note, invoice, payment, and credit note. Payments can be partial or full, the app tracks what each client still owes, and every document prints to PDF.
+
+### Workspaces
+
+You can create, clone, and switch between separate workspaces without restarting the app.
+
+### Inventory and clients
+
+It tracks stock, keeps each client's full transaction history, and has a dashboard with charts and analytics.
+
+### Works offline
+
+It stores everything locally in SQLite, so there's no server to run. The interface supports more than one language through i18n.
+
+## What was hard
+
+### Two layers of SQLite
+
+Each workspace is its own SQLite tenant database. A separate system catalog database tracks every workspace and which one is active, and the app hot-swaps the tenant connection when you switch.

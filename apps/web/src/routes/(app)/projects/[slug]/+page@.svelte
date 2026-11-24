@@ -1,16 +1,20 @@
 <script lang="ts">
   import ActionLink from "$lib/components/ActionLink.svelte";
   import BackLink from "$lib/components/BackLink.svelte";
-  import NumberedList from "$lib/components/NumberedList.svelte";
+  import Image from "$lib/components/markdown/Image.svelte";
   import PrevNext from "$lib/components/PrevNext.svelte";
   import SignOff from "$lib/components/SignOff.svelte";
   import TechIcons from "$lib/components/TechIcons.svelte";
   import type { Project, ProjectMetadata } from "$lib/data/projects";
   import { SITE_ORIGIN } from "$lib/site";
+  import type { Picture } from "@sveltejs/enhanced-img";
+  import type { Component } from "svelte";
 
   let props: {
     data: {
+      content: Component;
       meta: ProjectMetadata;
+      cover: Picture | null;
       slug: string;
       previous: Project | null;
       next: Project | null;
@@ -20,6 +24,15 @@
   let meta = $derived(props.data.meta);
   let url = $derived(`${SITE_ORIGIN}/projects/${props.data.slug}`);
   let image = $derived(`${SITE_ORIGIN}/projects/${props.data.slug}/social.png`);
+  let coverImage = $derived(
+    props.data.cover && {
+      "@type": "ImageObject",
+      url: `${SITE_ORIGIN}${props.data.cover.img.src}`,
+      width: props.data.cover.img.w,
+      height: props.data.cover.img.h,
+      caption: meta.imageAlt ?? `Screenshot of ${meta.title}`,
+    },
+  );
   let title = $derived(`${meta.title} - Abdelilah Ouaadouch`);
   let description = $derived(meta.description);
   let personId = $derived(`${SITE_ORIGIN}#person`);
@@ -84,6 +97,7 @@
         "@id": projectId,
         name: meta.title,
         description: meta.description,
+        ...(coverImage && { image: coverImage, screenshot: coverImage }),
         applicationCategory: "DeveloperApplication",
         operatingSystem: "Cross-platform",
         url: url,
@@ -121,7 +135,7 @@
         breadcrumb: {
           "@id": breadcrumbId,
         },
-        primaryImageOfPage: {
+        primaryImageOfPage: coverImage ?? {
           "@type": "ImageObject",
           url: image,
         },
@@ -160,9 +174,22 @@
 
     <div class="space-y-12">
       <header class="space-y-4">
-        <h1 class="font-display text-4xl leading-tight italic text-ink md:text-5xl">
+        <h1
+          class="w-fit font-display text-4xl leading-tight italic text-ink md:text-5xl"
+          style:view-transition-name="project-{props.data.slug}"
+        >
           {meta.title}
         </h1>
+        {#if props.data.cover}
+          <div style:view-transition-name="project-{props.data.slug}-image">
+            <Image
+              src={props.data.cover}
+              alt={meta.imageAlt ?? `Screenshot of ${meta.title}`}
+              class="h-auto w-full rounded-md border border-line"
+              eager
+            />
+          </div>
+        {/if}
         <p class="text-sm text-ink-mute">
           <time datetime={meta.createdAt}>{created}</time>
         </p>
@@ -181,21 +208,9 @@
         </div>
       </header>
 
-      <p class="text-lg leading-8 text-ink">{meta.intro ?? meta.description}</p>
-
-      {#if meta.features?.length}
-        <section class="space-y-8">
-          <h2 class="font-display text-3xl italic text-ink md:text-4xl">What it does</h2>
-          <NumberedList items={meta.features} />
-        </section>
-      {/if}
-
-      {#if meta.challenges?.length}
-        <section class="space-y-8">
-          <h2 class="font-display text-3xl italic text-ink md:text-4xl">What was hard</h2>
-          <NumberedList items={meta.challenges} />
-        </section>
-      {/if}
+      <article class="project-body">
+        <props.data.content />
+      </article>
 
       <footer class="space-y-10 border-t border-line pt-10">
         <PrevNext

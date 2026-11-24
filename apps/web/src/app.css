@@ -213,3 +213,84 @@ body {
     filter: invert(1) hue-rotate(180deg);
   }
 }
+
+.project-body {
+  counter-reset: item;
+  @apply text-ink-soft;
+}
+
+.project-body > p:first-of-type {
+  @apply text-lg leading-8 text-ink;
+}
+
+.project-body p:has(> picture),
+.project-body p:has(> img) {
+  @apply mt-12;
+}
+
+.project-body img {
+  @apply h-auto w-full rounded-md border border-line;
+}
+
+.project-body h2 {
+  counter-set: item 0;
+  @apply mt-12 mb-8 font-display text-3xl text-ink italic md:text-4xl;
+}
+
+.project-body h3 {
+  counter-increment: item;
+  @apply relative mt-10 pl-9 text-lg leading-snug text-ink sm:pl-12 sm:text-xl;
+}
+
+.project-body h2 + h3 {
+  @apply mt-0;
+}
+
+.project-body h3::before {
+  content: counter(item, decimal-leading-zero);
+  @apply absolute top-1 left-0 text-sm text-ink-mute tabular-nums;
+}
+
+.project-body h3 ~ p,
+.project-body h3 ~ ul,
+.project-body h3 ~ ol {
+  @apply mt-2 max-w-[calc(36rem+2.25rem)] pl-9 text-[15px] leading-7 sm:max-w-[calc(36rem+3rem)] sm:pl-12;
+}
+
+.project-body a {
+  @apply text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink-mute;
+}
+
+.project-body code {
+  @apply rounded bg-raised px-1.5 py-0.5 text-[0.9em] text-ink;
+}
+
+::view-transition-group(*) {
+  animation-duration: 350ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+::view-transition-old(*):only-child,
+::view-transition-new(*):only-child {
+  animation-duration: 200ms;
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}

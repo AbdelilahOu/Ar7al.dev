@@ -1,4 +1,20 @@
+import type { Picture } from "@sveltejs/enhanced-img";
+
 import type { Post, PostMetadata } from "../types";
+
+const images = import.meta.glob<Picture>(
+  "/src/content/blog-posts/images/covers/*.{png,jpg,jpeg,webp}",
+  {
+    eager: true,
+    import: "default",
+    query: { enhanced: true },
+  },
+);
+
+function getCover(image?: string): Picture | null {
+  if (!image) return null;
+  return images[`/src/content/blog-posts/${image.replace(/^\.\//, "")}`] ?? null;
+}
 
 export function getPosts(): Post[] {
   const paths = import.meta.glob<{ metadata: PostMetadata }>("/src/content/blog-posts/*.md", {
@@ -19,6 +35,7 @@ export function getPosts(): Post[] {
           ...metadata,
           slug,
           postNumber,
+          cover: getCover(metadata.image),
         });
       }
     }

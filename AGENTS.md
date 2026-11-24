@@ -22,6 +22,10 @@ Personal portfolio at [ar7al.dev](https://ar7al.dev): a Bun + Turborepo workspac
 
 There is no test framework; `check-types` plus a manual pass in `bun run dev` is the whole check.
 
+Project pages are written like blog posts: frontmatter holds only metadata (title, description, tech, links, dates, and an optional `image` cover such as `./images/DBMcp.png`), and the intro, `## What it does` and `## What was hard` sections live in the markdown body. The cover shows under the title on the details page and in the home page's Featured Projects, and morphs between them through the `project-<slug>-image` view transition name. The body renders in `.project-body` (in `app.css`), not `.prose`: the first paragraph is the large intro, `h2` is the italic display heading, and each `###` becomes a numbered item with the paragraphs under it indented. Project images go in `apps/web/src/content/projects/images/`.
+
+Blog posts can also set an `image` cover (in `images/covers/`) and an `imageAlt` in frontmatter; it shows under the title on the post page and in the home page's Latest Posts, morphing through `post-<slug>-image`. Cover illustrations are stored as quality 90 JPEG, screenshots as palette PNG.
+
 Blog post images go in `apps/web/src/content/blog-posts/images/` and are referenced with relative paths (`./images/...`), not from `static/`. mdsvex imports them through `@sveltejs/enhanced-img`, and `src/lib/components/markdown/Image.svelte` renders the AVIF/WebP picture with width, height and lazy loading. An image in `static/` gets none of that.
 
 The JSON-LD blocks in the route pages write their opening tag as `<${"script"} type="application/ld+json">` inside the `{@html}` template literal. That renders identically but keeps oxlint's Svelte parser from choking on a literal `<script>` inside a string, so leave the split in place.

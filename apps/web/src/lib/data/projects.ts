@@ -1,12 +1,17 @@
-import type { NumberedItem } from "$lib/components/NumberedList.svelte";
+import type { Picture } from "@sveltejs/enhanced-img";
+
+const images = import.meta.glob<Picture>("/src/content/projects/images/*.{png,jpg,jpeg,webp}", {
+  eager: true,
+  import: "default",
+  query: { enhanced: true },
+});
 
 export interface ProjectMetadata {
   title: string;
   description: string;
   tech: string[];
-  intro?: string;
-  features?: NumberedItem[];
-  challenges?: NumberedItem[];
+  image?: string;
+  imageAlt?: string;
   github?: string;
   web?: string;
   createdAt: string;
@@ -15,6 +20,12 @@ export interface ProjectMetadata {
 
 export interface Project extends ProjectMetadata {
   slug: string;
+  cover: Picture | null;
+}
+
+function getCover(image?: string): Picture | null {
+  if (!image) return null;
+  return images[`/src/content/projects/${image.replace(/^\.\//, "")}`] ?? null;
 }
 
 export function getProjects(): Project[] {
@@ -32,7 +43,7 @@ export function getProjects(): Project[] {
       const metadata = file.metadata as ProjectMetadata;
 
       if (metadata.published) {
-        projects.push({ ...metadata, slug });
+        projects.push({ ...metadata, slug, cover: getCover(metadata.image) });
       }
     }
   }

@@ -202,7 +202,7 @@
   </div>
   <ul class="group/list space-y-8">
     {#each props.data.featuredProjects as project}
-      <li><ProjectRow {project} /></li>
+      <li><ProjectRow {project} showImage /></li>
     {/each}
   </ul>
 </section>
@@ -217,7 +217,7 @@
   {#if props.data.latestPosts.length > 0}
     <ul class="group/list space-y-8">
       {#each props.data.latestPosts as post}
-        <li><PostRow {post} /></li>
+        <li><PostRow {post} showImage /></li>
       {/each}
     </ul>
   {:else}
