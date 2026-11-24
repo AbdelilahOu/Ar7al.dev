@@ -6,9 +6,10 @@
   interface Props {
     post: Post;
     showImage?: boolean;
+    eagerImage?: boolean;
   }
 
-  let { post, showImage = false }: Props = $props();
+  let { post, showImage = false, eagerImage = false }: Props = $props();
 
   let published = $derived(
     new Date(post.date).toLocaleDateString("en-US", {
@@ -27,6 +28,7 @@
         alt={post.imageAlt ?? post.title}
         sizes="(min-width: 50rem) 42rem, calc(100vw - 2rem)"
         class="h-auto w-full rounded-md border border-line"
+        eager={eagerImage}
       />
     </div>
   {/if}

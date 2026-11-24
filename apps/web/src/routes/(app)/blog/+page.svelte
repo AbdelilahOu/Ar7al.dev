@@ -161,8 +161,8 @@
 
   {#if props.data.posts.length > 0}
     <ul class="group/list space-y-8">
-      {#each props.data.posts as post}
-        <li><PostRow {post} /></li>
+      {#each props.data.posts as post, index}
+        <li><PostRow {post} showImage={index === 0} eagerImage={index === 0} /></li>
       {/each}
     </ul>
   {:else}
