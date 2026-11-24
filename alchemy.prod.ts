@@ -105,6 +105,19 @@ await alchemy.run("edge-rules", async (scope) => {
           },
         },
       },
+      {
+        description: "Serve AVIF images with their content type",
+        expression: 'http.request.uri.path.extension eq "avif"',
+        action: "rewrite",
+        action_parameters: {
+          headers: {
+            "Content-Type": {
+              operation: "set",
+              value: "image/avif",
+            },
+          },
+        },
+      },
     ],
   });
 });
