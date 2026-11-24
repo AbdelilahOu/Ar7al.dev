@@ -147,8 +147,8 @@
 
   {#if props.data.projects.length > 0}
     <ul class="group/list space-y-8">
-      {#each props.data.projects as project}
-        <li><ProjectRow {project} /></li>
+      {#each props.data.projects as project, index}
+        <li><ProjectRow {project} showImage={index === 0} eagerImage={index === 0} /></li>
       {/each}
     </ul>
 

@@ -6,9 +6,10 @@
   interface Props {
     project: Project;
     showImage?: boolean;
+    eagerImage?: boolean;
   }
 
-  let { project, showImage = false }: Props = $props();
+  let { project, showImage = false, eagerImage = false }: Props = $props();
 
   let created = $derived(
     new Date(project.createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" }),
@@ -23,6 +24,7 @@
         alt={project.imageAlt ?? `Screenshot of ${project.title}`}
         sizes="(min-width: 50rem) 42rem, calc(100vw - 2rem)"
         class="h-auto w-full rounded-md border border-line"
+        eager={eagerImage}
       />
     </div>
   {/if}
