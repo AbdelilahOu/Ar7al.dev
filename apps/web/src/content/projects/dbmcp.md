@@ -8,7 +8,7 @@ tech:
   - MySQL
   - SQLite
 image: ./images/DBMcp.png
-imageAlt: "Claude Code calling DBMcp to count the tables in the Mahalli database and the rows in each one"
+imageAlt: "Claude Code using DBMcp to find the clients table in the Mahalli database and count its 150 clients"
 github: https://github.com/AbdelilahOu/DBMcp
 createdAt: "2026-01-20"
 published: true
