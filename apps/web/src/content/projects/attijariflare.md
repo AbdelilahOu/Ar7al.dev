@@ -23,25 +23,25 @@ createdAt: "2026-11-25"
 published: true
 ---
 
-AttijariFlare reads the monthly PDF statements from my Moroccan bank and turns them into a ledger I can trust. My bank only gives me a PDF each month, with no export or API, and budgeting apps want a bank connection that doesn't exist for it. So the app works from the PDF I already get: upload it, let AI read it, fix the few rows it was unsure about, split the cash, and read the totals. It's a personal tool with a single owner, so the live site is a landing page and the app itself sits behind sign-in.
+AttijariFlare reads the monthly PDF statements from my Moroccan bank and turns them into a ledger I can trust. My bank only gives me a PDF each month, no export, no API, and every budgeting app wants a bank connection that doesn't exist for it. So the app works from the PDF I already get: upload it, let AI read it, fix the few rows it got wrong, split the cash, and read the totals. It's a personal tool with one owner, so the live site is a landing page and the app itself sits behind sign-in.
 
 ## What it does
 
 ### Statement upload
 
-Statements are dragged in as PDFs, deduplicated by file hash, and stored in R2. Each one shows its status as it moves through the pipeline: queued, extracting, parsed, needs review, or failed.
+Statements get dragged in as PDFs, deduplicated by file hash, and stored in R2. Each one shows its status as it moves through the pipeline: queued, extracting, parsed, needs review, or failed.
 
 ### AI extraction
 
-A queue consumer sends each statement to Workers AI, which pulls out every transaction with its date, description, signed amount, type and running balance. Row fingerprints make re-ingesting a statement a no-op.
+A queue consumer sends each statement to Workers AI, which pulls out every transaction with its date, description, signed amount, type, and running balance. Row fingerprints make re-ingesting a statement a no-op.
 
 ### A categorizer that learns
 
-Merchant names are embedded into a Vectorize index. A new transaction takes the category of similar known merchants, falls back to the LLM when there's no close match, and carries a confidence score. When I correct a category, the app learns it for that merchant and offers to apply it to the merchant's other transactions.
+Merchant names get embedded into a Vectorize index. A new transaction takes the category of similar known merchants, falls back to the LLM when nothing matches closely, and carries a confidence score. When I correct a category, the app learns it for that merchant and offers to apply it to the merchant's other transactions.
 
 ### Split cash withdrawals
 
-A cash withdrawal, or any debit, can be split into parts with their own category and note, with helpers to split evenly or fill the remainder. Reports count the parts instead of the withdrawal, so they show where the cash actually went.
+A cash withdrawal, or any debit, can be split into parts, each with its own category and note, with helpers to split evenly or fill the remainder. Reports count the parts instead of the withdrawal, so they show where the cash actually went.
 
 ### Dashboard
 
@@ -51,7 +51,7 @@ It shows money in, money out, net and closing balance for any range of months, a
 
 ### A pipeline that doesn't block
 
-Extraction and categorization run as two separate queues, each with its own dead-letter queue, so one statement that fails never holds up the rest.
+Extraction and categorization run as two separate queues, each with its own dead-letter queue, so one failed statement never holds up the rest.
 
 ### Previews with their own database
 
