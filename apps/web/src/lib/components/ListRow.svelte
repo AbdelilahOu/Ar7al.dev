@@ -14,6 +14,8 @@
     icon?: Snippet;
     media?: Snippet;
     transitionName?: string;
+    iconTransitionName?: string;
+    subtitleTransitionName?: string;
   }
 
   let {
@@ -27,6 +29,8 @@
     icon,
     media,
     transitionName,
+    iconTransitionName,
+    subtitleTransitionName,
   }: Props = $props();
 </script>
 
@@ -38,7 +42,11 @@
   <div class="grid gap-y-3 sm:grid-cols-[1fr_auto] sm:gap-x-6">
     <div class="min-w-0">
       <div class="flex items-center gap-3">
-        {@render icon?.()}
+        {#if icon}
+          <div style:view-transition-name={iconTransitionName}>
+            {@render icon()}
+          </div>
+        {/if}
         <h3
           class="text-xl leading-snug text-ink sm:text-2xl"
           style:view-transition-name={transitionName}
@@ -53,7 +61,9 @@
         </div>
       {/if}
       {#if subtitle}
-        <p class="mt-3 text-sm text-ink-soft">{subtitle}</p>
+        <p class="mt-3 text-sm text-ink-soft" style:view-transition-name={subtitleTransitionName}>
+          {subtitle}
+        </p>
       {/if}
       {#if meta}
         <p class="mt-1 text-xs text-ink-mute sm:hidden">{meta}</p>

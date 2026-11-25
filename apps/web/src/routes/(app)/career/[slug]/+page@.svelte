@@ -168,7 +168,9 @@
     <div class="space-y-12">
       <header class="space-y-4">
         <div class="flex items-center gap-4">
-          <CompanyLogo company={meta.company} logo={meta.logo} mono={meta.logoMono} size="lg" />
+          <div style:view-transition-name="career-{props.data.slug}-logo">
+            <CompanyLogo company={meta.company} logo={meta.logo} mono={meta.logoMono} size="lg" />
+          </div>
           <div class="min-w-0">
             <h1
               class="w-fit font-display text-4xl leading-tight italic text-ink md:text-5xl"
@@ -176,7 +178,12 @@
             >
               {meta.company}
             </h1>
-            <p class="mt-1 text-ink-soft">{meta.title}</p>
+            <p
+              class="mt-1 text-ink-soft"
+              style:view-transition-name="career-{props.data.slug}-role"
+            >
+              {meta.title}
+            </p>
           </div>
         </div>
         <p class="text-sm text-ink-mute">
