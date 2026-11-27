@@ -1,6 +1,6 @@
 <script lang="ts">
   import ListRow from "$lib/components/ListRow.svelte";
-  import Image from "$lib/components/markdown/Image.svelte";
+  import ThemedImage from "$lib/components/ThemedImage.svelte";
   import type { Project } from "$lib/data/projects";
 
   interface Props {
@@ -19,8 +19,9 @@
 {#snippet cover()}
   {#if project.cover}
     <div style:view-transition-name="project-{project.slug}-image">
-      <Image
+      <ThemedImage
         src={project.cover}
+        light={project.coverLight}
         alt={project.imageAlt ?? `Screenshot of ${project.title}`}
         sizes="(min-width: 50rem) 42rem, calc(100vw - 2rem)"
         class="h-auto w-full rounded-md border border-line"

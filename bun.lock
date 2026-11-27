@@ -59,6 +59,7 @@
         "@tailwindcss/vite": "^4.3.5",
         "alchemy": "catalog:",
         "mdsvex": "^1.0.1",
+        "sharp": "^0.35.5",
         "svelte": "^5.58.0",
         "svelte-check": "^4.7.8",
         "tailwindcss": "^4.3.5",

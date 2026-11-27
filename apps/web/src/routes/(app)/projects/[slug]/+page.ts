@@ -17,6 +17,7 @@ export async function load({ params }) {
       content: project.default,
       meta: project.metadata,
       cover: getProjectBySlug(params.slug)?.cover ?? null,
+      coverLight: getProjectBySlug(params.slug)?.coverLight ?? null,
       slug: params.slug,
       previous,
       next,

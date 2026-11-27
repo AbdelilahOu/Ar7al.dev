@@ -26,6 +26,7 @@ export interface ProjectMetadata {
 export interface Project extends ProjectMetadata {
   slug: string;
   cover: Picture | null;
+  coverLight: Picture | null;
 }
 
 export function techNames(tech: ProjectTech[] = []): string[] {
@@ -35,6 +36,10 @@ export function techNames(tech: ProjectTech[] = []): string[] {
 function getCover(image?: string): Picture | null {
   if (!image) return null;
   return images[`/src/content/projects/${image.replace(/^\.\//, "")}`] ?? null;
+}
+
+function getLightCover(image?: string): Picture | null {
+  return getCover(image?.replace(/(\.[a-z]+)$/i, "-light$1"));
 }
 
 export function getProjects(): Project[] {
@@ -52,7 +57,12 @@ export function getProjects(): Project[] {
       const metadata = file.metadata as ProjectMetadata;
 
       if (metadata.published) {
-        projects.push({ ...metadata, slug, cover: getCover(metadata.image) });
+        projects.push({
+          ...metadata,
+          slug,
+          cover: getCover(metadata.image),
+          coverLight: getLightCover(metadata.image),
+        });
       }
     }
   }

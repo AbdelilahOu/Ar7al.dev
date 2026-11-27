@@ -1,10 +1,10 @@
 <script lang="ts">
   import ActionLink from "$lib/components/ActionLink.svelte";
   import BackLink from "$lib/components/BackLink.svelte";
-  import Image from "$lib/components/markdown/Image.svelte";
   import PrevNext from "$lib/components/PrevNext.svelte";
   import SignOff from "$lib/components/SignOff.svelte";
   import TechUsageList from "$lib/components/TechUsageList.svelte";
+  import ThemedImage from "$lib/components/ThemedImage.svelte";
   import { type Project, type ProjectMetadata, techNames } from "$lib/data/projects";
   import { SITE_ORIGIN } from "$lib/site";
   import type { Picture } from "@sveltejs/enhanced-img";
@@ -15,6 +15,7 @@
       content: Component;
       meta: ProjectMetadata;
       cover: Picture | null;
+      coverLight: Picture | null;
       slug: string;
       previous: Project | null;
       next: Project | null;
@@ -182,8 +183,9 @@
         </h1>
         {#if props.data.cover}
           <div style:view-transition-name="project-{props.data.slug}-image">
-            <Image
+            <ThemedImage
               src={props.data.cover}
+              light={props.data.coverLight}
               alt={meta.imageAlt ?? `Screenshot of ${meta.title}`}
               class="h-auto w-full rounded-md border border-line"
               eager
