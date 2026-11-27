@@ -114,7 +114,7 @@ function outputPath(current: (typeof TONES)[number]): string {
 }
 
 const PAGE_COLORS = {
-  dark: { background: [10, 10, 10], ink: [245, 243, 238] },
+  dark: { background: [15, 15, 15], ink: [245, 243, 238] },
   light: { background: [250, 249, 246], ink: [28, 27, 25] },
 };
 
@@ -127,9 +127,12 @@ async function source(current: (typeof TONES)[number]): Promise<string> {
     .grayscale()
     .raw()
     .toBuffer({ resolveWithObject: true });
+  const histogram = Array.from({ length: 128 }, () => 0);
+  for (const value of data) if (value < 128) histogram[value]++;
+  const black = histogram.indexOf(Math.max(...histogram)) + 6;
   const pixels = Buffer.alloc(info.width * info.height * 3);
   for (let index = 0; index < info.width * info.height; index++) {
-    const level = data[index] / 255;
+    const level = Math.max(0, (data[index] - black) / (255 - black));
     for (let channel = 0; channel < 3; channel++) {
       pixels[index * 3 + channel] = Math.round(
         background[channel] + (ink[channel] - background[channel]) * level,
