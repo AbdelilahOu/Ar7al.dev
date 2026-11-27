@@ -12,11 +12,12 @@
   function shouldTransition(from?: string, to?: string): boolean {
     if (!from || !to || from === to || to === "/") return false;
     if (from === "/") return true;
-    return isParentOf(from, to) || isParentOf(to, from);
+    return isParentOf(from, to);
   }
 
   onNavigate((navigation) => {
     if (!document.startViewTransition) return;
+    if (navigation.type === "popstate") return;
     if (!shouldTransition(navigation.from?.url.pathname, navigation.to?.url.pathname)) return;
 
     return new Promise((resolve) => {

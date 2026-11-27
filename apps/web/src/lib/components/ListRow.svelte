@@ -1,6 +1,5 @@
 <script lang="ts">
   import HoverArrow from "$lib/components/HoverArrow.svelte";
-  import TechIcons from "$lib/components/TechIcons.svelte";
   import type { Snippet } from "svelte";
 
   interface Props {
@@ -10,7 +9,6 @@
     subtitle?: string;
     description?: string;
     meta?: string;
-    tech?: string[];
     icon?: Snippet;
     media?: Snippet;
     transitionName?: string;
@@ -25,7 +23,6 @@
     subtitle,
     description,
     meta,
-    tech,
     icon,
     media,
     transitionName,
@@ -70,11 +67,6 @@
       {/if}
       {#if description}
         <p class="mt-3 max-w-xl text-[15px] leading-6 text-ink-soft">{description}</p>
-      {/if}
-      {#if tech?.length}
-        <div class="mt-4">
-          <TechIcons {tech} />
-        </div>
       {/if}
     </div>
     {#if meta}

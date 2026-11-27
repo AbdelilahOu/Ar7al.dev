@@ -36,7 +36,6 @@
   linkTitle="{project.title} - {project.description}"
   description={project.description}
   meta={created}
-  tech={project.tech}
   transitionName="project-{project.slug}"
   media={showImage && project.cover ? cover : undefined}
 />

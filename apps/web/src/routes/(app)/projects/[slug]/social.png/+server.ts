@@ -1,7 +1,7 @@
 import { read } from "$app/server";
 import fontSource from "$lib/assets/fonts/JetBrainsMono-Regular.ttf";
 import OgProject from "$lib/components/og/OgProject.svelte";
-import { getProjectBySlug, getProjects } from "$lib/data/projects";
+import { getProjectBySlug, getProjects, techNames } from "$lib/data/projects";
 import { ImageResponse } from "@ethercorps/sveltekit-og";
 import { CustomFont, resolveFonts } from "@ethercorps/sveltekit-og/fonts";
 
@@ -26,7 +26,7 @@ export const GET = async ({ params }) => {
     {
       title: project.title,
       description: project.description,
-      tech: project.tech || [],
+      tech: techNames(project.tech),
       github: project.github || "",
       createdAt: project.createdAt,
     },

@@ -1,7 +1,7 @@
 <script lang="ts">
   import InlineLink from "$lib/components/InlineLink.svelte";
   import ProjectRow from "$lib/components/ProjectRow.svelte";
-  import type { Project } from "$lib/data/projects";
+  import { type Project, techNames } from "$lib/data/projects";
   import { SITE_ORIGIN } from "$lib/site";
 
   let props: { data: { projects: Project[] } } = $props();
@@ -25,7 +25,7 @@
       description: project.description,
       url: `${SITE_ORIGIN}/projects/${project.slug}`,
       dateCreated: project.createdAt,
-      programmingLanguage: project.tech,
+      programmingLanguage: techNames(project.tech),
       ...(project.github ? { codeRepository: project.github } : {}),
       ...(project.web ? { sameAs: [project.web] } : {}),
     },

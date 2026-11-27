@@ -4,8 +4,8 @@
   import Image from "$lib/components/markdown/Image.svelte";
   import PrevNext from "$lib/components/PrevNext.svelte";
   import SignOff from "$lib/components/SignOff.svelte";
-  import TechIcons from "$lib/components/TechIcons.svelte";
-  import type { Project, ProjectMetadata } from "$lib/data/projects";
+  import TechUsageList from "$lib/components/TechUsageList.svelte";
+  import { type Project, type ProjectMetadata, techNames } from "$lib/data/projects";
   import { SITE_ORIGIN } from "$lib/site";
   import type { Picture } from "@sveltejs/enhanced-img";
   import type { Component } from "svelte";
@@ -108,7 +108,7 @@
           "@id": personId,
         },
         dateCreated: meta.createdAt,
-        softwareRequirements: meta.tech,
+        softwareRequirements: techNames(meta.tech),
         ...(meta.github ? { codeRepository: meta.github } : {}),
         ...(meta.web ? { sameAs: [meta.web] } : {}),
         offers: {
@@ -193,24 +193,28 @@
         <p class="text-sm text-ink-mute">
           <time datetime={meta.createdAt}>{created}</time>
         </p>
-        <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 pt-2">
-          <TechIcons tech={meta.tech} />
-          {#if meta.github || meta.web}
-            <div class="flex items-center gap-5">
-              {#if meta.github}
-                <ActionLink href={meta.github}>GitHub</ActionLink>
-              {/if}
-              {#if meta.web}
-                <ActionLink href={meta.web}>Live demo</ActionLink>
-              {/if}
-            </div>
-          {/if}
-        </div>
+        {#if meta.github || meta.web}
+          <div class="flex items-center gap-5 pt-2">
+            {#if meta.github}
+              <ActionLink href={meta.github}>GitHub</ActionLink>
+            {/if}
+            {#if meta.web}
+              <ActionLink href={meta.web}>Live demo</ActionLink>
+            {/if}
+          </div>
+        {/if}
       </header>
 
       <article class="project-body">
         <props.data.content />
       </article>
+
+      {#if meta.tech?.length}
+        <section class="space-y-8">
+          <h2 class="font-display text-3xl italic text-ink md:text-4xl">Built with</h2>
+          <TechUsageList tech={meta.tech} />
+        </section>
+      {/if}
 
       <footer class="space-y-10 border-t border-line pt-10">
         <PrevNext

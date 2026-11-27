@@ -5,7 +5,7 @@
   import NumberedList from "$lib/components/NumberedList.svelte";
   import PrevNext from "$lib/components/PrevNext.svelte";
   import SignOff from "$lib/components/SignOff.svelte";
-  import TechIcons from "$lib/components/TechIcons.svelte";
+  import TechList from "$lib/components/TechList.svelte";
   import {
     calculateDuration,
     type Experience,
@@ -193,7 +193,7 @@
           )} · {meta.type} · {meta.location} · {meta.locationType}
         </p>
         <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 pt-2">
-          <TechIcons tech={meta.technologies} />
+          <TechList tech={meta.technologies} />
           {#if meta.companyWebsite || meta.companyUrl}
             <div class="flex items-center gap-5">
               {#if meta.companyWebsite}

@@ -6,10 +6,15 @@ const images = import.meta.glob<Picture>("/src/content/projects/images/*.{png,jp
   query: { enhanced: true },
 });
 
+export interface ProjectTech {
+  name: string;
+  use: string;
+}
+
 export interface ProjectMetadata {
   title: string;
   description: string;
-  tech: string[];
+  tech: ProjectTech[];
   image?: string;
   imageAlt?: string;
   github?: string;
@@ -21,6 +26,10 @@ export interface ProjectMetadata {
 export interface Project extends ProjectMetadata {
   slug: string;
   cover: Picture | null;
+}
+
+export function techNames(tech: ProjectTech[] = []): string[] {
+  return tech.map((t) => t.name);
 }
 
 function getCover(image?: string): Picture | null {
