@@ -19,6 +19,7 @@ Options:
   --width <px>       Output width in pixels (default: keeps the screenshot at its native size)
   --padding <px>     Space around the screenshot (default: 4.5% of the width)
   --radius <px>      Corner radius of the screenshot (default: 12)
+  --blend            Recolor a black-and-white image onto the site colors for each tone
   --browser <path>   Chrome, Edge or Chromium executable (default: auto-detect, or CHROME_PATH)`;
 
 const { values, positionals } = parseArgs({
@@ -32,6 +33,7 @@ const { values, positionals } = parseArgs({
     width: { type: "string" },
     padding: { type: "string" },
     radius: { type: "string", default: "12" },
+    blend: { type: "boolean", default: false },
     browser: { type: "string" },
     help: { type: "boolean", short: "h" },
   },
@@ -111,7 +113,37 @@ function outputPath(current: (typeof TONES)[number]): string {
   return out.replace(/(\.png)?$/i, "-light.png");
 }
 
+const PAGE_COLORS = {
+  dark: { background: [10, 10, 10], ink: [245, 243, 238] },
+  light: { background: [250, 249, 246], ink: [28, 27, 25] },
+};
+
+async function source(current: (typeof TONES)[number]): Promise<string> {
+  if (!values.blend) return screenshot;
+  const { background, ink } = PAGE_COLORS[current];
+  const target = join(workDir, `source-${current}.png`);
+  const { data, info } = await sharp(screenshot)
+    .removeAlpha()
+    .grayscale()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  const pixels = Buffer.alloc(info.width * info.height * 3);
+  for (let index = 0; index < info.width * info.height; index++) {
+    const level = data[index] / 255;
+    for (let channel = 0; channel < 3; channel++) {
+      pixels[index * 3 + channel] = Math.round(
+        background[channel] + (ink[channel] - background[channel]) * level,
+      );
+    }
+  }
+  await sharp(pixels, { raw: { width: info.width, height: info.height, channels: 3 } })
+    .png()
+    .toFile(target);
+  return target;
+}
+
 async function render(current: (typeof TONES)[number]): Promise<void> {
+  const image = await source(current);
   const html = Object.entries({
     WIDTH: width,
     HEIGHT: height,
@@ -122,7 +154,7 @@ async function render(current: (typeof TONES)[number]): Promise<void> {
     TONE: current,
     CELL: cell,
     SEED: seed,
-    IMAGE: pathToFileURL(screenshot).href,
+    IMAGE: pathToFileURL(image).href,
   }).reduce((page, [key, value]) => page.replaceAll(`{{${key}}}`, String(value)), template);
 
   const page = join(workDir, `cover-${current}.html`);

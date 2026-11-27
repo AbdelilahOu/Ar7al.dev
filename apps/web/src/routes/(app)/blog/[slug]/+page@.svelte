@@ -1,8 +1,8 @@
 <script lang="ts">
   import BackLink from "$lib/components/BackLink.svelte";
-  import Image from "$lib/components/markdown/Image.svelte";
   import PrevNext from "$lib/components/PrevNext.svelte";
   import SignOff from "$lib/components/SignOff.svelte";
+  import ThemedImage from "$lib/components/ThemedImage.svelte";
   import { SITE_ORIGIN } from "$lib/site";
   import type { Post, PostMetadata } from "$lib/types";
   import type { Picture } from "@sveltejs/enhanced-img";
@@ -13,6 +13,7 @@
       content: Component;
       meta: PostMetadata;
       cover: Picture | null;
+      coverLight: Picture | null;
       slug: string;
       previous: Post | null;
       next: Post | null;
@@ -203,8 +204,9 @@
         </h1>
         {#if props.data.cover}
           <div style:view-transition-name="post-{props.data.slug}-image">
-            <Image
+            <ThemedImage
               src={props.data.cover}
+              light={props.data.coverLight}
               alt={meta.imageAlt ?? meta.title}
               class="h-auto w-full rounded-md border border-line"
               eager

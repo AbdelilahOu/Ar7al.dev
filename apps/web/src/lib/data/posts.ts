@@ -16,6 +16,10 @@ function getCover(image?: string): Picture | null {
   return images[`/src/content/blog-posts/${image.replace(/^\.\//, "")}`] ?? null;
 }
 
+function getLightCover(image?: string): Picture | null {
+  return getCover(image?.replace(/(\.[a-z]+)$/i, "-light$1"));
+}
+
 export function getPosts(): Post[] {
   const paths = import.meta.glob<{ metadata: PostMetadata }>("/src/content/blog-posts/*.md", {
     eager: true,
@@ -36,6 +40,7 @@ export function getPosts(): Post[] {
           slug,
           postNumber,
           cover: getCover(metadata.image),
+          coverLight: getLightCover(metadata.image),
         });
       }
     }

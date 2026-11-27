@@ -7,6 +7,7 @@ export interface Post {
   image?: string;
   imageAlt?: string;
   cover: Picture | null;
+  coverLight: Picture | null;
   seoDescription?: string;
   seoKeywords?: string[];
   date: string;

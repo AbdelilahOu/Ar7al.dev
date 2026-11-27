@@ -17,6 +17,7 @@ export async function load({ params }) {
       content: post.default,
       meta: post.metadata,
       cover: getPostBySlug(params.slug)?.cover ?? null,
+      coverLight: getPostBySlug(params.slug)?.coverLight ?? null,
       slug: params.slug,
       previous,
       next,

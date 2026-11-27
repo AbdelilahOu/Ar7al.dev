@@ -1,6 +1,6 @@
 <script lang="ts">
   import ListRow from "$lib/components/ListRow.svelte";
-  import Image from "$lib/components/markdown/Image.svelte";
+  import ThemedImage from "$lib/components/ThemedImage.svelte";
   import type { Post } from "$lib/types";
 
   interface Props {
@@ -23,8 +23,9 @@
 {#snippet cover()}
   {#if post.cover}
     <div style:view-transition-name="post-{post.slug}-image">
-      <Image
+      <ThemedImage
         src={post.cover}
+        light={post.coverLight}
         alt={post.imageAlt ?? post.title}
         sizes="(min-width: 50rem) 42rem, calc(100vw - 2rem)"
         class="h-auto w-full rounded-md border border-line"
