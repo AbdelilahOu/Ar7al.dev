@@ -19,7 +19,7 @@ Options:
   --width <px>       Output width in pixels (default: keeps the screenshot at its native size)
   --padding <px>     Space around the screenshot (default: 4.5% of the width)
   --radius <px>      Corner radius of the screenshot (default: 12)
-  --blend            Recolor a black-and-white image onto the site colors for each tone
+  --blend            Recolor the image onto the site colors for each tone, keeping saturated colors
   --browser <path>   Chrome, Edge or Chromium executable (default: auto-detect, or CHROME_PATH)`;
 
 const { values, positionals } = parseArgs({
@@ -118,24 +118,42 @@ const PAGE_COLORS = {
   light: { background: [250, 249, 246], ink: [28, 27, 25] },
 };
 
+const COLOR_STRENGTH = { dark: 1, light: 0.62 };
+
 async function source(current: (typeof TONES)[number]): Promise<string> {
   if (!values.blend) return screenshot;
   const { background, ink } = PAGE_COLORS[current];
+  const strength = COLOR_STRENGTH[current];
   const target = join(workDir, `source-${current}.png`);
   const { data, info } = await sharp(screenshot)
     .removeAlpha()
-    .grayscale()
+    .toColourspace("srgb")
     .raw()
     .toBuffer({ resolveWithObject: true });
+  const count = info.width * info.height;
+  const stride = info.channels;
+  const gray = new Uint8Array(count);
   const histogram = Array.from({ length: 128 }, () => 0);
-  for (const value of data) if (value < 128) histogram[value]++;
+  for (let index = 0; index < count; index++) {
+    const [r, g, b] = [data[index * stride], data[index * stride + 1], data[index * stride + 2]];
+    gray[index] = Math.round(0.2126 * r + 0.7152 * g + 0.0722 * b);
+    if (gray[index] < 128) histogram[gray[index]]++;
+  }
   const black = histogram.indexOf(Math.max(...histogram)) + 6;
-  const pixels = Buffer.alloc(info.width * info.height * 3);
-  for (let index = 0; index < info.width * info.height; index++) {
-    const level = Math.max(0, (data[index] - black) / (255 - black));
+  const pixels = Buffer.alloc(count * 3);
+  for (let index = 0; index < count; index++) {
+    const rgb = [data[index * stride], data[index * stride + 1], data[index * stride + 2]];
+    const brightest = Math.max(...rgb);
+    const saturation = brightest === 0 ? 0 : (brightest - Math.min(...rgb)) / brightest;
+    const color = Math.min(1, Math.max(0, (saturation - 0.25) / 0.25));
+    const grayLevel = Math.max(0, (gray[index] - black) / (255 - black));
+    const colorLevel = Math.max(0, (brightest - black) / (255 - black));
+    const level = grayLevel + (colorLevel - grayLevel) * color;
     for (let channel = 0; channel < 3; channel++) {
+      const hue = brightest === 0 ? 0 : (rgb[channel] / brightest) * 255 * strength;
+      const tint = ink[channel] + (hue - ink[channel]) * color;
       pixels[index * 3 + channel] = Math.round(
-        background[channel] + (ink[channel] - background[channel]) * level,
+        background[channel] + (tint - background[channel]) * level,
       );
     }
   }
