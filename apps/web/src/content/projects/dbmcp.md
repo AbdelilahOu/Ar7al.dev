@@ -43,7 +43,7 @@ The tools list schemas, tables, and views, describe columns and indexes, and dig
 
 ### Core or full tool set
 
-All 27 tools load by default. Setting `advanced` to `false` in the config keeps only the 10 core ones, which leaves the assistant less to choose from.
+All 27 tools load by default. Setting `advanced` to `false` in the config keeps only the 10 core ones, so the assistant has fewer tools to pick from.
 
 ## What was hard
 

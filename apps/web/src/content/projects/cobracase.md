@@ -30,7 +30,7 @@ createdAt: "2026-01-10"
 published: true
 ---
 
-Cobracase is an online store for custom phone cases. Customers upload their own image, place it on their phone, choose how the case looks, and pay. It's a Next.js app with PostgreSQL through Drizzle ORM, Kinde for sign-in, and Stripe for payments.
+Cobracase is an online store for custom phone cases. Customers upload an image, place it on their phone, and order the case. It's a Next.js app with PostgreSQL through Drizzle ORM, Kinde for sign-in, and Stripe for payments.
 
 ## What it does
 

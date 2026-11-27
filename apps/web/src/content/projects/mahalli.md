@@ -60,7 +60,7 @@ It tracks stock and products, keeps each client's documents together, and has a 
 
 ### Works offline
 
-Everything is stored locally in SQLite, so there's no server to run and no account to create.
+Everything is stored locally in SQLite, so there's no server to run.
 
 ## What was hard
 

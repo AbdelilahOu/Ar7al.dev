@@ -52,7 +52,7 @@ The ingest consumer converts the PDF to markdown with Workers AI, splits it into
 
 ### Balances that have to add up
 
-Before anything is saved, the app checks that the opening balance plus every transaction equals the closing balance, and that each running balance follows from the one before. A statement that doesn't add up goes to review instead of quietly landing in the ledger.
+After extraction, the app checks that the opening balance plus every transaction equals the closing balance, and that each running balance follows from the one before. If the numbers don't match, the statement is marked as needing review so I can find the row the model got wrong.
 
 ### A categorizer that learns
 
